@@ -1,0 +1,32 @@
+# vsim -c adder4_tb 
+# Start time: 12:59:51 on Mar 31,2026
+# ** Note: (vsim-3812) Design is being optimized...
+###### adder4_tb.v(30):         $dumpvars(0, adder4_tb);
+# ** Warning: adder4_tb.v(30): (vopt-2623) Undefined variable: adder4_tb.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=1.
+# //  Questa Sim-64
+# //  Version 2024.2 linux_x86_64 May 20 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading work.adder4_tb(fast)
+# PASS: 0 + 0 + 0 = 0
+# PASS: 1 + 1 + 0 = 2
+# PASS: 7 + 8 + 0 = 15
+# PASS: 8 + 8 + 0 = 16
+# PASS: 15 + 15 + 1 = 31
+# PASS: 15 + 15 + 0 = 30
+# PASS: 0 + 0 + 1 = 1
+# ** Note: $finish    : adder4_tb.v(41)
+#    Time: 70 ns  Iteration: 0  Instance: /adder4_tb
+# End time: 12:59:58 on Mar 31,2026, Elapsed time: 0:00:07
+# Errors: 0, Warnings: 1
