@@ -1,0 +1,84 @@
+====================================================================
+Arithmetic Intensity: Kalman Filter update()
+Source: https://github.com/hmartiro/kalman-cpp
+State dim n=3, Measurement dim m=1, dtype=float64 (8 bytes)
+====================================================================
+
+FLOP COUNT PER update() CALL
+--------------------------------------------------------------------
+Operation                                   FLOPs
+──────────────────────────────────────── ────────
+1: x_hat_new = A @ x_hat                       15
+2a: AP = A @ P                                 45
+2b: APAT = AP @ A.T                            45
+2c: P = APAT + Q                                9
+3a: CP = C @ P                                 15
+3b: CPC.T = CP @ C.T                            5
+3c: S = CPC.T + R                               1
+3d: PCT = P @ C.T                              15
+3e: inv(S)                                      1
+3f: K = PCT @ inv(S)                            3
+4a: Cx = C @ x_hat_new                          5
+4b: innov = y - Cx                              1
+4c: K @ innov                                   3
+4d: x_hat_new += ...                            3
+5a: KC = K @ C                                  9
+5b: IKC = I - KC                                9
+5c: P = IKC @ P                                45
+7: t += dt                                      1
+──────────────────────────────────────── ────────
+TOTAL...................................      230
+
+MEMORY TRAFFIC
+--------------------------------------------------------------------
+Model A – Ideal (intermediates stay in registers/cache)
+──────────────────────────────────────── ────────
+  READ  A                                      72 B
+  READ  C                                      24 B
+  READ  Q                                      72 B
+  READ  R                                       8 B
+  READ  P                                      72 B
+  READ  I                                      72 B
+  READ  x_hat                                  24 B
+  READ  y                                       8 B
+  READ  dt                                      8 B
+  READ  t                                       8 B
+  WRITE P                                      72 B
+  WRITE K                                      24 B
+  WRITE x_hat                                  24 B
+  WRITE t                                       8 B
+  Total reads...........................    368 B
+  Total writes..........................    128 B
+  Total (ideal).........................    496 B
+
+Model B – Naive (numpy-style: intermediates go to DRAM)
+──────────────────────────────────────── ────────
+  Persistent data (same as ideal).......    496 B
+  TEMP  x_hat_new (predict)                    48 B  (read+write)
+  TEMP  AP                                    144 B  (read+write)
+  TEMP  CP                                     48 B  (read+write)
+  TEMP  CPCT                                   16 B  (read+write)
+  TEMP  S_inv                                  16 B  (read+write)
+  TEMP  PCT                                    48 B  (read+write)
+  TEMP  innov                                  16 B  (read+write)
+  TEMP  Kinnov                                 48 B  (read+write)
+  TEMP  KC                                    144 B  (read+write)
+  TEMP  IKC                                   144 B  (read+write)
+  Total (naive).........................   1168 B
+
+ARITHMETIC INTENSITY
+--------------------------------------------------------------------
+  AI (ideal) = 230 FLOPs / 496 B = 0.4637 FLOPs/byte
+  AI (naive) = 230 FLOPs / 1168 B = 0.1969 FLOPs/byte
+
+INTERPRETATION
+--------------------------------------------------------------------
+  Both models yield AI << 1 FLOPs/byte, placing the Kalman filter
+  squarely in the MEMORY-BOUND region of the Roofline model.
+  For reference, modern CPUs achieve ~10–100 FLOPs/byte of peak
+  compute-to-bandwidth ratio; the ridge point lies well above this AI.
+
+  Performance is limited by memory bandwidth, not arithmetic throughput.
+  Bottleneck is the repeated read/write of the 3×3 P covariance matrix
+  across five distinct sub-expressions in a single update step.
+====================================================================

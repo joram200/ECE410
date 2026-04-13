@@ -1,0 +1,456 @@
+========================================================================
+Kalman Filter cProfile Report
+Source: https://github.com/hmartiro/kalman-cpp
+Runs: 10  |  Measurements per run: 45
+========================================================================
+
+────────────────────────────────────────────────────────────────────────
+Run  1/10   wall time: 10.1612 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.010 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.010    0.010 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.009    0.000    0.010    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  2/10   wall time: 1.7740 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  3/10   wall time: 1.7684 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  4/10   wall time: 1.7580 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  5/10   wall time: 1.8067 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  6/10   wall time: 1.7564 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  7/10   wall time: 1.7562 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  8/10   wall time: 1.7583 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  9/10   wall time: 1.7486 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run 10/10   wall time: 1.7465 ms
+────────────────────────────────────────────────────────────────────────
+         1104 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:106(run_filter)
+       45    0.001    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:48(update)
+       45    0.000    0.000    0.001    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:536(inv)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:189(_commonType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:472(__enter__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:164(_makearray)
+       90    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:169(isComplexType)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:488(__exit__)
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:183(_realType)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:74(build_filter)
+       45    0.000    0.000    0.000    0.000 {built-in method numpy._core._multiarray_umath._make_extobj}
+      135    0.000    0.000    0.000    0.000 {built-in method builtins.issubclass}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:238(_assert_stacked_square)
+       45    0.000    0.000    0.000    0.000 {method 'astype' of 'numpy.ndarray' objects}
+       45    0.000    0.000    0.000    0.000 {method 'reset' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method 'set' of '_contextvars.ContextVar' objects}
+       45    0.000    0.000    0.000    0.000 {method '__array_wrap__' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:21(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+       45    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+       45    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/_core/_ufunc_config.py:462(__init__)
+       45    0.000    0.000    0.000    0.000 {built-in method numpy.asarray}
+       45    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/linalg/_linalg.py:532(_unary_dispatcher)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        5    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:38(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/kalman_profile.py:63(state)
+
+
+
+========================================================================
+SUMMARY  (all times in ms)
+========================================================================
+Run      Wall time (ms)
+---     ---------------
+1               10.1612
+2                1.7740
+3                1.7684
+4                1.7580
+5                1.8067
+6                1.7564
+7                1.7562
+8                1.7583
+9                1.7486
+10               1.7465
+---     ---------------
+Mean             2.6034
+Std              2.5193
+Min              1.7465
+Max             10.1612
+========================================================================
