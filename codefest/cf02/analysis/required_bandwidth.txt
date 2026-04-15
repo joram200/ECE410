@@ -1,0 +1,61 @@
+==================================================================
+Required Bandwidth: Tiled GEMM Kalman filter update()
+==================================================================
+
+FORMULA
+------------------------------------------------------------------
+  Required BW = Throughput × Data Width
+
+THROUGHPUT
+------------------------------------------------------------------
+  Time per update() (tiled GEMM, L1-bound) : 2.11 ns
+  Throughput = 1 / 2.11 ns             = 473.93 Mupdates/s
+  Cross-check via FLOP/s : 108.97 GFLOP/s / 230 FLOPs = 473.78 Mupdates/s
+
+DATA WIDTH (bytes per update() call)
+------------------------------------------------------------------
+  READS
+    A  (3×3, 3 reads) :   216 B
+    C  (1×3, 5 reads) :   120 B
+    Q  (3×3, 1 read)  :    72 B
+    R  (1×1, 1 read)  :     8 B
+    I  (3×3, 1 read)  :    72 B
+    dt (scalar, 1 rd) :     8 B
+    x_hat in (3×1)    :    24 B
+    P     in (3×3)    :    72 B
+    y        (1×1)    :     8 B
+    t        (scalar) :     8 B
+    ──────────────────────────────────────────
+    Reads subtotal              :   608 B
+
+  WRITES
+    x_hat out (3×1)   :    24 B
+    P     out (3×3)   :    72 B
+    K         (3×1)   :    24 B
+    t  out (scalar)   :     8 B
+    ──────────────────────────────────────────
+    Writes subtotal             :   128 B
+
+  Total (reads + writes)        :   736 B
+  Unique-tensor count (AI basis):   496 B
+
+REQUIRED BANDWIDTH
+------------------------------------------------------------------
+  Using unique-tensor data width (496 B):
+    BW = 473.93 Mupdates/s × 496 B
+       = 235.07 GB/s
+
+  Using read+write data width (736 B):
+    BW = 473.93 Mupdates/s × 736 B
+       = 348.82 GB/s
+
+COMPARISON TO AVAILABLE BANDWIDTH
+------------------------------------------------------------------
+  Required BW (unique-tensor) : 235.1 GB/s
+  Required BW (reads+writes)  : 348.8 GB/s
+  L1 cache bandwidth          : 235.0 GB/s  ← satisfied
+  DRAM bandwidth              : 41.0 GB/s  ← insufficient
+
+  The tiled GEMM kernel requires ~235 GB/s — achievable only from L1.
+  DRAM alone (41 GB/s) is 5.7× too slow to sustain this throughput.
+==================================================================

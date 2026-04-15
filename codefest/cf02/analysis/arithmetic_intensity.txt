@@ -1,84 +1,117 @@
 ====================================================================
 Arithmetic Intensity: Kalman Filter update()
 Source: https://github.com/hmartiro/kalman-cpp
-State dim n=3, Measurement dim m=1, dtype=float64 (8 bytes)
+State dim n=3, Measurement dim m=1, dtype=float64 (8 bytes/element)
 ====================================================================
 
 FLOP COUNT PER update() CALL
+Matmul formula : (p x q) * (q x r)  ->  p*r*(2q-1)  FLOPs
+Add/sub formula: (p x q) element-wise  ->  p*q  FLOPs
 --------------------------------------------------------------------
-Operation                                   FLOPs
-──────────────────────────────────────── ────────
-1: x_hat_new = A @ x_hat                       15
-2a: AP = A @ P                                 45
-2b: APAT = AP @ A.T                            45
-2c: P = APAT + Q                                9
-3a: CP = C @ P                                 15
-3b: CPC.T = CP @ C.T                            5
-3c: S = CPC.T + R                               1
-3d: PCT = P @ C.T                              15
-3e: inv(S)                                      1
-3f: K = PCT @ inv(S)                            3
-4a: Cx = C @ x_hat_new                          5
-4b: innov = y - Cx                              1
-4c: K @ innov                                   3
-4d: x_hat_new += ...                            3
-5a: KC = K @ C                                  9
-5b: IKC = I - KC                                9
-5c: P = IKC @ P                                45
-7: t += dt                                      1
-──────────────────────────────────────── ────────
-TOTAL...................................      230
+Step  Expression              General Formula   Substituted   FLOPs
+----  ----------              ---------------   -----------   -----
+1     A @ x_hat (n,n)*(n,1)  n*(2n-1)          3*(5)            15
+2a    A @ P     (n,n)*(n,n)  n^2*(2n-1)        9*(5)            45
+2b    AP @ A.T  (n,n)*(n,n)  n^2*(2n-1)        9*(5)            45
+2c    APAT + Q  (n,n) add    n^2               9                 9
+3a    C @ P     (m,n)*(n,n)  m*n*(2n-1)        1*3*5            15
+3b    CP @ C.T  (m,n)*(n,m)  m^2*(2n-1)        1*(5)             5
+3c    CPCT + R  (m,m) add    m^2               1                 1
+3d    P @ C.T   (n,n)*(n,m)  n*m*(2n-1)        3*1*5            15
+3e    inv(S)    (1,1)        1 div             1                 1
+3f    PCT@S^-1  (n,m)*(m,m)  n*m*(2m-1)        3*1*1             3
+4a    C @ x^new (m,n)*(n,1)  m*(2n-1)          1*(5)             5
+4b    y - Cx^   (m,1) sub    m                 1                 1
+4c    K @ innov (n,m)*(m,1)  n*(2m-1)          3*(1)             3
+4d    x^new +=  (n,1) add    n                 3                 3
+5a    K @ C     (n,m)*(m,n)  n^2*(2m-1)        9*(1)             9
+5b    I - KC    (n,n) sub    n^2               9                 9
+5c    IKC @ P   (n,n)*(n,n)  n^2*(2n-1)        9*(5)            45
+7     t += dt   scalar       1                 1                 1
+                                               -------       -----
+                                               TOTAL           230
 
-MEMORY TRAFFIC
+MEMORY TRAFFIC -- DRAM No-Reuse (Worst Case)
+Every read comes from DRAM; every write goes to DRAM.
+No register or cache reuse between operations.
+All elements are float64: size (bytes) = elements * 8
 --------------------------------------------------------------------
-Model A – Ideal (intermediates stay in registers/cache)
-──────────────────────────────────────── ────────
-  READ  A                                      72 B
-  READ  C                                      24 B
-  READ  Q                                      72 B
-  READ  R                                       8 B
-  READ  P                                      72 B
-  READ  I                                      72 B
-  READ  x_hat                                  24 B
-  READ  y                                       8 B
-  READ  dt                                      8 B
-  READ  t                                       8 B
-  WRITE P                                      72 B
-  WRITE K                                      24 B
-  WRITE x_hat                                  24 B
-  WRITE t                                       8 B
-  Total reads...........................    368 B
-  Total writes..........................    128 B
-  Total (ideal).........................    496 B
 
-Model B – Naive (numpy-style: intermediates go to DRAM)
-──────────────────────────────────────── ────────
-  Persistent data (same as ideal).......    496 B
-  TEMP  x_hat_new (predict)                    48 B  (read+write)
-  TEMP  AP                                    144 B  (read+write)
-  TEMP  CP                                     48 B  (read+write)
-  TEMP  CPCT                                   16 B  (read+write)
-  TEMP  S_inv                                  16 B  (read+write)
-  TEMP  PCT                                    48 B  (read+write)
-  TEMP  innov                                  16 B  (read+write)
-  TEMP  Kinnov                                 48 B  (read+write)
-  TEMP  KC                                    144 B  (read+write)
-  TEMP  IKC                                   144 B  (read+write)
-  Total (naive).........................   1168 B
+WEIGHTS  (read-only model parameters)
+  Operand   Shape       Elements  Accesses        Bytes/access  Total
+  A         n*n = 9e    9*8=72B   x3 (st.1,2a,2b) 72 B         216 B
+  C         m*n = 3e    3*8=24B   x5 (3a,3b,3d,    24 B         120 B
+                                     4a,5a)
+  Q         n*n = 9e    9*8=72B   x1               72 B          72 B
+  R         m*m = 1e    1*8= 8B   x1                8 B           8 B
+  I         n*n = 9e    9*8=72B   x1               72 B          72 B
+  dt        scalar      1*8= 8B   x1                8 B           8 B
+  -------------------------------------------------------------------
+  Weights subtotal (reads)                                      496 B
+
+INPUTS  (per-call dynamic reads, first access only)
+  Operand   Shape       Elements  Read at step    Bytes
+  x_hat     n*1 = 3e    3*8=24B   step 1          24 B
+  P         n*n = 9e    9*8=72B   step 2a         72 B  (initial read)
+  y         m*1 = 1e    1*8= 8B   step 4b          8 B
+  t         scalar      1*8= 8B   step 7           8 B
+  -------------------------------------------------------------------
+  Inputs subtotal (reads)                                       112 B
+
+OUTPUTS  (final writes to DRAM)
+  Operand   Shape       Elements  Written at step  Bytes
+  x_hat     n*1 = 3e    3*8=24B   step 6           24 B
+  P         n*n = 9e    9*8=72B   step 5c          72 B  (final write)
+  K         n*m = 3e    3*8=24B   step 3f          24 B
+  t         scalar      1*8= 8B   step 7            8 B
+  -------------------------------------------------------------------
+  Outputs subtotal (writes)                                     128 B
+
+INTERMEDIATES  (temporary buffers + mid-kernel state re-accesses)
+  Operand    Shape  Traffic                Bytes/elem  Total
+  x_hat_new  n*1    2W(st.1,4d)+3R(4a,    24 B        120 B
+                      4d,6)
+  AP         n*n    1W + 1R                72 B        144 B
+  APAT       n*n    1W + 1R                72 B        144 B
+  P re-acc.  n*n    1W(st.2c)+3R(3a,3d,   72 B        288 B
+                      5c) after init. read
+  CP         m*n    1W + 1R                24 B         48 B
+  CPCT       m*m    1W + 1R                 8 B         16 B
+  S          m*m    1W + 1R                 8 B         16 B
+  PCT        n*m    1W + 1R                24 B         48 B
+  S_inv      m*m    1W + 1R                 8 B         16 B
+  Cx         m*1    1W + 1R                 8 B         16 B
+  innov      m*1    1W + 1R                 8 B         16 B
+  K re-rd.   n*m    2R(st.4c,5a) after     24 B         48 B
+                      output write
+  Kinnov     n*1    1W + 1R                24 B         48 B
+  KC         n*n    1W + 1R                72 B        144 B
+  IKC        n*n    1W + 1R                72 B        144 B
+  -------------------------------------------------------------------
+  Intermediates subtotal                                       1256 B
+
+--------------------------------------------------------------------
+TRAFFIC SUMMARY
+  Weights (reads)                496 B
+  Inputs  (reads)                112 B
+  Outputs (writes)               128 B
+  Intermediates (reads+writes)  1256 B
+  TOTAL                         1992 B
 
 ARITHMETIC INTENSITY
 --------------------------------------------------------------------
-  AI (ideal) = 230 FLOPs / 496 B = 0.4637 FLOPs/byte
-  AI (naive) = 230 FLOPs / 1168 B = 0.1969 FLOPs/byte
+  AI (DRAM no-reuse) = 230 FLOPs / 1992 B = 0.1155 FLOPs/byte
+
+  Model                            Bytes    AI (FLOPs/byte)
+  DRAM no-reuse (this analysis)   1992 B   0.1155
+  Naive (numpy temps to DRAM)     1168 B   0.1969
+  Ideal (temps in registers)       496 B   0.4637
 
 INTERPRETATION
 --------------------------------------------------------------------
-  Both models yield AI << 1 FLOPs/byte, placing the Kalman filter
-  squarely in the MEMORY-BOUND region of the Roofline model.
-  For reference, modern CPUs achieve ~10–100 FLOPs/byte of peak
-  compute-to-bandwidth ratio; the ridge point lies well above this AI.
-
-  Performance is limited by memory bandwidth, not arithmetic throughput.
-  Bottleneck is the repeated read/write of the 3×3 P covariance matrix
-  across five distinct sub-expressions in a single update step.
+  All models yield AI << 1 FLOPs/byte -> MEMORY-BOUND in Roofline.
+  Dominant DRAM traffic under no-reuse:
+    A re-loaded 3x    :  3 * 72 B =  216 B
+    P re-accessed 5x  :  (4R+2W) * 72 B = 432 B  (incl. intermediate)
+  These two tensors alone = 648 B (32.5% of total 1992 B traffic).
 ====================================================================
