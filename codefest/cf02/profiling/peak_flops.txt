@@ -1,0 +1,45 @@
+====================================================================
+Peak FLOP/s: Intel Core i7-11800H (Tiger Lake-H, Willow Cove)
+====================================================================
+  Cores            : 8
+  Base clock       : 2.3 GHz
+  Max turbo        : 4.6 GHz
+  FMA units/core   : 2 × 512-bit (ports 0 & 1)
+  FLOPs per FMA    : 2  (1 multiply + 1 add)
+
+  Formula: cores × freq × (vec_bits / dtype_bits) × FMA_units × 2
+
+--------------------------------------------------------------------
+  ISA        dtype                   FLOPs/cy/core    Peak @ Base   Peak @ Turbo
+  ───        ─────                   ─────────────    ───────────   ────────────
+  Scalar     float64 (no SIMD)                   2   36.8 GFLOP/s   73.6 GFLOP/s
+  Scalar     float32 (no SIMD)                   2   36.8 GFLOP/s   73.6 GFLOP/s
+  AVX2       float64                            16  294.4 GFLOP/s  588.8 GFLOP/s
+  AVX2       float32                            32  588.8 GFLOP/s  1.178 TFLOP/s
+  AVX-512    float64                            32  588.8 GFLOP/s  1.178 TFLOP/s
+  AVX-512    float32                            64  1.178 TFLOP/s  2.355 TFLOP/s
+  AVX-512    float16 (bfloat16)                128  2.355 TFLOP/s  4.710 TFLOP/s
+
+====================================================================
+KEY FIGURE (relevant to Kalman filter, float64)
+--------------------------------------------------------------------
+  Peak DP FLOP/s @ base  = 8 cores × 2.3 GHz × 32 FLOPs/cy
+                         = 588.8 GFLOP/s
+  Peak DP FLOP/s @ turbo = 8 cores × 4.6 GHz × 32 FLOPs/cy
+                         = 1177.6 GFLOP/s  (1.178 TFLOP/s)
+
+--------------------------------------------------------------------
+ACHIEVED vs PEAK (from profiling: ~1.75 ms / 45 updates, warm runs)
+--------------------------------------------------------------------
+  FLOPs per update()     : 230
+  Time per update()      : 38.89 µs  (1.75 ms / 45 updates)
+  Achieved FLOP/s        : 5.91 MFLOP/s
+  Peak DP (base)         : 588.8 GFLOP/s
+  Peak DP (turbo)        : 1177.6 GFLOP/s
+  Efficiency (vs base)   : 0.0010%
+  Efficiency (vs turbo)  : 0.0005%
+
+  The filter achieves < 0.01% of peak — consistent with a
+  memory-bound, Python-overhead-dominated workload operating on
+  tiny (3×3) matrices that cannot exploit SIMD or multi-core.
+====================================================================

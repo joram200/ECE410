@@ -10,6 +10,9 @@ The ridge point is the maximum performance between the P~peak~ and B~peak~ which
 
 The compute ceiling would lay at P~peak~ or 10000 GFLOP/s. The bandwidth ceiling is line with slope of B~peak~ or 320 GFLOP/s at 1 FLOP/byte.
 
+![Roofline Model](/codefest/cf02/cman_roofline.png)
+The Roofline model can be seen in cman_roofline.png
+
 ## Kernal A — Dense GEMM Calculations
 
 This kernal multiplys two FP32 matrices of size 1024*1024.
