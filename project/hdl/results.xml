@@ -1,0 +1,9 @@
+<testsuites name="results">
+  <testsuite name="all" package="all">
+    <property name="random_seed" value="1777501957" />
+    <testcase name="test_reset" classname="tb_kalman_filter" file="/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py" lineno="96" time="0.0003688335418701172" sim_time_ns="1.0" ratio_time="2711.2501616031027" />
+    <testcase name="test_single_update" classname="tb_kalman_filter" file="/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py" lineno="118" time="0.000308990478515625" sim_time_ns="81.0" ratio_time="262144.0" />
+    <testcase name="test_two_updates" classname="tb_kalman_filter" file="/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py" lineno="147" time="0.0004298686981201172" sim_time_ns="151.0" ratio_time="351270.05213533" />
+    <testcase name="test_numerical_accuracy" classname="tb_kalman_filter" file="/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py" lineno="171" time="0.005835771560668945" sim_time_ns="3161.0" ratio_time="541659.310536422" />
+  </testsuite>
+</testsuites>

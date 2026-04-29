@@ -1,0 +1,59 @@
+/home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/cocotb_tools/makefiles/Makefile.deprecations:6: VERILATOR_TRACE is deprecated, see the "Simulator Support" section in the documentation.
+rm -f results.xml
+"make" -f Makefile results.xml
+make[1]: Entering directory '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl'
+/home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/cocotb_tools/makefiles/Makefile.deprecations:6: VERILATOR_TRACE is deprecated, see the "Simulator Support" section in the documentation.
+/home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/cocotb_tools/makefiles/simulators/Makefile.verilator:69: Using MODULE is deprecated, please use COCOTB_TEST_MODULES instead.
+rm -f results.xml
+COCOTB_TEST_MODULES=tb_kalman_filter COCOTB_TESTCASE= COCOTB_TEST_FILTER= COCOTB_TOPLEVEL=kalman_filter TOPLEVEL_LANG=verilog \
+         sim_build/Vtop --trace    
+     -.--ns INFO     gpi                                ..mbed/gpi_embed.cpp:93   in _embed_init_python              Using Python 3.14.4 interpreter at /home/sackb/zephyrproject/.venv/bin/python3
+     -.--ns INFO     gpi                                ../gpi/GpiCommon.cpp:79   in gpi_print_registered_impl       VPI registered
+     0.00ns INFO     cocotb                             Running on Verilator version 5.046 2026-02-28
+     0.00ns INFO     cocotb                             Seeding Python random module with 1777501949
+     0.00ns INFO     cocotb                             Initialized cocotb v2.0.1 from /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/cocotb
+     0.00ns INFO     cocotb                             Running tests
+     0.00ns INFO     cocotb.regression                  running tb_kalman_filter.test_reset (1/4)
+                                                            After synchronous reset, all outputs must be 0.
+     1.00ns INFO     test                               test_reset PASSED: all outputs 0 after reset
+     1.00ns INFO     cocotb.regression                  tb_kalman_filter.test_reset passed
+     1.00ns INFO     cocotb.regression                  running tb_kalman_filter.test_single_update (2/4)
+                                                            One measurement: valid_out pulses, x_hat_0 roughly tracks y.
+    82.00ns WARNING  py.warnings                        /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py:135: DeprecationWarning: `logic_array.integer` getter is deprecated. Use `logic_array.to_unsigned()` instead.
+                                                          x0 = from_fp(dut.x_hat_0.value.integer)
+    82.00ns INFO     test                               test_single_update: y=1.0420 x_hat_0=0.7218
+    82.00ns INFO     test                               test_single_update PASSED
+    82.00ns INFO     cocotb.regression                  tb_kalman_filter.test_single_update passed
+    82.00ns INFO     cocotb.regression                  running tb_kalman_filter.test_two_updates (3/4)
+                                                            Two updates: valid_out pulses after each; state is monotonically finite.
+   163.00ns WARNING  py.warnings                        /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py:161: DeprecationWarning: `logic_array.integer` getter is deprecated. Use `logic_array.to_unsigned()` instead.
+                                                          x0 = from_fp(dut.x_hat_0.value.integer)
+   163.00ns INFO     test                                 update 1: x_hat_0=0.7218
+   233.00ns INFO     test                                 update 2: x_hat_0=1.1938
+   233.00ns INFO     test                               test_two_updates PASSED
+   233.00ns INFO     cocotb.regression                  tb_kalman_filter.test_two_updates passed
+   233.00ns INFO     cocotb.regression                  running tb_kalman_filter.test_numerical_accuracy (4/4)
+                                                            Run all 45 measurements; compare final x_hat_0 to Python reference.
+  3394.00ns WARNING  py.warnings                        /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py:188: DeprecationWarning: `logic_array.integer` getter is deprecated. Use `logic_array.to_unsigned()` instead.
+                                                          x0_hw  = from_fp(dut.x_hat_0.value.integer)
+  3394.00ns WARNING  py.warnings                        /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py:189: DeprecationWarning: `logic_array.integer` getter is deprecated. Use `logic_array.to_unsigned()` instead.
+                                                          x1_hw  = from_fp(dut.x_hat_1.value.integer)
+  3394.00ns WARNING  py.warnings                        /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl/tb_kalman_filter.py:190: DeprecationWarning: `logic_array.integer` getter is deprecated. Use `logic_array.to_unsigned()` instead.
+                                                          x2_hw  = from_fp(dut.x_hat_2.value.integer)
+  3394.00ns INFO     test                               HW  x_hat = [-0.4753, -8.3437, -10.3317]
+  3394.00ns INFO     test                               REF x_hat = [-0.5017, -8.1094, -9.2509]
+  3394.00ns INFO     test                               x_hat_0 error = 0.0264
+  3394.00ns INFO     test                               test_numerical_accuracy PASSED
+  3394.00ns INFO     cocotb.regression                  tb_kalman_filter.test_numerical_accuracy passed
+  3394.00ns INFO     cocotb.regression                  **************************************************************************************************
+                                                        ** TEST                                      STATUS  SIM TIME (ns)  REAL TIME (s)  RATIO (ns/s) **
+                                                        **************************************************************************************************
+                                                        ** tb_kalman_filter.test_reset                PASS           1.00           0.00       2668.13  **
+                                                        ** tb_kalman_filter.test_single_update        PASS          81.00           0.00     207791.21  **
+                                                        ** tb_kalman_filter.test_two_updates          PASS         151.00           0.00     320354.02  **
+                                                        ** tb_kalman_filter.test_numerical_accuracy   PASS        3161.00           0.01     221653.35  **
+                                                        **************************************************************************************************
+                                                        ** TESTS=4 PASS=4 FAIL=0 SKIP=0                           3394.00           0.02     198916.79  **
+                                                        **************************************************************************************************
+- :0: Verilog $finish
+make[1]: Leaving directory '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/hdl'

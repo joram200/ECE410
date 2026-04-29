@@ -1,0 +1,300 @@
+========================================================================
+Kalman Filter cProfile Report — Tiled GEMM Variant
+Source: https://github.com/hmartiro/kalman-cpp
+Runs: 10  |  Measurements per run: 45
+Tile size: 3  |  AI target (ideal): 0.4637 FLOPs/byte
+========================================================================
+
+────────────────────────────────────────────────────────────────────────
+Run  1/10   wall time: 3.6670 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.004 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.004    0.004 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.001    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.002    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  2/10   wall time: 3.6127 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.004 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.004    0.004 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.001    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.003    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  3/10   wall time: 3.5430 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.004 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.004    0.004 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.001    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.002    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  4/10   wall time: 6.0229 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.006 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.006    0.006 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.003    0.000    0.006    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.003    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  5/10   wall time: 7.2759 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.007 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.007    0.007 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.001    0.000    0.007    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.006    0.000    0.006    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  6/10   wall time: 3.8718 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.004 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.004    0.004 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.001    0.000    0.004    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.003    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  7/10   wall time: 4.8978 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.005 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.005    0.005 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.002    0.000    0.005    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.003    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  8/10   wall time: 3.9452 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.004 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.004    0.004 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.001    0.000    0.004    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.003    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run  9/10   wall time: 3.1098 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.003 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.003    0.003 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.001    0.000    0.003    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.002    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+
+────────────────────────────────────────────────────────────────────────
+Run 10/10   wall time: 2.2797 ms
+────────────────────────────────────────────────────────────────────────
+         1149 function calls in 0.002 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.002    0.002 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:170(run_filter)
+       45    0.000    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:93(update)
+      405    0.002    0.000    0.002    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:32(tiled_matmul)
+      410    0.000    0.000    0.000    0.000 {built-in method numpy.zeros}
+      135    0.000    0.000    0.000    0.000 {method 'ravel' of 'numpy.ndarray' objects}
+       90    0.000    0.000    0.000    0.000 {method 'reshape' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:137(build_filter)
+       49    0.000    0.000    0.000    0.000 {method 'copy' of 'numpy.ndarray' objects}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:66(__init__)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+        6    0.000    0.000    0.000    0.000 {built-in method numpy.array}
+        1    0.000    0.000    0.000    0.000 /home/sackb/zephyrproject/.venv/lib/python3.14/site-packages/numpy/lib/_twodim_base_impl.py:176(eye)
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:83(init)
+        2    0.000    0.000    0.000    0.000 {built-in method _operator.index}
+        1    0.000    0.000    0.000    0.000 /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/profiling/kalman_profile.py:126(state)
+
+
+
+========================================================================
+SUMMARY  (all times in ms)
+========================================================================
+Run      Wall time (ms)
+---     ---------------
+1                3.6670
+2                3.6127
+3                3.5430
+4                6.0229
+5                7.2759
+6                3.8718
+7                4.8978
+8                3.9452
+9                3.1098
+10               2.2797
+---     ---------------
+Mean             4.2226
+Std              1.3920
+Min              2.2797
+Max              7.2759
+========================================================================
+Binary profile: output.prof
+  python -m cProfile -o output.prof qr_recognizer.py qr.png
+========================================================================
