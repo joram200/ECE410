@@ -1,0 +1,1329 @@
+╭─── Claude Code v2.1.88 ──────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back Jose!                 │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ Recent activity         │
+│                        ▘▘ ▝▝                       │ No recent activity      │
+│     Sonnet 4.6 · Claude Pro · joram2@pdx.edu's     │                         │
+│     Organization                                   │                         │
+│     /…/Spring_2026/ECE_410/ECE410/codefest/cf02    │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+! mkdir profiling                                                               
+  ⎿  (Bash completed with no output)
+
+❯ Use cProfile or line_profiler to profile the Basic Kalman Filter from         
+https://github.com/hmartiro/kalman-cpp.git by measuring execution time per loop 
+ across at least 10 runs.                                                       
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Explore(Fetch Kalman filter code from GitHub)
+  ⎿  Initializing…
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ Use cProfile or line_profiler to profile the Basic Kalman Filter from         
+https://github.com/hmartiro/kalman-cpp.git by measuring execution time per loop 
+ across at least 10 runs. Store the output into a file called                   
+project_profile.txt in the profiling directory                                  
+
+● Explore(Fetch Kalman filter source code)
+  ⎿  Done (3 tool uses · 15.6k tokens · 31s)
+  (ctrl+o to expand)
+
+● Explore(Fetch full kalman.cpp content)
+  ⎿  Done (2 tool uses · 15.3k tokens · 17s)
+  (ctrl+o to expand)
+
+● Explore(Fetch kalman-test.cpp content)
+  ⎿  Done (1 tool use · 15.8k tokens · 18s)
+  (ctrl+o to expand)
+
+● Now I have everything needed. I'll implement the Kalman filter in Python
+  (mirroring the C++ logic with numpy) and profile it with cProfile across 10+
+  runs.
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ Use cProfile or line_profiler to profile the Basic Kalman Filter from         
+https://github.com/hmartiro/kalman-cpp.git and measure execution time per loop  
+across at least 10 runs. Store the output into a file called                    
+project_profile.txt in the profiling directory                                  
+
+● Write(profiling/kalman_profile.py)
+  ⎿  Wrote 183 lines to profiling/kalman_profile.py
+       1 """
+       2 Python port of hmartiro/kalman-cpp Basic Kalman Filter.
+       3 Profiles execution time per loop across NUM_RUNS runs using cPro
+         file.
+       4 """
+       5 
+       6 import cProfile
+       7 import pstats
+       8 import io
+       9 import time
+      10 import numpy as np
+     … +173 lines (ctrl+o to expand)
+
+● Bash(python profiling/kalman_profile.py)
+  ⎿  Error: Exit code 1
+     Traceback (most recent call last):
+       File "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/Universit
+     y/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/codefest/cf02/profiling/
+     kalman_profile.py", line 10, in <module>
+         import numpy as np
+     ModuleNotFoundError: No module named 'numpy'
+
+● Bash(pip install numpy --quiet && python profiling/kalman_profile.py)
+  ⎿  Error: Exit code 127
+     /usr/bin/bash: line 1: pip: command not found
+
+● Bash(python3 -m pip install numpy --quiet 2>&1 | tail -3 && python3
+      profiling/kalman_profile.py)
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ Use cProfile or line_profiler to profile the Basic Kalman Filter from         
+https://github.com/hmartiro/kalman-cpp.git and measure execution time per loop  
+across at least 10 runs. Store the output into a file called                    
+project_profile.txt in the profiling directory                                  
+
+● Bash(python3 -c "import sys; print(sys.version)" && python3 -c "import numpy"
+      2>&1)
+  ⎿  3.14.3 (main, Feb 13 2026, 15:31:44) [GCC 15.2.1 20260209]
+
+● Bash(python3 -m pip list 2>/dev/null | head -20; pip3 list 2>/dev/null | head
+      -20; conda list 2>/dev/null | head -5)
+  ⎿  Package                   Version
+     ------------------------- ------------
+     anytree                   2.13.0
+     … +23 lines (ctrl+o to expand)
+
+● Bash(python3 -m pip list 2>/dev/null | grep -i numpy)
+  ⎿  numpy                     2.4.2
+
+● numpy is installed. Let me run the script with python3.
+
+● Bash(python3 profiling/kalman_profile.py)  ⎿  ======================================================================
+     ==
+     Kalman Filter cProfile Report
+     … +397 lines (ctrl+o to expand)
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Done. profiling/project_profile.txt (48 KB) contains the full cProfile output
+  for all 10 runs. Key results:
+
+  ┌──────────────────┬───────────┐
+  │      Metric      │ Time (ms) │
+  ├──────────────────┼───────────┤
+  │ Run 1 (cold)     │ 10.16     │
+  ├──────────────────┼───────────┤
+  │ Runs 2–10 (warm) │ ~1.75     │
+  ├──────────────────┼───────────┤
+  │ Mean             │ 2.60      │
+  ├──────────────────┼───────────┤
+  │ Min              │ 1.75      │
+  ├──────────────────┼───────────┤
+  │ Max              │ 10.16     │
+  └──────────────────┴───────────┘
+
+  The large first-run cost is numpy's JIT/import overhead. Warm runs each
+  process 45 measurements in ~1.75 ms. Within each run, the update() method
+  dominates at ~0.009 s/45 calls, with np.linalg.inv() accounting for the matrix
+   inversion cost per step.
+
+! mkdir analysis                                                                
+  ⎿  (Bash completed with no output)
+
+❯ Calculate the arithmetic intensity for the update function within the Basic   
+Kalman filter                                                                   
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(analysis/arithmetic_intensity.py)
+  ⎿  Wrote 219 lines to analysis/arithmetic_intensity.py
+       1 """
+       2 Arithmetic Intensity Analysis for the Basic Kalman Filter update
+         () step.
+       3 Source: https://github.com/hmartiro/kalman-cpp
+       4 
+       5 Arithmetic Intensity (AI) = FLOPs / Bytes of memory traffic
+       6 
+       7 Problem dimensions (from kalman-test.cpp):
+       8   n = 3  (state dimension)
+       9   m = 1  (measurement dimension)
+      10   dtype = float64  -> 8 bytes per element
+     … +209 lines (ctrl+o to expand)
+
+● Bash(python3 analysis/arithmetic_intensity.py)
+  ⎿  ====================================================================
+     Arithmetic Intensity: Kalman Filter update()
+     Source: https://github.com/hmartiro/kalman-cpp
+     … +59 lines (ctrl+o to expand)
+
+● Results saved to analysis/arithmetic_intensity.txt. Summary:
+
+  Total FLOPs per update() call: 230
+
+  ┌───────────────────────────────────────────┬───────┐
+  │              Operation group              │ FLOPs │
+  ├───────────────────────────────────────────┼───────┤
+  │ Step 1: state predict (A @ x_hat)         │ 15    │
+  ├───────────────────────────────────────────┼───────┤
+  │ Step 2: covariance predict (A P Aᵀ + Q)   │ 99    │
+  ├───────────────────────────────────────────┼───────┤
+  │ Step 3: Kalman gain (P Cᵀ (C P Cᵀ + R)⁻¹) │ 40    │
+  ├───────────────────────────────────────────┼───────┤
+  │ Step 4: state correct                     │ 12    │
+  ├───────────────────────────────────────────┼───────┤
+  │ Step 5: covariance correct ((I − KC) P)   │ 63    │
+  ├───────────────────────────────────────────┼───────┤
+  │ Misc (time step)                          │ 1     │
+  └───────────────────────────────────────────┴───────┘
+
+  Arithmetic Intensity:
+
+  ┌─────────────────────────────────────┬────────┬──────────────────┐
+  │                Model                │ Bytes  │        AI        │
+  ├─────────────────────────────────────┼────────┼──────────────────┤
+  │ Ideal (intermediates in cache)      │ 496 B  │ 0.464 FLOPs/byte │
+  ├─────────────────────────────────────┼────────┼──────────────────┤
+  │ Naive numpy (intermediates to DRAM) │ 1168 B │ 0.197 FLOPs/byte │
+  └─────────────────────────────────────┴────────┴──────────────────┘
+
+  Both are far below the typical CPU ridge point (~10–100 FLOPs/byte), meaning
+  the filter is memory-bound, not compute-bound. The primary bottleneck is the
+  3×3 covariance matrix P being read and rewritten across five separate
+  sub-expressions per update step.
+
+✻ Worked for 2m 7s
+
+❯ Calculate the FLOP/s for a Intel Core i7-11800H                               
+
+● Write(analysis/peak_flops.py)
+  ⎿  Wrote 135 lines to analysis/peak_flops.py
+       1 """
+       2 Peak FLOP/s calculation for the Intel Core i7-11800H (Tiger Lake
+         -H).
+       3 
+       4 Formula:  Peak FLOP/s = cores × frequency × FLOPs_per_cycle_per_
+         core
+       5 
+       6 FLOPs per cycle per core depends on SIMD width and FMA units:
+       7   FLOPs/cycle/core = (vector_width_bits / dtype_bits) × FMA_unit
+         s × 2
+       8 
+       9 Tiger Lake (Willow Cove) execution units:
+      10   - 2 × 512-bit FMA ports (ports 0 and 1)
+     … +125 lines (ctrl+o to expand)
+
+● Bash(python3 analysis/peak_flops.py)
+  ⎿  ====================================================================
+     Peak FLOP/s: Intel Core i7-11800H (Tiger Lake-H, Willow Cove)
+     ====================================================================
+     … +32 lines (ctrl+o to expand)
+
+● Results saved to analysis/peak_flops.txt. Here's the summary:
+
+  i7-11800H Peak FLOP/s (formula: cores × freq × (vec_width / dtype_bits) × 
+  FMA_units × 2)
+
+  ┌─────────┬─────────┬───────────────┬──────────────────┬───────────────────┐
+  │   ISA   │  dtype  │ FLOPs/cy/core │ @ Base (2.3 GHz) │ @ Turbo (4.6 GHz) │
+  ├─────────┼─────────┼───────────────┼──────────────────┼───────────────────┤
+  │ Scalar  │ float64 │ 2             │ 36.8 GFLOP/s     │ 73.6 GFLOP/s      │
+  ├─────────┼─────────┼───────────────┼──────────────────┼───────────────────┤
+  │ AVX2    │ float64 │ 16            │ 294.4 GFLOP/s    │ 588.8 GFLOP/s     │
+  ├─────────┼─────────┼───────────────┼──────────────────┼───────────────────┤
+  │ AVX-512 │ float64 │ 32            │ 588.8 GFLOP/s    │ 1.178 TFLOP/s     │
+  ├─────────┼─────────┼───────────────┼──────────────────┼───────────────────┤
+  │ AVX-512 │ float32 │ 64            │ 1.178 TFLOP/s    │ 2.355 TFLOP/s     │
+  └─────────┴─────────┴───────────────┴──────────────────┴───────────────────┘
+
+  The i7-11800H has 2 × 512-bit FMA units (ports 0 & 1), giving 32 DP
+  FLOPs/cycle/core. At peak turbo, the processor tops out at 1.178 TFLOP/s for
+  float64.
+
+  Tied back to our Kalman filter: the profiled filter achieves only ~5.91
+  MFLOP/s — 0.0005% of peak — because the tiny 3×3 matrices can't utilize SIMD,
+  and Python/numpy dispatch overhead (~38 µs/update) dominates the 230 actual
+  FLOPs.
+
+✻ Brewed for 1m 10s
+
+! mv analysis/peak_flops.py profiling                                           
+  ⎿  (Bash completed with no output)
+
+! mv analysis/peak_flops.txt profiling                                          
+  ⎿  (Bash completed with no output)
+
+❯ Calculate the peak FLOP/s and Memory bandwidth for RVfpgaEL2-NexysA7          
+
+● Explore(Research RVfpgaEL2 NexysA7 specs)
+  ⎿  Done (24 tool uses · 36.1k tokens · 4m 44s)
+  (ctrl+o to expand)
+
+● Now I have the specs. Let me calculate and document.
+
+● Write(analysis/rvfpga_el2_performance.py)
+  ⎿  Wrote 193 lines to analysis/rvfpga_el2_performance.py
+       1 """
+       2 Peak FLOP/s and Memory Bandwidth for RVfpgaEL2 on Nexys A7.
+       3 
+       4 Platform:
+       5   Core   : SweRV EL2 (VeeR EL2) RISC-V
+       6   Board  : Digilent Nexys A7-100T  (Artix-7 XC7A100T FPGA)
+       7   FPGA clock target: 50 MHz (VeeRwolf / RVfpga default)
+       8 
+       9 ISA: RV32IMC  (Integer, Multiply/Divide, Compressed)
+      10   *** No hardware FPU in the standard RVfpga EL2 build.
+     … +183 lines (ctrl+o to expand)
+
+● Bash(python3 analysis/rvfpga_el2_performance.py)
+  ⎿  ====================================================================
+     Peak FLOP/s & Memory Bandwidth: RVfpgaEL2 on Nexys A7
+     ====================================================================
+     … +42 lines (ctrl+o to expand)
+
+● Results saved to analysis/rvfpga_el2_performance.txt. Key numbers:
+
+  ---
+  RVfpgaEL2-NexysA7 Specs (SweRV EL2 @ 50 MHz, RV32IMC, Artix-7)
+
+  Peak FLOP/s
+
+  ┌───────────────────┬─────────────────────────────────────┬──────────────┐
+  │       Case        │               Config                │   Peak SP    │
+  │                   │                                     │    FLOP/s    │
+  ├───────────────────┼─────────────────────────────────────┼──────────────┤
+  │ Standard build    │ RV32IMC — software FP (~70          │ 1.43 MFLOP/s │
+  │                   │ cycles/FMADD)                       │              │
+  ├───────────────────┼─────────────────────────────────────┼──────────────┤
+  │ Hypothetical hw   │ F extension, 1 FMADD/cycle          │ 100 MFLOP/s  │
+  │ FPU               │                                     │              │
+  └───────────────────┴─────────────────────────────────────┴──────────────┘
+
+  The standard RVfpga EL2 build has no hardware FPU — F/D extensions are Codasip
+   commercial add-ons. All FP is soft-float emulation in libgcc.
+
+  Peak Memory Bandwidth
+
+  ┌──────────────────┬─────────────────────────────┬────────────────────────┐
+  │      Memory      │           Config            │       Bandwidth        │
+  ├──────────────────┼─────────────────────────────┼────────────────────────┤
+  │ DCCM (on-chip    │ 64-bit AXI4 @ 50 MHz        │ 400 MB/s read / 400    │
+  │ BRAM)            │                             │ MB/s write             │
+  ├──────────────────┼─────────────────────────────┼────────────────────────┤
+  │ DDR2 theoretical │ MT47H64M16HR-25, 16-bit ×   │ 1.334 GB/s             │
+  │                  │ 667 MT/s                    │                        │
+  ├──────────────────┼─────────────────────────────┼────────────────────────┤
+  │ DDR2 practical   │ ~50% MIG controller         │ ~667 MB/s              │
+  │                  │ efficiency                  │                        │
+  └──────────────────┴─────────────────────────────┴────────────────────────┘
+
+  Roofline implication for the Kalman filter: The KF arithmetic intensity (0.46
+  FLOPs/byte) sits above the ridge point for soft-FP vs DCCM (0.0036
+  FLOPs/byte), so the filter flips from memory-bound on the i7-11800H to
+  compute-bound on the RVfpgaEL2 — entirely due to the absence of a hardware
+  FPU.
+
+✻ Cogitated for 3m 20s
+❯ /exit                                                                         
+  ⎿  Bye!
+
+❯ /rename 
+  ⎿  Session renamed to: rvfpga-el2-bandwidth-analysis
+
+❯ /rename cf02 
+  ⎿  Session renamed to: cf02
+
+! mv ~/Downloads/roofline_project.png profiling/                                
+  ⎿  (Bash completed with no output)
+
+! touch analysis/partition_rationale.md                                         
+  ⎿  (Bash completed with no output)
+
+! mv ~/Downloads/desmos-graph.png ~/Downloads/roofline_project.png              
+  ⎿  (Bash completed with no output)
+
+! mv ~/Downloads/roofline_project.png profiling/                                
+  ⎿  (Bash completed with no output)
+
+❯ Estimate the GFLOP/s if the data for the update kernel in Kalman filter had a 
+ deicated cache connected to a i7-11800H by a PCIe bus                          
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Write(analysis/pcie_roofline.py)
+  ⎿  User rejected write to analysis/pcie_roofline.py
+       1 """
+       2 Roofline estimate: Kalman filter update() kernel GFLOP/s
+       3 when kernel data lives in a dedicated external cache accessed vi
+         a PCIe.
+       4 
+       5 Setup:
+       6   CPU   : Intel Core i7-11800H  (Tiger Lake-H, 8 cores @ 4.6 GHz
+          turbo)
+       7   Link  : PCIe 4.0  (Tiger Lake-H supports PCIe 4.0 natively)
+       8   Cache : Dedicated off-chip SRAM/HBM connected as PCIe device
+       9           — all kernel data (A, C, Q, R, P, K, x_hat, y, …) live
+         s here
+      10           — fetched/written over PCIe for every update() invocat
+         ion
+     … +174 lines
+
+! ~/Downloads/desmos-graph.png ~/Downloads/roofline_project.png                 
+  ⎿  /usr/bin/bash: line 1: /home/sackb/Downloads/desmos-graph.png: No such
+      file or directory
+
+! mv ~/Downloads/desmos-graph.png ~/Downloads/roofline_project.png              
+  ⎿  mv: cannot stat '/home/sackb/Downloads/desmos-graph.png': No such file
+      or directory
+
+! mv ~/Downloads/desmos-graph.png ~/Downloads/roofline_project.png              
+  ⎿  (Bash completed with no output)
+
+! mv ~/Downloads/roofline_project.png profiling/                                
+  ⎿  (Bash completed with no output)
+
+❯ /exit                                                                         
+  ⎿  Goodbye!
+
+❯ In analysis/arithmetic_intensity.txt, change the FLOPs calculation so that    
+its counted analytically with formula and substituted values shown and          
+restimate the number of Bytes transferred assuming DRAM access with no reuse,   
+shown explicitly showing the operand types weights, inputs, outputs seperately. 
+ Convert the text in the entire file into marksdown and insert it between lines 
+ 1 and 3 between in ai_calculation.md of the same directory.                    
+
+  Read 2 files (ctrl+o to expand)
+
+● Let me read both files carefully before making changes.
+
+  Read 2 files (ctrl+o to expand)
+
+● Good, I have both files. Now I'll update arithmetic_intensity.txt with the
+  analytical FLOPs (formula + substitution) and DRAM no-reuse bytes by operand
+  type, then compose the new ai_calculation.md.
+
+  The numbers (n=3, m=1, 8 B/element):
+  - FLOPs: 230 total (unchanged)
+  - DRAM no-reuse bytes: weights reads 496 B + input reads 112 B + output writes
+   128 B + intermediates 1256 B = 1992 B → AI = 0.1155 FLOPs/byte
+
+● Write(analysis/arithmetic_intensity.txt)  ⎿  Added 101 lines, removed 68 lines
+        1  ==============================================================
+           ======
+        2  Arithmetic Intensity: Kalman Filter update()
+        3  Source: https://github.com/hmartiro/kalman-cpp
+        4 -State dim n=3, Measurement dim m=1, dtype=float64 (8 bytes)   
+        4 +State dim n=3, Measurement dim m=1, dtype=float64 (8 bytes/ele
+          +ment)                                                         
+        5  ==============================================================
+           ======
+        6  
+        7  FLOP COUNT PER update() CALL
+        8 +Matmul formula : (p x q) * (q x r)  ->  p*r*(2q-1)  FLOPs     
+        9 +Add/sub formula: (p x q) element-wise  ->  p*q  FLOPs         
+       10  --------------------------------------------------------------
+           ------
+        9 -Operation                                   FLOPs             
+       10 -──────────────────────────────────────── ────────             
+       11 -1: x_hat_new = A @ x_hat                       15             
+       12 -2a: AP = A @ P                                 45             
+       13 -2b: APAT = AP @ A.T                            45             
+       14 -2c: P = APAT + Q                                9             
+       15 -3a: CP = C @ P                                 15             
+       16 -3b: CPC.T = CP @ C.T                            5             
+       17 -3c: S = CPC.T + R                               1             
+       18 -3d: PCT = P @ C.T                              15             
+       19 -3e: inv(S)                                      1             
+       20 -3f: K = PCT @ inv(S)                            3             
+       21 -4a: Cx = C @ x_hat_new                          5             
+       22 -4b: innov = y - Cx                              1             
+       23 -4c: K @ innov                                   3             
+       24 -4d: x_hat_new += ...                            3             
+       25 -5a: KC = K @ C                                  9             
+       26 -5b: IKC = I - KC                                9             
+       27 -5c: P = IKC @ P                                45             
+       28 -7: t += dt                                      1             
+       29 -──────────────────────────────────────── ────────             
+       30 -TOTAL...................................      230             
+       11 +Step  Expression              General Formula   Substituted   
+          +FLOPs                                                         
+       12 +----  ----------              ---------------   -----------   
+          +-----                                                         
+       13 +1     A @ x_hat (n,n)*(n,1)  n*(2n-1)          3*(5)          
+          +  15                                                          
+       14 +2a    A @ P     (n,n)*(n,n)  n^2*(2n-1)        9*(5)          
+          +  45                                                          
+       15 +2b    AP @ A.T  (n,n)*(n,n)  n^2*(2n-1)        9*(5)          
+          +  45                                                          
+       16 +2c    APAT + Q  (n,n) add    n^2               9              
+          +   9                                                          
+       17 +3a    C @ P     (m,n)*(n,n)  m*n*(2n-1)        1*3*5          
+          +  15                                                          
+       18 +3b    CP @ C.T  (m,n)*(n,m)  m^2*(2n-1)        1*(5)          
+          +   5                                                          
+       19 +3c    CPCT + R  (m,m) add    m^2               1              
+          +   1                                                          
+       20 +3d    P @ C.T   (n,n)*(n,m)  n*m*(2n-1)        3*1*5          
+          +  15                                                          
+       21 +3e    inv(S)    (1,1)        1 div             1              
+          +   1                                                          
+       22 +3f    PCT@S^-1  (n,m)*(m,m)  n*m*(2m-1)        3*1*1          
+          +   3                                                          
+       23 +4a    C @ x^new (m,n)*(n,1)  m*(2n-1)          1*(5)          
+          +   5                                                          
+       24 +4b    y - Cx^   (m,1) sub    m                 1              
+          +   1                                                          
+       25 +4c    K @ innov (n,m)*(m,1)  n*(2m-1)          3*(1)          
+          +   3                                                          
+       26 +4d    x^new +=  (n,1) add    n                 3              
+          +   3                                                          
+       27 +5a    K @ C     (n,m)*(m,n)  n^2*(2m-1)        9*(1)          
+          +   9                                                          
+       28 +5b    I - KC    (n,n) sub    n^2               9              
+          +   9                                                          
+       29 +5c    IKC @ P   (n,n)*(n,n)  n^2*(2n-1)        9*(5)          
+          +  45                                                          
+       30 +7     t += dt   scalar       1                 1              
+          +   1                                                          
+       31 +                                               -------       -
+          +----                                                          
+       32 +                                               TOTAL          
+          + 230                                                          
+       33  
+       32 -MEMORY TRAFFIC                                                
+       34 +MEMORY TRAFFIC -- DRAM No-Reuse (Worst Case)                  
+       35 +Every read comes from DRAM; every write goes to DRAM.         
+       36 +No register or cache reuse between operations.                
+       37 +All elements are float64: size (bytes) = elements * 8         
+       38  --------------------------------------------------------------
+           ------
+       34 -Model A – Ideal (intermediates stay in registers/cache)       
+       35 -──────────────────────────────────────── ────────             
+       36 -  READ  A                                      72 B           
+       37 -  READ  C                                      24 B           
+       38 -  READ  Q                                      72 B           
+       39 -  READ  R                                       8 B           
+       40 -  READ  P                                      72 B           
+       41 -  READ  I                                      72 B           
+       42 -  READ  x_hat                                  24 B           
+       43 -  READ  y                                       8 B           
+       44 -  READ  dt                                      8 B           
+       45 -  READ  t                                       8 B           
+       46 -  WRITE P                                      72 B           
+       47 -  WRITE K                                      24 B           
+       48 -  WRITE x_hat                                  24 B           
+       49 -  WRITE t                                       8 B           
+       50 -  Total reads...........................    368 B             
+       51 -  Total writes..........................    128 B             
+       52 -  Total (ideal).........................    496 B             
+       39  
+       54 -Model B – Naive (numpy-style: intermediates go to DRAM)       
+       55 -──────────────────────────────────────── ────────             
+       56 -  Persistent data (same as ideal).......    496 B             
+       57 -  TEMP  x_hat_new (predict)                    48 B  (read+wri
+          -te)                                                           
+       58 -  TEMP  AP                                    144 B  (read+wri
+          -te)                                                           
+       59 -  TEMP  CP                                     48 B  (read+wri
+          -te)                                                           
+       60 -  TEMP  CPCT                                   16 B  (read+wri
+          -te)                                                           
+       61 -  TEMP  S_inv                                  16 B  (read+wri
+          -te)                                                           
+       62 -  TEMP  PCT                                    48 B  (read+wri
+          -te)                                                           
+       63 -  TEMP  innov                                  16 B  (read+wri
+          -te)                                                           
+       64 -  TEMP  Kinnov                                 48 B  (read+wri
+          -te)                                                           
+       65 -  TEMP  KC                                    144 B  (read+wri
+          -te)                                                           
+       66 -  TEMP  IKC                                   144 B  (read+wri
+          -te)                                                           
+       67 -  Total (naive).........................   1168 B             
+       40 +WEIGHTS  (read-only model parameters)                         
+       41 +  Operand   Shape       Elements  Accesses        Bytes/access
+          +  Total                                                       
+       42 +  A         n*n = 9e    9*8=72B   x3 (st.1,2a,2b) 72 B        
+          + 216 B                                                        
+       43 +  C         m*n = 3e    3*8=24B   x5 (3a,3b,3d,    24 B       
+          +  120 B                                                       
+       44 +                                     4a,5a)                   
+       45 +  Q         n*n = 9e    9*8=72B   x1               72 B       
+          +   72 B                                                       
+       46 +  R         m*m = 1e    1*8= 8B   x1                8 B       
+          +    8 B                                                       
+       47 +  I         n*n = 9e    9*8=72B   x1               72 B       
+          +   72 B                                                       
+       48 +  dt        scalar      1*8= 8B   x1                8 B       
+          +    8 B                                                       
+       49 +  ------------------------------------------------------------
+          +-------                                                       
+       50 +  Weights subtotal (reads)                                    
+          +  496 B                                                       
+       51  
+       52 +INPUTS  (per-call dynamic reads, first access only)           
+       53 +  Operand   Shape       Elements  Read at step    Bytes       
+       54 +  x_hat     n*1 = 3e    3*8=24B   step 1          24 B        
+       55 +  P         n*n = 9e    9*8=72B   step 2a         72 B  (initi
+          +al read)                                                      
+       56 +  y         m*1 = 1e    1*8= 8B   step 4b          8 B        
+       57 +  t         scalar      1*8= 8B   step 7           8 B        
+       58 +  ------------------------------------------------------------
+          +-------                                                       
+       59 +  Inputs subtotal (reads)                                     
+          +  112 B                                                       
+       60 +                                                              
+       61 +OUTPUTS  (final writes to DRAM)                               
+       62 +  Operand   Shape       Elements  Written at step  Bytes      
+       63 +  x_hat     n*1 = 3e    3*8=24B   step 6           24 B       
+       64 +  P         n*n = 9e    9*8=72B   step 5c          72 B  (fina
+          +l write)                                                      
+       65 +  K         n*m = 3e    3*8=24B   step 3f          24 B       
+       66 +  t         scalar      1*8= 8B   step 7            8 B       
+       67 +  ------------------------------------------------------------
+          +-------                                                       
+       68 +  Outputs subtotal (writes)                                   
+          +  128 B                                                       
+       69 +                                                              
+       70 +INTERMEDIATES  (temporary buffers + mid-kernel state re-access
+          +es)                                                           
+       71 +  Operand    Shape  Traffic                Bytes/elem  Total  
+       72 +  x_hat_new  n*1    2W(st.1,4d)+3R(4a,    24 B        120 B   
+       73 +                      4d,6)                                   
+       74 +  AP         n*n    1W + 1R                72 B        144 B  
+       75 +  APAT       n*n    1W + 1R                72 B        144 B  
+       76 +  P re-acc.  n*n    1W(st.2c)+3R(3a,3d,   72 B        288 B   
+       77 +                      5c) after init. read                    
+       78 +  CP         m*n    1W + 1R                24 B         48 B  
+       79 +  CPCT       m*m    1W + 1R                 8 B         16 B  
+       80 +  S          m*m    1W + 1R                 8 B         16 B  
+       81 +  PCT        n*m    1W + 1R                24 B         48 B  
+       82 +  S_inv      m*m    1W + 1R                 8 B         16 B  
+       83 +  Cx         m*1    1W + 1R                 8 B         16 B  
+       84 +  innov      m*1    1W + 1R                 8 B         16 B  
+       85 +  K re-rd.   n*m    2R(st.4c,5a) after     24 B         48 B  
+       86 +                      output write                            
+       87 +  Kinnov     n*1    1W + 1R                24 B         48 B  
+       88 +  KC         n*n    1W + 1R                72 B        144 B  
+       89 +  IKC        n*n    1W + 1R                72 B        144 B  
+       90 +  ------------------------------------------------------------
+          +-------                                                       
+       91 +  Intermediates subtotal                                      
+          + 1256 B                                                       
+       92 +                                                              
+       93 +--------------------------------------------------------------
+          +------                                                        
+       94 +TRAFFIC SUMMARY                                               
+       95 +  Weights (reads)                496 B                        
+       96 +  Inputs  (reads)                112 B                        
+       97 +  Outputs (writes)               128 B                        
+       98 +  Intermediates (reads+writes)  1256 B                        
+       99 +  TOTAL                         1992 B                        
+      100 +                                                              
+      101  ARITHMETIC INTENSITY
+      102  --------------------------------------------------------------
+           ------
+       71 -  AI (ideal) = 230 FLOPs / 496 B = 0.4637 FLOPs/byte          
+       72 -  AI (naive) = 230 FLOPs / 1168 B = 0.1969 FLOPs/byte         
+      103 +  AI (DRAM no-reuse) = 230 FLOPs / 1992 B = 0.1155 FLOPs/byte 
+      104  
+      105 +  Model                            Bytes    AI (FLOPs/byte)   
+      106 +  DRAM no-reuse (this analysis)   1992 B   0.1155             
+      107 +  Naive (numpy temps to DRAM)     1168 B   0.1969             
+      108 +  Ideal (temps in registers)       496 B   0.4637             
+      109 +                                                              
+      110  INTERPRETATION
+      111  --------------------------------------------------------------
+           ------
+       76 -  Both models yield AI << 1 FLOPs/byte, placing the Kalman fil
+          -ter                                                           
+       77 -  squarely in the MEMORY-BOUND region of the Roofline model.  
+       78 -  For reference, modern CPUs achieve ~10–100 FLOPs/byte of pea
+          -k                                                             
+       79 -  compute-to-bandwidth ratio; the ridge point lies well above 
+          -this AI.                                                      
+       80 -                                                              
+       81 -  Performance is limited by memory bandwidth, not arithmetic t
+          -hroughput.                                                    
+       82 -  Bottleneck is the repeated read/write of the 3×3 P covarianc
+          -e matrix                                                      
+       83 -  across five distinct sub-expressions in a single update step
+          -.                                                             
+       84 -==============================================================
+          -======                                                        
+      112   No newline at end of file
+      113 +  All models yield AI << 1 FLOPs/byte -> MEMORY-BOUND in Roofl
+          +ine.                                                          
+      114 +  Dominant DRAM traffic under no-reuse:                       
+      115 +    A re-loaded 3x    :  3 * 72 B =  216 B                    
+      116 +    P re-accessed 5x  :  (4R+2W) * 72 B = 432 B  (incl. interm
+          +ediate)                                                       
+      117 +  These two tensors alone = 648 B (32.5% of total 1992 B traff
+          +ic).                                                          
+      118 +==============================================================
+          +======                                                        
+
+● Now compose the new ai_calculation.md with the markdown content inserted
+  between lines 1 and 3:
+
+● Write(analysis/ai_calculation.md)
+  ⎿  Added 131 lines
+        1  According to profiling results in project_profile.txt, the fun
+           ction kf.update is the computationally dominant kernal.
+        2  
+        3 +---                                                           
+        4 +                                                              
+        5 +## Arithmetic Intensity: Kalman Filter `update()`             
+        6 +                                                              
+        7 +**Source:** <https://github.com/hmartiro/kalman-cpp>          
+        8 +**State dim:** n = 3 | **Measurement dim:** m = 1 | **dtype:**
+          + float64 (8 B/element)                                        
+        9 +                                                              
+       10 +---                                                           
+       11 +                                                              
+       12 +### FLOPs per `update()` Call                                 
+       13 +                                                              
+       14 +**Matmul formula:** `(p×q)·(q×r)` → `p·r·(2q−1)` FLOPs        
+       15 +**Add/sub formula:** `(p×q)` element-wise → `p·q` FLOPs       
+       16 +                                                              
+       17 +| Step | Expression | Shape | General Formula | Substituted (n
+          +=3, m=1) | FLOPs |                                            
+       18 +|------|-----------|-------|----------------|-----------------
+          +-------|-------|                                              
+       19 +| 1 | `A @ x_hat` | (n,n)·(n,1) | n(2n−1) | 3(5) | **15** |   
+       20 +| 2a | `A @ P` | (n,n)·(n,n) | n²(2n−1) | 9(5) | **45** |     
+       21 +| 2b | `AP @ Aᵀ` | (n,n)·(n,n) | n²(2n−1) | 9(5) | **45** |   
+       22 +| 2c | `APAT + Q` | (n,n) add | n² | 9 | **9** |              
+       23 +| 3a | `C @ P` | (m,n)·(n,n) | mn(2n−1) | 1·3·5 | **15** |    
+       24 +| 3b | `CP @ Cᵀ` | (m,n)·(n,m) | m²(2n−1) | 1(5) | **5** |    
+       25 +| 3c | `CPCT + R` | (m,m) add | m² | 1 | **1** |              
+       26 +| 3d | `P @ Cᵀ` | (n,n)·(n,m) | nm(2n−1) | 3·1·5 | **15** |   
+       27 +| 3e | `inv(S)` | (1,1) | 1 div | 1 | **1** |                 
+       28 +| 3f | `PCT @ S⁻¹` | (n,m)·(m,m) | nm(2m−1) | 3·1·1 | **3** | 
+       29 +| 4a | `C @ x̂_new` | (m,n)·(n,1) | m(2n−1) | 1(5) | **5** |   
+       30 +| 4b | `y − Cx̂` | (m,1) sub | m | 1 | **1** |                 
+       31 +| 4c | `K @ innov` | (n,m)·(m,1) | n(2m−1) | 3(1) | **3** |   
+       32 +| 4d | `x̂_new +=` | (n,1) add | n | 3 | **3** |               
+       33 +| 5a | `K @ C` | (n,m)·(m,n) | n²(2m−1) | 9(1) | **9** |      
+       34 +| 5b | `I − KC` | (n,n) sub | n² | 9 | **9** |                
+       35 +| 5c | `IKC @ P` | (n,n)·(n,n) | n²(2n−1) | 9(5) | **45** |   
+       36 +| 7 | `t += dt` | scalar | 1 | 1 | **1** |                    
+       37 +| | **Total** | | | | **230** |                               
+       38 +                                                              
+       39 +---                                                           
+       40 +                                                              
+       41 +### Memory Traffic — DRAM No-Reuse (Worst Case)               
+       42 +                                                              
+       43 +Every read comes from DRAM; every write goes to DRAM — no regi
+          +ster or cache reuse between operations.                       
+       44 +Element size = 8 B (float64); tensor size (B) = elements × 8. 
+       45 +                                                              
+       46 +#### Weights (read-only model parameters)                     
+       47 +                                                              
+       48 +| Operand | Shape | Elements | Accesses | Bytes/access | Total
+          + reads |                                                      
+       49 +|---------|-------|----------|----------|--------------|------
+          +-------|                                                      
+       50 +| A | n×n = 3×3 | 9 → 72 B | ×3 (steps 1, 2a, 2b) | 72 B | 216
+          + B |                                                          
+       51 +| C | m×n = 1×3 | 3 → 24 B | ×5 (steps 3a, 3b, 3d, 4a, 5a) | 2
+          +4 B | 120 B |                                                 
+       52 +| Q | n×n = 3×3 | 9 → 72 B | ×1 (step 2c) | 72 B | 72 B |     
+       53 +| R | m×m = 1×1 | 1 → 8 B | ×1 (step 3c) | 8 B | 8 B |        
+       54 +| I | n×n = 3×3 | 9 → 72 B | ×1 (step 5b) | 72 B | 72 B |     
+       55 +| dt | scalar | 1 → 8 B | ×1 (step 7) | 8 B | 8 B |           
+       56 +| **Subtotal** | | | | | **496 B** |                          
+       57 +                                                              
+       58 +#### Inputs (per-call dynamic reads, first access only)       
+       59 +                                                              
+       60 +| Operand | Shape | Elements | Read at step | Bytes |         
+       61 +|---------|-------|----------|-------------|-------|          
+       62 +| x_hat (prior state) | n×1 = 3×1 | 3 → 24 B | 1 | 24 B |     
+       63 +| P (prior covariance) | n×n = 3×3 | 9 → 72 B | 2a (initial re
+          +ad) | 72 B |                                                  
+       64 +| y (measurement) | m×1 = 1×1 | 1 → 8 B | 4b | 8 B |          
+       65 +| t (time) | scalar | 1 → 8 B | 7 | 8 B |                     
+       66 +| **Subtotal** | | | | **112 B** |                            
+       67 +                                                              
+       68 +#### Outputs (final writes to DRAM)                           
+       69 +                                                              
+       70 +| Operand | Shape | Elements | Written at step | Bytes |      
+       71 +|---------|-------|----------|----------------|-------|       
+       72 +| x_hat (updated state) | n×1 = 3×1 | 3 → 24 B | 6 | 24 B |   
+       73 +| P (updated covariance) | n×n = 3×3 | 9 → 72 B | 5c (final wr
+          +ite) | 72 B |                                                 
+       74 +| K (Kalman gain) | n×m = 3×1 | 3 → 24 B | 3f | 24 B |        
+       75 +| t (updated time) | scalar | 1 → 8 B | 7 | 8 B |             
+       76 +| **Subtotal** | | | | **128 B** |                            
+       77 +                                                              
+       78 +#### Intermediates (temporary buffers + mid-kernel state re-ac
+          +cesses)                                                       
+       79 +                                                              
+       80 +| Operand | Shape | Traffic | Bytes/elem | Total |            
+       81 +|---------|-------|---------|------------|-------|            
+       82 +| x_hat_new | n×1 | 2W (steps 1, 4d) + 3R (steps 4a, 4d, 6) | 
+          +24 B | 120 B |                                                
+       83 +| AP | n×n | 1W + 1R | 72 B | 144 B |                         
+       84 +| APAT | n×n | 1W + 1R | 72 B | 144 B |                       
+       85 +| P re-accesses | n×n | 1W (step 2c) + 3R (steps 3a, 3d, 5c) a
+          +fter initial read | 72 B | 288 B |                            
+       86 +| CP | m×n | 1W + 1R | 24 B | 48 B |                          
+       87 +| CPCT | m×m | 1W + 1R | 8 B | 16 B |                         
+       88 +| S | m×m | 1W + 1R | 8 B | 16 B |                            
+       89 +| PCT | n×m | 1W + 1R | 24 B | 48 B |                         
+       90 +| S_inv | m×m | 1W + 1R | 8 B | 16 B |                        
+       91 +| Cx | m×1 | 1W + 1R | 8 B | 16 B |                           
+       92 +| innov | m×1 | 1W + 1R | 8 B | 16 B |                        
+       93 +| K re-reads | n×m | 2R (steps 4c, 5a) after output write | 24
+          + B | 48 B |                                                   
+       94 +| Kinnov | n×1 | 1W + 1R | 24 B | 48 B |                      
+       95 +| KC | n×n | 1W + 1R | 72 B | 144 B |                         
+       96 +| IKC | n×n | 1W + 1R | 72 B | 144 B |                        
+       97 +| **Subtotal** | | | | **1256 B** |                           
+       98 +                                                              
+       99 +#### Traffic Summary                                          
+      100 +                                                              
+      101 +| Category | Bytes |                                          
+      102 +|----------|-------|                                          
+      103 +| Weights (reads) | 496 B |                                   
+      104 +| Inputs (reads) | 112 B |                                    
+      105 +| Outputs (writes) | 128 B |                                  
+      106 +| Intermediates (reads + writes) | 1256 B |                   
+      107 +| **Total** | **1992 B** |                                    
+      108 +                                                              
+      109 +---                                                           
+      110 +                                                              
+      111 +### Arithmetic Intensity                                      
+      112 +                                                              
+      113 +**AI (DRAM no-reuse) = 230 FLOPs / 1992 B = 0.1155 FLOPs/byte*
+          +*                                                             
+      114 +                                                              
+      115 +| Model | Bytes | AI (FLOPs/byte) |                           
+      116 +|-------|-------|-----------------|                           
+      117 +| DRAM no-reuse (this analysis) | 1992 B | **0.1155** |       
+      118 +| Naive (numpy, all temps to DRAM) | 1168 B | 0.1969 |        
+      119 +| Ideal (temps in registers/cache) | 496 B | 0.4637 |         
+      120 +                                                              
+      121 +---                                                           
+      122 +                                                              
+      123 +### Interpretation                                            
+      124 +                                                              
+      125 +All models yield AI ≪ 1 FLOPs/byte, placing the kernel firmly 
+          +in the **memory-bound** region of the Roofline model. The two 
+          +dominant sources of DRAM traffic under no-reuse are:          
+      126 +                                                              
+      127 +- **A** re-loaded 3×: 3 × 72 B = 216 B                        
+      128 +- **P** accessed 6× (4R + 2W): 6 × 72 B = 432 B (including int
+          +ermediate write)                                              
+      129 +                                                              
+      130 +Together these two tensors account for **648 B — 32.5%** of to
+          +tal traffic.                                                  
+      131 +                                                              
+      132 +---                                                           
+      133 +                                                              
+      134  Using Claude to calculate the arthimetic intensity, which is s
+           hown in the arithmetic_intensity.txt, gives a range of  0.1969
+            to 0.4637 FLOPs/byte.
+
+● Both files updated. Here's what changed:
+
+  arithmetic_intensity.txt — two sections replaced:
+  - FLOPs: each row now shows the general matmul/add formula alongside the
+  substituted n=3, m=1 values (e.g. n²(2n−1) → 9(5) → 45)
+  - Bytes: replaced the Ideal/Naive models with a single DRAM no-reuse model
+  split into four explicit categories:
+    - Weights (A, C, Q, R, I, dt) — 496 B (A loaded 3×, C loaded 5×)
+    - Inputs (x_hat, P_init, y, t) — 112 B
+    - Outputs (x_hat, P_final, K, t) — 128 B
+    - Intermediates (all temps + P/K re-accesses) — 1256 B
+    - Total: 1992 B → AI = 0.1155 FLOPs/byte (lower than both prior models)
+
+  ai_calculation.md — the full updated content converted to Markdown (tables,
+  headers, bold formulas) is inserted between the original lines 1 and 3, with
+  the original two sentences preserved at the top and bottom.
+
+✻ Worked for 6m 56s
+
+! mv ~/Downloads/desmos-graph.png ~/Downloads/roofline_project.png              
+  ⎿  (Bash completed with no output)
+
+! mv ~/Downloads/roofline_project.png profiling/                                
+  ⎿  (Bash completed with no output)
+
+❯ /add-dir /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University 
+/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/                      
+  ⎿  Added /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/
+     Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project as a working
+     directory for this session · /permissions to manage
+
+❯ Use cProfile or line_profiler to profile the Basic Kalman Filter from         
+https://github.com/hmartiro/kalman-cpp.git and measure execution time per loop  
+across at least 10 runs. Document Platform and configuration and record the     
+median of all runs, throughput, and memory usage with appropriate unit in       
+project/m1/sw_baseline.md                                                       
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Bash(python3 -c "import platform, cpuinfo 2>/dev/null; print('cpuinfo ok')"
+      2>/dev/null; python3 -c "import psutil; print('psutil ok')" 2>/dev/null;
+      python3 -m pip l…)
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ /exit                                                                         
+  ⎿  Catch you later!
+
+❯ Use cProfile or line_profiler to profile the Basic Kalman Filter from         
+https://github.com/hmartiro/kalman-cpp.git and measure execution time per loop  
+across at least 10 runs. Document Platform and configuration and record the     
+median of all runs, throughput, and memory usage with appropriate unit in       
+project/m1/sw_baseline.md                                                       
+
+  Listed 1 directory (ctrl+o to expand)
+
+● File is empty. I'll write a self-contained benchmark script that adds memory
+  tracking and platform info on top of the existing profiling, run it, then
+  populate sw_baseline.md.
+
+● Write(profiling/benchmark.py)
+  ⎿  Wrote 318 lines to profiling/benchmark.py
+       1 """
+       2 Benchmark for hmartiro/kalman-cpp Basic Kalman Filter (Python po
+         rt).
+       3 Measures: wall time per run, cProfile per-function stats, peak m
+         emory.
+       4 All stdlib — no extra packages required.
+       5 """
+       6 
+       7 import cProfile
+       8 import pstats
+       9 import io
+      10 import time
+     … +308 lines (ctrl+o to expand)
+
+● Bash(python3 profiling/benchmark.py)
+  ⎿  ==================================================================
+     KALMAN FILTER BENCHMARK RESULTS
+     ==================================================================
+     … +23 lines (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+● The CPU max freq read incorrectly from sysfs (showed 5 MHz instead of 4600
+  MHz). Let me fix that in the file.
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Co
+        urse_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m1/sw_baseline.md
+        )
+  ⎿  Added 1 line, removed 1 line
+      11  |----------|-------|
+      12  | OS | Linux 6.19.11-arch1-1 |
+      13  | CPU | 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz |
+      14 -| CPU max freq | 5 MHz max |                                   
+      14 +| CPU max freq | 4600 MHz (manufacturer spec) |                
+      15  | System RAM | 15.4 GiB |
+      16  | Python | 3.14.3 |
+      17  | NumPy | 2.4.2 |
+
+● project/m1/sw_baseline.md is written. Key results:
+
+  ---
+  Platform: i7-11800H @ 2.30 GHz (4600 MHz turbo), 15.4 GiB RAM, Linux 6.19.11,
+  Python 3.14.3, NumPy 2.4.2
+
+  Timing (warm runs 2–10, 45 measurements/run):
+
+  ┌──────────────┬───────────────┐
+  │    Metric    │     Value     │
+  ├──────────────┼───────────────┤
+  │ Median       │ 3.68 ms / run │
+  ├──────────────┼───────────────┤
+  │ Per update() │ 81.70 µs      │
+  ├──────────────┼───────────────┤
+  │ Std dev      │ 0.94 ms       │
+  └──────────────┴───────────────┘
+
+  Throughput: 12 240 measurements/s
+
+  Memory (tracemalloc peak heap): 10.20 KiB median
+
+  Run 1 (~4.7 ms) is flagged as warm-up and excluded from statistics — it
+  captures NumPy import/JIT overhead. The cProfile breakdown confirms update()
+  accounts for the dominant share of runtime, with np.linalg.inv() as the main
+  sub-cost (45 calls × 1×1 matrix inversion per run).
+
+✻ Brewed for 1m 50s
+
+❯ What would the update kernal performance in FLOP/s be if titled GEMM was      
+implmented?                                                                     
+
+● Write(analysis/tiled_gemm_estimate.py)  ⎿  Wrote 163 lines to analysis/tiled_gemm_estimate.py
+       1 """
+       2 Attainable FLOP/s for the Kalman filter update() kernel
+       3 if a tiled (cache-blocked) GEMM were implemented in C/C++.
+       4 
+       5 Roofline model: Attainable GFLOP/s = min(Peak_Compute, AI × BW)
+       6 
+       7 Key insight for 3x3 matrices:
+       8   All persistent data (496 B) fits in a single L1 cache line reg
+         ion.
+       9   With register-blocked tiled GEMM the persistent matrices are l
+         oaded once,
+      10   all intermediate results stay in AVX registers, and only outpu
+         ts are written.
+     … +153 lines (ctrl+o to expand)
+
+● Bash(python3 analysis/tiled_gemm_estimate.py)
+  ⎿  ====================================================================
+     Tiled GEMM Performance Estimate: KF update() on i7-11800H
+     ====================================================================
+     … +49 lines (ctrl+o to expand)
+
+● Answer: ~109 GFLOP/s theoretical, ~87 GFLOP/s practical.
+
+  Here's why:
+
+  Why tiling lands at the L1 ceiling, not peak compute:
+
+  For 3×3 matrices, a "tile" IS the full matrix — the entire update() dataset
+  (496 B) fits in a few L1 cache lines. A register-blocked tiled GEMM would:
+  - Load each persistent matrix once from L1
+  - Hold all intermediates in AVX registers across all 18 sub-operations
+  - Write only final outputs back
+
+  This achieves the ideal AI = 0.4637 FLOPs/byte, bounded by L1 bandwidth (235
+  GB/s practical).
+
+  ┌──────────────────────────┬─────────┬─────────────┐
+  │         Scenario         │ GFLOP/s │ Time/update │
+  ├──────────────────────────┼─────────┼─────────────┤
+  │ Python/NumPy baseline    │ 0.003   │ 81.70 µs    │
+  ├──────────────────────────┼─────────┼─────────────┤
+  │ Tiled GEMM — DRAM        │ 4.7     │ 48.6 ns     │
+  ├──────────────────────────┼─────────┼─────────────┤
+  │ Tiled GEMM — L3          │ 20.9    │ 11.0 ns     │
+  ├──────────────────────────┼─────────┼─────────────┤
+  │ Tiled GEMM — L2          │ 29.7    │ 7.8 ns      │
+  ├──────────────────────────┼─────────┼─────────────┤
+  │ Tiled GEMM — L1 (target) │ ~109    │ 2.1 ns      │
+  ├──────────────────────────┼─────────┼─────────────┤
+  │ Peak compute ceiling     │ 1177.6  │ 0.2 ns      │
+  └──────────────────────────┴─────────┴─────────────┘
+
+  Critical limitation: even perfect tiled GEMM keeps the kernel memory-bound —
+  AI (0.46) is 10× below the L1 ridge point (5.01 FLOPs/byte). To become
+  compute-bound you'd need ~11× more FLOPs per byte, achievable only by batching
+   many independent filter instances to amortize loading A and C across them.
+
+  Practical speedup over the Python baseline: ~31,000×.
+
+✻ Sautéed for 2m 17s
+
+❯ Calculate the required bandwidth for the tiled update kernal by finding the   
+product of throughput and the data width                                        
+
+● From the tiled GEMM analysis:
+  - Throughput = 1 / 2.11 ns = 473.9 M updates/s
+  - Data width = 496 B/update (ideal model — inputs + outputs, intermediates in
+  registers)
+
+● Write(analysis/required_bandwidth.py)
+  ⎿  Wrote 153 lines to analysis/required_bandwidth.py
+       1 """
+       2 Required memory bandwidth for the tiled GEMM Kalman filter updat
+         e() kernel.
+       3 
+       4 Formula:  Required BW = Throughput × Data Width
+       5             Throughput  = updates per second  (1 / time_per_upda
+         te)
+       6             Data Width  = bytes transferred per update() call
+       7 """
+       8 
+       9 # --------------------------------------------------------------
+         -------------
+      10 # Tiled GEMM kernel parameters  (from tiled_gemm_estimate.py)
+     … +143 lines (ctrl+o to expand)
+
+● Bash(python3 analysis/required_bandwidth.py)
+  ⎿  ==================================================================
+     Required Bandwidth: Tiled GEMM Kalman filter update()
+     ==================================================================
+     … +29 lines (ctrl+o to expand)
+
+● Required bandwidth = 473.93 Mupdates/s × 496 B = 235.1 GB/s
+
+  Using the formula BW = Throughput × Data Width:
+
+  ┌────────────────────────────────────┬──────────────────────────────────┐
+  │                Term                │              Value               │
+  ├────────────────────────────────────┼──────────────────────────────────┤
+  │ Throughput                         │ 1 / 2.11 ns = 473.93 M updates/s │
+  ├────────────────────────────────────┼──────────────────────────────────┤
+  │ Data width (unique tensors, ideal) │ 496 B/update                     │
+  ├────────────────────────────────────┼──────────────────────────────────┤
+  │ Required bandwidth                 │ 235.1 GB/s                       │
+  └────────────────────────────────────┴──────────────────────────────────┘
+
+  The reads break down as: A (216 B, loaded 3×) + C (120 B, loaded 5×) + Q, R,
+  I, dt, x_hat, P, y, t = 608 B reads; plus 128 B writes — but counting each
+  unique tensor once (the AI basis) gives 496 B, which is the tighter bound used
+   here.
+
+  This number is self-consistent: the tiled GEMM estimate was derived assuming
+  235 GB/s L1 bandwidth, so multiplying throughput back by data width recovers
+  that same bandwidth — confirming the kernel is exactly at the L1 ceiling. DRAM
+   (41 GB/s) is 5.7× too slow to sustain this throughput, which is why tiling is
+   mandatory for the kernel to be viable at this rate.
+
+✻ Cooked for 1m 16s
+
+❯ Make a diagram with components host, interface, chiplet boundary, compute     
+engine, and on-chip memory clearlt labeled for the optimized kernel we have     
+discussed about. Output the image as project/m1/system_diagram.png              
+
+● Bash(python3 -c "import matplotlib; import matplotlib.patches;
+      print('matplotlib', matplotlib.__version__)")
+  ⎿  Error: Exit code 1
+     Traceback (most recent call last):
+       File "<string>", line 1, in <module>
+         import matplotlib; import matplotlib.patches; print('matplotlib', 
+     matplotlib.__version__)
+         ^^^^^^^^^^^^^^^^^
+     ModuleNotFoundError: No module named 'matplotlib'
+
+● Bash(python3 -m pip list 2>/dev/null | grep -iE
+      "pillow|PIL|cairo|svg|skia|pyglet|tkinter")
+  ⎿  pillow                    12.1.1
+
+● Write(analysis/draw_system_diagram.py)
+  ⎿  Wrote 284 lines to analysis/draw_system_diagram.py
+       1 """
+       2 System diagram for the tiled GEMM Kalman filter optimized kernel
+         .
+       3 Drawn entirely with Pillow (PIL) — no matplotlib required.
+       4 Output: project/m1/system_diagram.png
+       5 """
+       6 
+       7 from PIL import Image, ImageDraw, ImageFont
+       8 import os
+       9 
+      10 # --------------------------------------------------------------
+         -------------
+     … +274 lines (ctrl+o to expand)
+
+● Bash(python3 analysis/draw_system_diagram.py)
+  ⎿  Saved 1200×820 diagram to:
+       /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University
+     /Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m1/system_di
+     agram.png
+
+  Read 1 file (ctrl+o to expand)
+
+● The host is cut off and a few special characters aren't rendering. Let me fix
+  the canvas height and replace non-ASCII characters.
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 1 line, removed 1 line
+      10  # -------------------------------------------------------------
+          --------------
+      11  # Canvas
+      12  # -------------------------------------------------------------
+          --------------
+      13 -W, H = 1200, 820                                               
+      13 +W, H = 1200, 960                                               
+      14  img = Image.new("RGB", (W, H), "#F8F9FA")
+      15  d   = ImageDraw.Draw(img)
+      16  
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 1 line, removed 1 line
+      128  # ============================================================
+      129  
+      130  # ---- TITLE ----
+      131 -title = "Optimised Kalman Filter Update Kernel — System Archit
+          -ecture"                                                       
+      131 +title = "Optimised Kalman Filter Update Kernel - System Archit
+          +ecture"                                                       
+      132  bb = fnt_title.getbbox(title)
+      133  d.text(((W - (bb[2]-bb[0])) // 2, 18), title, font=fnt_title, 
+           fill=C["text_dark"])
+      134  
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 1 line, removed 1 line
+      133  d.text(((W - (bb[2]-bb[0])) // 2, 18), title, font=fnt_title, 
+           fill=C["text_dark"])
+      134  
+      135  # ---- CHIPLET BOUNDARY  (large outer box) ----
+      136 -CB = (60, 70, W - 60, H - 140)   # (x0,y0,x1,y1)              
+      136 +CB = (60, 70, W - 60, H - 200)   # (x0,y0,x1,y1)              
+      137  rrect(d, CB, 16, C["chiplet_bg"], C["chiplet_bd"], width=3)
+      138  
+      139  # "CHIPLET BOUNDARY" label — top-left corner tab
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 1 line, removed 1 line
+      178  rows = [
+      179      ("Weights",  "A (3×3), C (1×3), Q (3×3), R, I, dt",  "496 
+           B total"),
+      180      ("Inputs",   "x_hat (3×1), P (3×3), y, t",            "112
+            B"),
+      181 -    ("Outputs",  "x_hat′ (3×1), P′ (3×3), K (3×1), t′",  "128 
+          -B"),                                                          
+      181 +    ("Outputs",  "x_hat' (3x1), P' (3x3), K (3x1), t'",   "128
+          + B"),                                                         
+      182      ("Capacity", "All tensors fit in L1 (48 KB/core)",     "< 
+           1 KiB used"),
+      183  ]
+      184  row_x0 = OM[0] + 22
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 2 lines, removed 2 lines
+      176  
+      177  # Memory contents table
+      178  rows = [
+      179 -    ("Weights",  "A (3×3), C (1×3), Q (3×3), R, I, dt",  "496 
+          -B total"),                                                    
+      180 -    ("Inputs",   "x_hat (3×1), P (3×3), y, t",            "112
+          - B"),                                                         
+      179 +    ("Weights",  "A (3x3), C (1x3), Q (3x3), R, I, dt",  "496 
+          +B total"),                                                    
+      180 +    ("Inputs",   "x_hat (3x1), P (3x3), y, t",            "112
+          + B"),                                                         
+      181      ("Outputs",  "x_hat' (3x1), P' (3x3), K (3x1), t'",   "128
+            B"),
+      182      ("Capacity", "All tensors fit in L1 (48 KB/core)",     "< 
+           1 KiB used"),
+      183  ]
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 2 lines, removed 2 lines
+      219  rrect(d, HB, 12, C["host_bg"], C["host_bd"], width=2)
+      220  ctext(d, HB_cx, (HB[1]+HB[3])//2,
+      221        [("HOST", fnt_label),
+      222 -       ("Intel Core i7-11800H  |  8c × 4.6 GHz  |  15.4 GiB DD
+          -R4", fnt_sub),                                                
+      223 -       ("Sends: y (measurement, 8 B)    Receives: x_hat′, K (3
+          -2 B)", fnt_tiny)],                                            
+      222 +       ("Intel Core i7-11800H  |  8c x 4.6 GHz  |  15.4 GiB DD
+          +R4", fnt_sub),                                                
+      223 +       ("Sends: y (measurement, 8 B)    Receives: x_hat', K (3
+          +2 B)", fnt_tiny)],                                            
+      224        [], color=C["text_dark"])
+      225  
+      226  # ---- ARROW: Chiplet boundary bottom -> Interface ----
+
+● Update(analysis/draw_system_diagram.py)  ⎿  Error editing file
+
+  Searched for 2 patterns, read 1 file (ctrl+o to expand)
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 1 line, removed 1 line
+      210  IB = (IB_cx - 200, CB[3] + 10, IB_cx + 200, CB[3] + 68)
+      211  rrect(d, IB, 10, C["iface_bg"], C["iface_bd"], width=2)
+      212  ctext(d, IB_cx, (IB[1]+IB[3])//2,
+      213 -      [("INTERFACE", fnt_label), ("PCIe 4.0 ×16  |  ~21.8 GB/s
+          - practical", fnt_tiny)],                                      
+      213 +      [("INTERFACE", fnt_label), ("PCIe 4.0 x16  |  ~21.8 GB/s
+          + practical", fnt_tiny)],                                      
+      214        [], color=C["text_dark"])
+      215  
+      216  # ---- HOST BOX ----
+
+● Now also fix the "y, state" label that rendered outside the canvas and the
+  Required BW callout position:
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 1 line, removed 1 line
+      266      d.text((lx2+24, ly2), lbl, font=fnt_tiny, fill=C["text_dar
+           k"])
+      267  
+      268  # ---- Data-flow labels on the left connector ----
+      269 -d.text((12, (CE[3] + CB[3])//2 - 10), "y, state", font=fnt_tin
+          -y, fill=C["arrow"])                                           
+      269 +d.text((CB[0] + 6, (CE[3] + CB[3])//2 - 10), "y, state", font=
+          +fnt_tiny, fill=C["arrow"])                                    
+      270  
+      271  # ---- Bandwidth requirement callout ----
+      272  bwr_box = (CE[0]+4, CE[3]+8, CE[0]+260, CE[3]+52)
+
+● Bash(python3 analysis/draw_system_diagram.py)
+  ⎿  Saved 1200×960 diagram to:
+       /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University
+     /Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m1/system_di
+     agram.png
+
+  Read 1 file (ctrl+o to expand)
+
+● Good — host is fully visible. One remaining fix: the × in the Required BW
+  callout is still rendering as a box. Let me fix that and tighten the "y,
+  state" position.
+
+● Update(analysis/draw_system_diagram.py)
+  ⎿  Added 1 line, removed 1 line
+      274  d.text((bwr_box[0]+8, bwr_box[1]+4),
+      275         "Required BW:", font=fnt_tiny, fill="#922B21")
+      276  d.text((bwr_box[0]+8, bwr_box[1]+20),
+      277 -       "473.9 Mupdates/s × 496 B = 235 GB/s", font=fnt_tiny, f
+          -ill="#922B21")                                                
+      277 +       "473.9 Mupdates/s x 496 B = 235 GB/s", font=fnt_tiny, f
+          +ill="#922B21")                                                
+      278  
+      279  # ---- Save ----
+      280  out_path = ("/run/media/sackb/Windows-SSD/Users/sackb/OneDrive
+           /Desktop/"
+
+● Bash(python3 analysis/draw_system_diagram.py)
+  ⎿  Saved 1200×960 diagram to:
+       /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University
+     /Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m1/system_di
+     agram.png
+
+  Read 1 file (ctrl+o to expand)
+
+● project/m1/system_diagram.png is saved. The diagram shows all five labeled
+  components:
+
+  ┌──────────────┬──────────────────────────────────────────────────────────┐
+  │  Component   │                    What it represents                    │
+  ├──────────────┼──────────────────────────────────────────────────────────┤
+  │ Chiplet      │ Outer dashed blue region — the accelerator die boundary  │
+  │ Boundary     │                                                          │
+  ├──────────────┼──────────────────────────────────────────────────────────┤
+  │ Compute      │ Tiled GEMM kernel — 5 pipeline stages (predict/correct   │
+  │ Engine       │ state & covariance + gain)                               │
+  ├──────────────┼──────────────────────────────────────────────────────────┤
+  │ On-chip      │ SRAM/L1 cache holding Weights (496 B), Inputs (112 B),   │
+  │ Memory       │ Outputs (128 B); all tensors fit in L1                   │
+  ├──────────────┼──────────────────────────────────────────────────────────┤
+  │ Interface    │ PCIe 4.0 x16 link — ~21.8 GB/s practical — connects      │
+  │              │ chiplet to host                                          │
+  ├──────────────┼──────────────────────────────────────────────────────────┤
+  │ Host         │ i7-11800H — sends measurement y, receives updated x_hat' │
+  │              │  and K                                                   │
+  └──────────────┴──────────────────────────────────────────────────────────┘
+
+  The 235 GB/s bidirectional arrow between the Compute Engine and On-chip Memory
+   reflects the L1 bandwidth required (473.9 Mupdates/s × 496 B), and the
+  Required BW callout highlights that this bandwidth is only satisfiable at the
+  L1 level — not DRAM or PCIe.
+
+✻ Worked for 3m 4s
+
+! mv ~/Downloads/desmos-graph.png ~/Downloads/roofline_project.png              
+  ⎿  (Bash completed with no output)
+
+! mv ~/Downloads/roofline_project.png profiling/                                
+  ⎿  (Bash completed with no output)
+
+❯ /exit                                                                         
+  ⎿  Bye!
+
+❯ /exit                                                                         
+  ⎿  See ya!
