@@ -1,0 +1,40 @@
+[*]
+[*] GTKWave save — tb_compute_core
+[*]
+[zoom] -15.500000
+[timestart] 0
+[size] 1600 820
+[pos] 100 100
+*-15.500000 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+@28
+-INPUT APPLICATION
+@20
+tb_compute_core.clk
+@20
+tb_compute_core.rst
+@20
+tb_compute_core.valid_in
+@22
+tb_compute_core.y[31:0]
+@28
+-INTERNAL PIPELINE ACTIVITY
+@22
+tb_compute_core.dut.state[2:0]
+@22
+tb_compute_core.dut.k0[31:0]
+@22
+tb_compute_core.dut.k1[31:0]
+@22
+tb_compute_core.dut.k2[31:0]
+@28
+-OUTPUT CAPTURE
+@20
+tb_compute_core.valid_out
+@22
+tb_compute_core.x_hat_0[31:0]
+@22
+tb_compute_core.x_hat_1[31:0]
+@22
+tb_compute_core.x_hat_2[31:0]
+[pattern_trace] 1
+[pattern_trace] 0

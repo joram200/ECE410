@@ -1,0 +1,13 @@
+TEST 1: MWr32 to CTRL addr=0x00 data=0xdeadbeef
+  reg_ctrl=0xdeadbeef  OK
+TEST 2: MRd32 from CTRL addr=0x00 expect CplD data=0xdeadbeef
+  CplD=0x4a00000100080004abcd0200deadbeef  OK
+TEST 3: MWr32 to MEAS addr=0x08 data=0xcafebabe
+  core_valid_in=1  OK (WR_EXEC cycle)
+  core_y=0xcafebabe  OK
+  core_valid_in=0  OK (IDLE cycle)
+PASS
+- tb_interface.sv:300: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.046 2026-02-28
+- Verilator: $finish at 175ns; walltime 0.000 s; speed 1.251 ms/s
+- Verilator: cpu 0.000 s on 1 threads; allocated 7 MB

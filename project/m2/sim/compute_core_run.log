@@ -1,0 +1,10 @@
+--- compute_core output (Q16.16) ---
+  x_hat_0 = -31152  ref = -31152  |err| = 0
+  x_hat_1 = -546812  ref = -546812  |err| = 0
+  x_hat_2 = -677100  ref = -677100  |err| = 0
+  tolerance = 8192 LSBs
+PASS
+- /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m2/tb/tb_compute_core.sv:215: Verilog $finish
+- S i m u l a t i o n   R e p o r t: Verilator 5.046 2026-02-28
+- Verilator: $finish at 3us; walltime 0.000 s; speed 9.008 ms/s
+- Verilator: cpu 0.000 s on 1 threads; allocated 7 MB
