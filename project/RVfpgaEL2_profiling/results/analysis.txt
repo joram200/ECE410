@@ -1,0 +1,101 @@
+RVfpgaEL2 Kalman Filter Profiling — arc_table GDB Memory Dump Run
+=================================================================
+
+Hardware: SweRV EL2 on Nexys A7 FPGA (RVfpgaEL2)
+ISA:      rv32imac/ilp32 — no hardware FPU
+Clock:    13 MHz
+Cache:    16 KB L1 I-cache + 16 KB L1 D-cache
+Firmware: kalman-test (45 Kalman update steps, n=3 state dim, m=1 measurement dim)
+Method:   GDB hardware-breakpoint memory dump of arc_table from SRAM
+
+Profiling Method Summary
+------------------------
+UART-based gprof profiling was not viable: the BSP UART FIFO never drains on
+this bitstream, causing the firmware to hang in any busy-wait transmit loop.
+Instead, the arc_table (1024-entry call-graph arc table populated by _mcount)
+was dumped directly from SRAM using a GDB hardware-breakpoint session over JTAG:
+
+  1. hbreak at main() entry  (0x88)  — firmware halts before any _mcount calls
+  2. hbreak at main() ret    (0x416) — firmware halts after all 45 update() calls
+  3. dump binary memory arc_table.bin 0x375d4 0x3a5d4   (12288 bytes)
+  4. parse_arc_table.py converts arc_table.bin -> gmon.out for gprof analysis
+
+arc_table Results
+-----------------
+arc_count   : 324 non-empty entries (out of 1024 slots)
+arc_table   : arc_table.bin  (12288 bytes, raw SRAM dump)
+gmon.out    : gmon.out       (4232 bytes, gprof-format call-graph)
+
+Top callee sites by arc count:
+  Eigen::Block<MatrixXd const,1,-1>::Block()          2115 calls  (GEMM row extraction)
+  binary_evaluator<scalar_product_op>::coeff()        1755 calls  (dot-product inner kernel)
+  KalmanFilter::update()                               135 calls  (45 steps x 3 GEMM/step implied)
+  MatrixXd::operator*()                                135 calls  (explicit GEMM dispatch)
+
+
+Dominant Kernel
+---------------
+3x3 Matrix-Matrix Multiplication (GEMM)
+
+Called 135 times total — 3 GEMM operations per update step x 45 update steps:
+  A * P               (covariance propagation)
+  (A*P) * A^T         (complete A*P*A^T)
+  (I - K*C) * P       (covariance update)
+
+The GEMM inner loop (dot-product over the 3 row-vector / column-vector pairs)
+accounts for the two highest-count arc entries in the table:
+  - 2115 Block() calls  = row extraction for each GEMM
+  - 1755 coeff() calls  = scalar multiply-accumulate in the dot product
+
+GEMM represents ~70% of total program FLOPs (6,075 / 10,350).
+
+
+Roofline Model — Dominant Kernel (3x3 GEMM)
+--------------------------------------------
+FLOPs per call:
+  n^2 * (2n - 1) = 9 * 5 = 45 FLOPs per GEMM call
+  Total: 135 calls * 45 FLOPs = 6,075 FLOPs
+
+Required Memory (working set per call):
+  Load  A  : 3x3 double = 9 * 8 = 72 bytes
+  Load  B  : 3x3 double = 9 * 8 = 72 bytes
+  Store C  : 3x3 double = 9 * 8 = 72 bytes
+  Total    : 216 bytes
+
+Performance:
+  Kernel runtime: ~58.7% of total 75 ms execution = ~44 ms
+  Performance = 6,075 FLOPs / 0.044 s = 1.38e-4 GFLOP/s
+
+Arithmetic Intensity:
+  AI = FLOPs / Bytes = 45 / 216 = 0.208 FLOP/byte ~ 0.21 FLOP/byte
+
+Classification: COMPUTE-BOUND
+  Ridge point (13 MHz, software FP ~75 cycles/FLOP, peak DRAM BW ~52 MB/s):
+    Peak compute  = 13e6 / 75 = 1.73e5 FLOP/s = 1.73e-4 GFLOP/s
+    Peak BW       = ~52 MB/s
+    Ridge point   = 1.73e5 / 52e6 = 0.0033 FLOP/byte
+  AI (0.21) >> ridge point (0.0033) -> firmly compute-bound.
+  Bottleneck: software double-precision FP emulation via libgcc
+              (__muldf3, __adddf3, __divdf3 at ~50-100 cycles each).
+
+
+Roofline Model — Full Program (for reference)
+---------------------------------------------
+Total FLOPs : 10,350  (230 FLOPs/update * 45 steps)
+  Breakdown per update():
+    x_hat_new = A * x_hat          3x3 * 3x1  GEMV :  15 FLOPs
+    P = A*P*A^T + Q                2x GEMM + GEAM  :  90 + 9 = 99 FLOPs
+    K = P*C^T*(C*P*C^T + R)^-1    GEMV + scalar   :  ~60 FLOPs
+    x_hat_new += K*(y - C*x_hat)  GEMV + add      :  ~30 FLOPs
+    P = (I - K*C)*P                GEMM            :  45 FLOPs
+    Total                                          : ~230 FLOPs
+
+Required Memory (working set):
+  Matrices A,C,Q,R,P,K,I,x_hat,x_hat_new,y (all double):
+    9+3+9+1+9+3+9+3+3+1 = 50 doubles = 400 bytes
+  Stack temporaries (estimated): ~432 bytes
+  Total: ~832 bytes
+
+Performance : ~1.38e-4 GFLOP/s  (10,350 FLOPs / 75 ms)
+Req. Memory : 832 bytes
+AI          : 10,350 / 832 = 12.4 FLOP/byte

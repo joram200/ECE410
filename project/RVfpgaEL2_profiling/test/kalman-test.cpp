@@ -5,13 +5,18 @@
  * @date: 2014.11.15
  */
 
-#include <iostream>
 #include <vector>
 #include <Eigen/Dense>
 
 #include "kalman.hpp"
 
+/* Defined in gprof_support.c — zeros arc_table so _mcount works correctly.
+ * arc_table is placed by the linker at _end (first byte past BSS), so the
+ * CRT's BSS zero-init loop misses it.  We zero it explicitly here. */
+extern "C" void __monstartup(void);
+
 int main(int argc, char* argv[]) {
+  __monstartup();   /* zero arc_table before any _mcount inserts */
 
   int n = 3; // Number of states
   int m = 1; // Number of measurements
@@ -32,12 +37,6 @@ int main(int argc, char* argv[]) {
   Q << .05, .05, .0, .05, .05, .0, .0, .0, .0;
   R << 5;
   P << .1, .1, .1, .1, 10000, 10, .1, 10, 100;
-
-  std::cout << "A: \n" << A << std::endl;
-  std::cout << "C: \n" << C << std::endl;
-  std::cout << "Q: \n" << Q << std::endl;
-  std::cout << "R: \n" << R << std::endl;
-  std::cout << "P: \n" << P << std::endl;
 
   // Construct the filter
   KalmanFilter kf(dt,A, C, Q, R, P);
@@ -64,13 +63,10 @@ int main(int argc, char* argv[]) {
   // Feed measurements into filter, output estimated states
 
   Eigen::VectorXd y(m);
-  std::cout << "t = " << t << ", " << "x_hat[0]: " << kf.state().transpose() << std::endl;
-  for(int i = 0; i < measurements.size(); i++) {
+  for(int i = 0; i < (int)measurements.size(); i++) {
     t += dt;
     y << measurements[i];
     kf.update(y);
-    std::cout << "t = " << t << ", " << "y[" << i << "] = " << y.transpose()
-        << ", x_hat[" << i << "] = " << kf.state().transpose() << std::endl;
   }
 
   return 0;

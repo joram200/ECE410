@@ -11,4 +11,4 @@
     2. 1048063 Bytes / 2097152 Bytes = \(1-s\) ⋅ 2097152 Bytes / 2097152 Bytes => 0.499755382538 = 1 - s
     3. 0.499755382538 + s = 1 - s + s => 0.499755382538 + s = 1
     4. 0.499755382538 + s - 0.499755382538 = 1 - 0.499755382538 => **s = 0.500244617462 ≈ 0.5**
-4. 
+4. First I will calulate the arithmetic intensity of this kernal: \(1-0.9\) ⋅ 524288 FLOPs = 52428.8 FLOPs; \[\(1-s\) ⋅ 2097152\] + 513 Bytes => \[\(1-0.9\) ⋅ 2097152\] + 513 Bytes = 210228.2 Bytes; 52428.8 / 210228.2 = 0.2493899486 FLOP/Byte. Now I can calculate the Max performance: 320 GB/s ⋅ 0.2493899486 FLOP/Byte = 79.80478356 GFLOPs. Now we can calculate the speed up: 524288 / \( 79.80478356 ⋅ 10<sup>9</sup> \) = **6569.63125x Speedup**

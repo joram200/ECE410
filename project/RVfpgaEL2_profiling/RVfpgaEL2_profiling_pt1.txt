@@ -1,0 +1,624 @@
+╭─── Claude Code v2.1.88 ──────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back Jose!                 │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ Recent activity         │
+│                        ▘▘ ▝▝                       │ No recent activity      │
+│     Sonnet 4.6 · Claude API · joram2@pdx.edu's     │                         │
+│     Organization                                   │                         │
+│    /…/ECE_410/ECE410/project/RVfpgaEL2_profiling   │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+✻ Conversation compacted (ctrl+o for history)
+
+
+  Read 1 file (ctrl+o to expand)
+
+● Let me look at the BSP UART implementation to understand the correct register
+  layout:
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● Let me check the memory map and clock rate definitions:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Bash(find /home/sackb/.platformio/packages/framework-wd-riscv-sdk/board/nexys_
+      a7_el2/ -name "*.c" -o -name "*.h" | xargs grep -l
+      "uartInit\|uart_init\|printUartPutch…)
+  ⎿  /home/sackb/.platformio/packages/framework-wd-riscv-sdk/board/nexys_a7
+     _el2/bsp/bsp_printf.c
+     /home/sackb/.platformio/packages/framework-wd-riscv-sdk/board/nexys_a7
+     _el2/bsp/bsp_printf.h
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Bash(find /home/sackb/.platformio/packages/framework-wd-riscv-sdk/board/nexys_
+      a7_el2/ -name "*.c" | xargs grep -l "uartInit\|main\b" 2>/dev/null)
+  ⎿  /home/sackb/.platformio/packages/framework-wd-riscv-sdk/board/nexys_a7
+     _el2/bsp/bsp_printf.c
+
+● Bash(find /home/sackb/.platformio/packages/framework-wd-riscv-sdk/board/nexys_
+      a7_el2/ -name "*.h" | xargs grep -l "D_CLOCK_RATE\|CLOCK_RATE"
+      2>/dev/null)
+  ⎿  Error: Exit code 123
+
+  Searched for 10 patterns, read 1 file (ctrl+o to expand)
+
+● The EL2 board uses 25 MHz clock — let me verify which BSP is actually linked:
+
+● Bash(find /home/sackb/.platformio/packages/framework-wd-riscv-sdk/ -name
+      "*.py" | xargs grep -l "swervolf_nexys\|nexys_el2\|nexys_eh1" 2>/dev/null
+      | head -5)
+  ⎿  (No output)
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Bash(find /home/sackb/.platformio/ -name "*.py" | xargs grep -l
+      "swervolf_nexys" 2>/dev/null | head -5)
+  ⎿  (No output)
+
+  Searched for 3 patterns, read 1 file, listed 1 directory (ctrl+o to expand)
+
+● Bash(sed -n '136,160p' /home/sackb/.platformio/packages/framework-wd-riscv-sdk
+      /board/nexys_a7_eh1/bsp/bsp_printf.c)
+  ⎿  Tool use rejected
+
+  Searched for 2 patterns (ctrl+o to expand)
+
+● Found the bug. The PlatformIO wd-riscv-sdk framework hardcodes
+  D_CLOCK_RATE=13000000 (13 MHz UART peripheral clock), but both our source
+  files hardcode UART_BAUD_DIVISOR=27 which is correct for 50 MHz. With a 13 MHz
+   clock and divisor 27, the firmware outputs at ~30 kbps instead of 115200 —
+  pure garbage on the host.
+
+  Fix: compute the divisor from D_CLOCK_RATE exactly as the BSP does.
+
+● Update(src/gprof_support.c)
+  ⎿  Added 14 lines, removed 4 lines
+      29   *   Offset 0x14 (4*5) — LSR  (bit 5 = THRE = Transmitter Holdi
+          ng Register Empty)
+      30   *   Offset 0x18 (4*6) — MSR
+      31   *
+      32 - * Baud-rate: 115200, clock: 50 MHz                            
+      33 - *   divisor = (50 000 000 / 115 200) / 16 = 27                
+      32 + * D_CLOCK_RATE is injected by the PlatformIO wd-riscv-sdk fram
+         +ework builder                                                  
+      33 + * (default 13 MHz for the swervolf_nexys board).  The divisor 
+         +formula matches                                                
+      34 + * the BSP uartInit(): (D_CLOCK_RATE / BAUD_RATE) / 16.        
+      35   * ------------------------------------------------------------
+          ------------- */
+      36  #define UART_BASE   0x80002000U
+      37  
+     ...
+      46  #define UART_LCR_DLAB      0x80U  /* Divisor Latch Access Bit *
+          /
+      47  #define UART_LCR_8N1       0x03U  /* 8 data bits, no parity, 1 
+          stop bit */
+      48  #define UART_LSR_THRE      0x20U  /* Transmitter Holding Regist
+          er Empty */
+      48 -#define UART_FCR_ENABLE    0x07U  /* Enable+clear FIFOs, trigge
+         -r at 1 byte */                                                 
+      49 -#define UART_BAUD_DIVISOR  27U    /* (50 MHz / 115200) / 16 */ 
+      49 +/* FIFOs: enable (bit0) + clear RX (bit1) + clear TX (bit2) + 8
+         +-byte trigger (bit7) */                                        
+      50 +#define UART_FCR_ENABLE    0x87U                               
+      51  
+      52 +/* Baud-rate divisor: identical formula to the BSP uartInit(). 
+      53 + * D_CLOCK_RATE is defined by wd-riscv-sdk.py (-DD_CLOCK_RATE=1
+         +3000000).                                                      
+      54 + * Fallback to 13 MHz if somehow not set.                      
+         +             */                                                
+      55 +#ifndef D_CLOCK_RATE                                           
+      56 +#  define D_CLOCK_RATE  13000000U                              
+      57 +#endif                                                         
+      58 +#define UART_BAUD_RATE    115200U                              
+      59 +#define UART_BAUD_DIVISOR ((D_CLOCK_RATE / UART_BAUD_RATE) / 16
+         +U)                                                             
+      60 +                                                               
+      61  /* ------------------------------------------------------------
+          -------------
+      62   * Arc table — records (caller → callee) call-graph edges
+      63   * ------------------------------------------------------------
+          ------------- */
+
+● Now fix syscalls.c the same way:
+● Update(src/syscalls.c)
+  ⎿  Added 12 lines, removed 3 lines
+      32   *   0x0C — LCR  (bit 7 = DLAB)
+      33   *   0x14 — LSR  (bit 5 = THRE = Transmitter Holding Register E
+          mpty)
+      34   *
+      35 - * Baud 115200, clock 50 MHz → divisor = (50 000 000 / 115 200)
+         - / 16 = 27                                                     
+      35 + * D_CLOCK_RATE is injected by the PlatformIO wd-riscv-sdk fram
+         +ework builder                                                  
+      36 + * (default 13 MHz for swervolf_nexys).  Divisor formula matche
+         +s BSP uartInit().                                              
+      37   * ------------------------------------------------------------
+          ------------- */
+      38  #define UART_BASE           0x80002000U
+      39  #define UART_THR_REG        (*((volatile uint32_t *)(UART_BASE 
+          + 0x00)))
+     ...
+      47  #define UART_LCR_DLAB       0x80U  /* Divisor Latch Access Bit 
+          */
+      48  #define UART_LCR_8N1        0x03U  /* 8 data bits, no parity, 1
+           stop bit */
+      49  #define UART_LSR_THRE       0x20U  /* Transmitter Holding Regis
+          ter Empty */
+      49 -#define UART_FCR_ENABLE     0x07U  /* Enable+clear FIFOs, trigg
+         -er at 1 byte */                                                
+      50 -#define UART_BAUD_DIVISOR   27U    /* (50 MHz / 115200) / 16 */
+      50 +/* FIFOs: enable (bit0) + clear RX (bit1) + clear TX (bit2) + 8
+         +-byte trigger (bit7) */                                        
+      51 +#define UART_FCR_ENABLE     0x87U                              
+      52  
+      53 +/* Baud-rate divisor: identical formula to BSP uartInit().     
+      54 + * D_CLOCK_RATE is -DD_CLOCK_RATE=13000000 from wd-riscv-sdk.py
+         +.           */                                                 
+      55 +#ifndef D_CLOCK_RATE                                           
+      56 +#  define D_CLOCK_RATE  13000000U                              
+      57 +#endif                                                         
+      58 +#define UART_BAUD_RATE    115200U                              
+      59 +#define UART_BAUD_DIVISOR ((D_CLOCK_RATE / UART_BAUD_RATE) / 16
+         +U)                                                             
+      60 +                                                               
+      61  static int syscalls_uart_initialised = 0;
+      62  
+      63  static void syscalls_uart_init(void) {
+
+● Now I also need to mirror the BSP's uartInit() order more closely — it
+  disables IER last, and writes LSR=0xff first. Let me also update the init
+  sequence in both files to match the BSP exactly:
+
+● Update(src/gprof_support.c)
+  ⎿  Added 6 lines, removed 5 lines
+       88  __attribute__((no_instrument_function))
+       89  void uart_init_16550(void)
+       90  {
+       91 -    /* Disable interrupts */                                  
+       92 -    UART_IER = 0x00U;                                         
+       93 -                                                              
+       94 -    /* Enable DLAB to program baud-rate divisor */            
+       91 +    /* Enable DLAB to program baud-rate divisor (matches BSP u
+          +artInit order) */                                             
+       92      UART_LCR = UART_LCR_DLAB;
+       93 +                                                              
+       94 +    /* Write divisor LSB only (MSB stays 0; divisor fits in 8 
+          +bits for ≤ 50 MHz) */                                         
+       95      UART_BRDL = UART_BAUD_DIVISOR & 0xFFU;
+       97 -    UART_BRDH = (UART_BAUD_DIVISOR >> 8) & 0xFFU;             
+       96  
+       97      /* 8N1, clear DLAB */
+       98      UART_LCR = UART_LCR_8N1;
+       99  
+      100      /* Enable and clear FIFOs */
+      101      UART_FCR = UART_FCR_ENABLE;
+      102 +                                                              
+      103 +    /* Disable interrupts last (same order as BSP) */         
+      104 +    UART_IER = 0x00U;                                         
+      105  }
+      106  
+      107  /* ===========================================================
+           ==============
+
+● Update(src/syscalls.c)
+  ⎿  Added 1 line, removed 2 lines
+      61  static int syscalls_uart_initialised = 0;
+      62  
+      63  static void syscalls_uart_init(void) {
+      64 -    UART_IER_REG  = 0x00U;                          /* disable 
+         -interrupts   */                                                
+      64      UART_LCR_REG  = UART_LCR_DLAB;                  /* enable D
+          LAB          */
+      65      UART_BRDL_REG = UART_BAUD_DIVISOR & 0xFFU;      /* divisor 
+          LSB          */
+      67 -    UART_BRDH_REG = (UART_BAUD_DIVISOR >> 8) & 0xFFU; /* diviso
+         -r MSB        */                                                
+      66      UART_LCR_REG  = UART_LCR_8N1;                   /* 8N1, cle
+          ar DLAB      */
+      67      UART_FCR_REG  = UART_FCR_ENABLE;                /* enable &
+           clear FIFOs */
+      68 +    UART_IER_REG  = 0x00U;                          /* disable 
+         +interrupts   */                                                
+      69  }
+      70  
+      71  static void uart_putchar(char c) {
+
+● Now rebuild and run the 15 profiles. First verify the build still succeeds:
+
+● Bash(pio debug --environment swervolf_nexys 2>&1 | tail -20)
+  ⎿   - tool-openocd-riscv-chipsalliance @ 1.1100.211104+sha.857b5cec1b
+      - tool-verilator-swervolf @ 0.0.201130
+      - toolchain-riscv @ 1.80300.190927 (8.3.0)
+     … +16 lines (ctrl+o to expand)
+
+● Build succeeds. Let me quickly verify the compiled divisor value in the
+  disassembly to confirm it's 7:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Divisor is now 7 (was 27), FCR is 0x87. The fix is correct. Now run the 15
+  hardware profiling sessions:
+
+● Bash(rm -f gmon_runs/gmon_*.out && bash scripts/run_profiles.sh 2>&1)
+  ⎿  === Building firmware ===
+     Processing swervolf_nexys (platform: chipsalliance; board: swervolf_ne
+     xys; framework: wd-riscv-sdk)
+     … +426 lines (ctrl+o to expand)
+
+❯ but keep seperate gmon.out files along with the combined report               
+
+  Listed 1 directory (ctrl+o to expand)
+
+● All 15 runs succeeded. Now let me check the combine script and run it:
+
+  Read 1 file (ctrl+o to expand)
+
+● The script already preserves the individual gmon_N.out files — gprof -s writes
+   a new gmon.sum in the project root without touching the inputs. I'll also
+  move gmon.sum into gmon_runs/ so everything is in one place:
+
+● Update(scripts/combine_report.sh)
+  ⎿  Added 9 lines, removed 4 lines
+      47      exit 1
+      48  fi
+      49  
+      50 +# Move gmon.sum into the output directory alongside the individ
+         +ual files                                                      
+      51 +mv gmon.sum "${OUTPUT_DIR}/gmon.sum"                           
+      52 +                                                               
+      53  # -------------------------------------------------------------
+          --------------
+      54  # Step 2: Generate the combined flat/call-graph report
+      55  # -------------------------------------------------------------
+          --------------
+      56  echo "=== Generating combined report ==="
+      54 -"$GPROF" "$FIRMWARE" gmon.sum > "${OUTPUT_DIR}/combined_report.
+         -txt"                                                           
+      57 +"$GPROF" "$FIRMWARE" "${OUTPUT_DIR}/gmon.sum" > "${OUTPUT_DIR}/
+         +combined_report.txt"                                           
+      58  echo "    Written: ${OUTPUT_DIR}/combined_report.txt"
+      59  
+      60  # -------------------------------------------------------------
+          --------------
+      61  # Step 3: Generate annotated source report
+      62  # -------------------------------------------------------------
+          --------------
+      63  echo "=== Generating annotated source report ==="
+      61 -"$GPROF" -A "$FIRMWARE" gmon.sum > "${OUTPUT_DIR}/combined_repo
+         -rt_annotated.txt"                                              
+      64 +"$GPROF" -A "$FIRMWARE" "${OUTPUT_DIR}/gmon.sum" > "${OUTPUT_DI
+         +R}/combined_report_annotated.txt"                              
+      65  echo "    Written: ${OUTPUT_DIR}/combined_report_annotated.txt"
+      66  
+      67  # -------------------------------------------------------------
+          --------------
+      68  # Summary
+      69  # -------------------------------------------------------------
+          --------------
+      70  echo ""
+      68 -echo "Combined gprof report written to ${OUTPUT_DIR}/combined_r
+         -eport.txt"                                                     
+      69 -echo "Annotated report written to       ${OUTPUT_DIR}/combined_
+         -report_annotated.txt"                                          
+      71 +echo "Individual profiles : ${OUTPUT_DIR}/gmon_1.out … gmon_15.
+         +out"                                                           
+      72 +echo "Combined profile    : ${OUTPUT_DIR}/gmon.sum"            
+      73 +echo "Flat/call-graph     : ${OUTPUT_DIR}/combined_report.txt" 
+      74 +echo "Annotated source    : ${OUTPUT_DIR}/combined_report_annot
+         +ated.txt"                                                      
+
+● Bash(bash scripts/combine_report.sh 2>&1)
+  ⎿  Found 15 gmon file(s) in 'gmon_runs/'.
+     === Merging gmon files ===
+     === Generating combined report ===
+     … +8 lines (ctrl+o to expand)
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Everything is working and all files are in gmon_runs/:
+
+  ┌─────────────────────────────────────────┬────────────────────────────────┐
+  │                  File                   │          Description           │
+  ├─────────────────────────────────────────┼────────────────────────────────┤
+  │ gmon_runs/gmon_1.out … gmon_15.out      │ Individual per-run profiles    │
+  │                                         │ (163 bytes each)               │
+  ├─────────────────────────────────────────┼────────────────────────────────┤
+  │ gmon_runs/gmon.sum                      │ Combined binary (all 15 runs   │
+  │                                         │ merged)                        │
+  ├─────────────────────────────────────────┼────────────────────────────────┤
+  │ gmon_runs/combined_report.txt           │ Flat profile + call graph      │
+  │                                         │ report                         │
+  ├─────────────────────────────────────────┼────────────────────────────────┤
+  │ gmon_runs/combined_report_annotated.txt │ Annotated source report (126   │
+  │                                         │ KB)                            │
+  └─────────────────────────────────────────┴────────────────────────────────┘
+
+  The UART fix was the root cause: the PlatformIO wd-riscv-sdk framework defines
+   D_CLOCK_RATE=13000000 (13 MHz) for the peripheral bus, so the correct 16550
+  baud divisor is (13000000 / 115200) / 16 = 7, not the 27 we had hardcoded
+  (which assumed 50 MHz and produced ~30 kbps output instead of 115200).
+
+✻ Cooked for 26m 12s
+
+❯ /exit                                                                         
+  ⎿  Bye!
+
+❯ Read gmon_runs/combined_report.txt and tell me which is the most dominaint    
+kernal in the program                                                           
+
+  Read 1 file (ctrl+o to expand)
+
+● The report reveals something important beyond just the dominant kernel:
+
+  Most-called function: __wrap_malloc — 60 calls total (4 per run × 15 runs)
+
+  But the call graph tells a bigger story — the program is crashing before the 
+  Kalman algorithm runs:
+
+  main
+    └─► Eigen::Matrix<double,-1,-1,0,-1,-1>::Matrix<int,int>()   45 calls
+  (3×/run)
+          ├─► __wrap_malloc                                        45 calls →
+  _sbrk (heap expansion)
+          └─► Eigen::internal::throw_std_bad_alloc()              15 calls
+  (1×/run)
+
+  __assert_func → __wrap__exit                                     15 calls
+  (1×/run)
+
+  throw_std_bad_alloc() is called every single run, meaning the Eigen dynamic
+  matrix constructor is failing to allocate heap memory. The program then hits
+  an assert and exits before reaching the Kalman filter computation. This is why
+   the timing columns are all -nan and there are no entries for any
+  filter/solver functions — they never execute.
+
+  Root cause: The bare-metal heap (_sbrk) likely runs out or is too small for
+  the dynamic Eigen matrices (Matrix<double, -1, -1> uses heap allocation). The
+  3 matrix allocations per run all fail on the third one.
+
+  The "dominant kernel" in the sense of what actually runs is __wrap_malloc / 
+  _sbrk (heap allocation), but the program never gets further than constructing
+  2–3 dynamic matrices before aborting. You'll want to either:
+  1. Increase the heap size in the linker script, or
+  2. Switch to fixed-size Eigen matrices (Matrix<double, N, N> with compile-time
+   dimensions) to avoid heap allocation entirely
+✻ Churned for 33s
+
+❯ fix the heap size so the kalman filter actually runs. Once the program has    
+successfully executed, run the files in scripts/, read the                      
+gmon_runs/combined_report.txt, and report the most dominant kernal in the       
+program.                                                                        
+
+  Searched for 6 patterns, read 3 files, listed 1 directory (ctrl+o to expand)
+
+● Now I understand the full picture. Let me check how _sbrk limits the heap:
+
+  Searched for 2 patterns, read 1 file (ctrl+o to expand)
+
+● Bash(sed -n '85,105p'
+      /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Cours
+      e_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/RVfpgaEL2_profili…)
+  ⎿   * Heap: start at _sp (top of the linker-script stack section) and gro
+     w up.
+      * -------------------------------------------------------------------
+     … +24 lines (ctrl+o to expand)
+
+● Bash(~/.platformio/packages/toolchain-riscv/bin/riscv64-unknown-elf-nm
+      .pio/build/swervolf_nexys/firmware.elf | grep -E "^[0-9a-f]+ .
+      (_end|_sp|_heap|__stack)" 2>/de…)
+  ⎿  00072214 B _end
+     0007494c B _heap_end
+     0007594c B _sp
+     … +2 lines (ctrl+o to expand)
+
+● Critical finding from the nm output:
+  - _end = 0x00072214, _sp = 0x0007594c → only 4 KB between them for the stack
+  - The heap starts at _sp and grows up — heap space is fine (64MB RAM)
+  - But with -pg instrumentation adding _mcount prologues to every function, the
+   deep Eigen template call chains overflow the 4 KB stack, corrupting the heap
+  → malloc returns garbage → throw_std_bad_alloc
+
+  Fix: increase __stack_size to 256 KB via a linker --defsym in platformio.ini:
+
+● Update(platformio.ini)
+  ⎿  Added 1 line
+      40      -include ${PROJECT_DIR}/include/eigen_compat.h
+      41      -lstdc++
+      42      -lm
+      43 +    -Wl,--defsym,__stack_size=0x40000                          
+      44  
+      45  ; Include src/kalman.cpp (default) plus test/kalman-test.cpp (c
+          ontains main())
+      46  build_src_filter = +<*> +<../test/kalman-test.cpp>
+
+● Bash(pio debug --environment swervolf_nexys 2>&1 | tail -10)
+  ⎿                    ~~^~~~~~~~~~~~~~~~~~~~~
+     Linking .pio/build/swervolf_nexys/firmware.elf
+     Generating disassembly
+     … +10 lines (ctrl+o to expand)
+  ⎿  (timeout 2m)
+
+● Bash(~/.platformio/packages/toolchain-riscv/bin/riscv64-unknown-elf-nm
+      .pio/build/swervolf_nexys/firmware.elf | grep -E "
+      (_end|_sp|__stack_size)$")
+  ⎿  00072214 B _end
+     000b494c B _sp
+     00040000 A __stack_size
+
+● _sp is now 256 KB above _end. Now clear old results and run the 15 profiles:
+
+● Bash(rm -f gmon_runs/*.out gmon_runs/gmon.sum gmon_runs/combined_report*.txt
+      && bash scripts/run_profiles.sh 2>&1)
+  ⎿  === Building firmware ===
+     Processing swervolf_nexys (platform: chipsalliance; board: swervolf_ne
+     xys; framework: wd-riscv-sdk)
+     … +426 lines (ctrl+o to expand)
+  ⎿  (timeout 10m)
+
+  Searched memories (ctrl+o to expand)
+
+● All 15 runs succeeded. Now generate the combined report:
+
+● Bash(bash scripts/combine_report.sh 2>&1)
+  ⎿  Found 15 gmon file(s) in 'gmon_runs/'.
+     === Merging gmon files ===
+     === Generating combined report ===
+     … +8 lines (ctrl+o to expand)
+
+  Read 1 file (ctrl+o to expand)
+
+● The gmon file is still 163 bytes — the crash pattern is unchanged. The stack
+  size wasn't the root cause. Let me trace the exact Eigen code path:
+
+  Searched for 4 patterns, read 1 file (ctrl+o to expand)
+
+● Bash(~/.platformio/packages/toolchain-riscv/bin/riscv64-unknown-elf-nm
+      .pio/build/swervolf_nexys/firmware.elf | grep -E "
+      (main|throw_std_bad_alloc|Matrix|__wrap_mal…)
+  ⎿  00001b2e T main
+     00010c3a T _sbrk
+     00034dcc T _sbrk_r
+     00010d24 T __wrap_malloc
+
+● Bash(# Decode the gmon arcs against the firmware symbol table
+      ~/.platformio/packages/toolchain-riscv/bin/riscv64-unknown-elf-nm
+      --numeric-sort .pio/build/swervolf_ne…)
+  ⎿  00032cf8 T __assert_func
+
+● Bash(# Find functions containing each arc address
+      for addr in 0x84 0x1B50 0x1B7A 0x1CC 0x230 0x10D32 0x1B84 0x1B8E 0x34DDE
+      0x10C48 0x29A 0x92 0x10E88 0x10D0A 0x10D1C…)  ⎿  0x84 → 00000000 T _start
+     0x1b50 → 00001b2e T main
+     0x1b7a → 00001b2e T main
+     … +15 lines (ctrl+o to expand)
+
+● Bash(~/.platformio/packages/toolchain-riscv/bin/riscv64-unknown-elf-nm
+      --numeric-sort .pio/build/swervolf_nexys/firmware.elf | grep " T " | awk
+      '$1 <= "00001b7a" {la…)
+  ⎿  00001b2e T main
+
+● Bash(~/.platformio/packages/toolchain-riscv/bin/riscv64-unknown-elf-nm
+      --numeric-sort .pio/build/swervolf_nexys/firmware.elf | grep " T " | awk
+      '$1 <= "000001cc" {la…)
+  ⎿  00000000 T _start
+
+  Searched for 6 patterns (ctrl+o to expand)
+
+● The crash behavior is identical with the 256KB stack — so it's not a stack
+  overflow. The issue is that newlib's __real_malloc is returning NULL on the
+  4th allocation despite _sbrk having unlimited room. This is a newlib dlmalloc
+  initialization/state issue under --wrap=malloc. The fix is to bypass
+  __real_malloc entirely and implement a proper bump allocator in __wrap_malloc:
+
+  Read 1 file (ctrl+o to expand)
+
+● The --wrap=malloc plus newlib's dlmalloc is the incompatibility. Replace
+  __wrap_malloc with a simple bump allocator that directly uses our _sbrk region
+   and never returns NULL:
+
+● Update(src/syscalls.c)
+  ⎿  Added 23 lines, removed 5 lines
+      123  int _kill(int pid, int sig)               { (void)pid; (void)s
+           ig; return -1; }
+      124  
+      125  /* -----------------------------------------------------------
+           --------------
+      126 - * __wrap_* stubs required by -Wl,--wrap= flags in the framewo
+          -rk                                                            
+      126 + * __wrap_malloc / __wrap_free — bump allocator               
+      127 + *                                                            
+      128 + * newlib's __real_malloc (dlmalloc) silently returns NULL und
+          +er --wrap=malloc                                              
+      129 + * in this bare-metal configuration even when _sbrk has room, 
+          +because the                                                   
+      130 + * dlmalloc internal state and sbrk interaction is not reliabl
+          +e here.                                                       
+      131 + *                                                            
+      132 + * A bump allocator is sufficient: Eigen matrices are allocate
+          +d once and never                                              
+      133 + * resized during the profiling run; free() calls are safe no-
+          +ops.                                                          
+      134 + * The heap grows upward from _sp into the 64 MB SRAM.        
+      135   * -----------------------------------------------------------
+           -------------- */
+      128 -void *__real_malloc(size_t);                                  
+      129 -void  __real_free(void *);                                    
+      136 +static char *bump_top = 0;                                    
+      137  
+      131 -void *__wrap_malloc(size_t n)   { return __real_malloc(n); }  
+      132 -void  __wrap_free(void *p)      { __real_free(p); }           
+      138 +void *__wrap_malloc(size_t n) {                               
+      139 +    if (n == 0) n = 1;                                        
+      140 +    /* 16-byte alignment so Eigen's handmade_aligned_malloc wo
+          +rks correctly */                                              
+      141 +    n = (n + 15u) & ~15u;                                     
+      142 +    if (bump_top == 0) bump_top = _sp;                        
+      143 +    char *ptr = bump_top;                                     
+      144 +    bump_top += n;                                            
+      145 +    /* 64 MB RAM ends at 0x04000000; return NULL only on genui
+          +ne OOM */                                                     
+      146 +    if (bump_top > (char *)0x04000000U) { bump_top = ptr; retu
+          +rn (void *)0; }                                               
+      147 +    return (void *)ptr;                                       
+      148 +}                                                             
+      149  
+      150 +void  __wrap_free(void *p) { (void)p; /* bump allocator: no-op
+          + */ }                                                         
+      151 +                                                              
+      152  void __wrap__exit(int status) {
+      153      (void)status;
+      154      /* Flush gmon.out profiling data over UART before halting 
+           */
+
+● Bash(pio debug --environment swervolf_nexys 2>&1 | tail -8)
+  ⎿  Generating disassembly
+     riscv64-unknown-elf-objdump -d ".pio/build/swervolf_nexys/firmware.elf
+     " > ".pio/build/swervolf_nexys/firmware.dis"
+     … +8 lines (ctrl+o to expand)
+
+● Bash(rm -f gmon_runs/*.out gmon_runs/gmon.sum gmon_runs/combined_report*.txt
+      && bash scripts/run_profiles.sh 2>&1 | grep -E "Run
+      [0-9]+:|Done|WARNING|Error|no GMON")
+  ⎿  Running in the background (↓ to manage)
+  ⎿  (timeout 10m)
+
+● Auto mode lets Claude handle permission prompts automatically — Claude
+   checks each tool call for risky actions and prompt injection before 
+  executing. Actions Claude identifies as safe are executed, while 
+  actions Claude identifies as risky are blocked and Claude may try a 
+  different approach. Ideal for long-running tasks. Sessions are 
+  slightly more expensive. Claude can make mistakes that allow harmful 
+  commands to run, it's recommended to only use in isolated 
+  environments. Shift+Tab to change mode.
+
+● Auto mode is unavailable for your plan
+
+✻ Cogitated for 39m 24s
+
+❯ Read gmon_runs/combined_report.txt and tell me which is the most dominaint    
+kernal in the program                                                           
+
+● Auto mode is unavailable for your plan
+
+❯ Read gmon_runs/combined_report.txt and tell me which is the most dominaint    
+kernal in the program                                                           
+
+● Auto mode is unavailable for your plan
+
+❯ Exit Auto mode                                                                
+
+● Auto mode is unavailable for your plan
+
+● Auto mode lets Claude handle permission prompts automatically — Claude
+   checks each tool call for risky actions and prompt injection before 
+  executing. Actions Claude identifies as safe are executed, while 
+  actions Claude identifies as risky are blocked and Claude may try a 
+  different approach. Ideal for long-running tasks. Sessions are 
+  slightly more expensive. Claude can make mistakes that allow harmful 
+  commands to run, it's recommended to only use in isolated 
+  environments. Shift+Tab to change mode.
