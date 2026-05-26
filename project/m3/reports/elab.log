@@ -1,0 +1,26 @@
+Vivado Simulator v2024.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2024.1/bin/unwrapped/lnx64.o/xelab tb_top -s m3_snap -debug typical --log reports/elab.log 
+Multi-threading is on. Using 14 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+WARNING: [XSIM 43-4127] File "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3/tb/tb_top.sv" Line 345 : The "System Verilog Cover" is not supported yet for simulation. The statement will be ignored.
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module work.clk_gen
+Compiling module work.veerwolf_bfm
+Compiling module work.axilite_slave
+Compiling module work.f64_mul
+Compiling module work.f64_add
+Compiling module work.gemm_systolic_default
+Compiling module work.kalman_update
+Compiling module work.top
+Compiling module work.axi_monitor
+Compiling module work.program_block_default
+Compiling module work.compute_core_checker
+Compiling module work.result_checker(ULP_TOLERANCE=4.0...
+Compiling module work.tb_top
+Built simulation snapshot m3_snap

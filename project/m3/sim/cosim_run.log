@@ -1,0 +1,63 @@
+#-----------------------------------------------------------
+# xsim v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Tue May 26 00:41:02 2026
+# Process ID: 2062637
+# Current directory: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3
+# Command line: xsim -log sim/cosim_run.log -mode tcl -source {xsim.dir/m3_snap/xsim_script.tcl}
+# Log file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3/sim/cosim_run.log
+# Journal file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3/xsim.jou
+# Running On        :archlinux
+# Platform          :unknown
+# Operating System  :unknown
+# Processor Detail  :11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+# CPU Frequency     :1696.364 MHz
+# CPU Physical cores:8
+# CPU Logical cores :16
+# Host memory       :16535 MB
+# Swap memory       :8266 MB
+# Total Virtual     :24802 MB
+# Available Virtual :13059 MB
+#-----------------------------------------------------------
+source xsim.dir/m3_snap/xsim_script.tcl
+# xsim {m3_snap} -autoloadwcfg -runall
+Time resolution is 1 ps
+run -all
+TB_TOP: Starting iteration 0
+TB_TOP: Iteration 0 complete
+TB_TOP: Starting iteration 1
+TB_TOP: Iteration 1 complete
+TB_TOP: Starting iteration 2
+TB_TOP: Iteration 2 complete
+TB_TOP: Starting iteration 3
+TB_TOP: Iteration 3 complete
+TB_TOP: Starting iteration 4
+TB_TOP: Iteration 4 complete
+TB_TOP: Starting iteration 5
+TB_TOP: Iteration 5 complete
+TB_TOP: Starting iteration 6
+TB_TOP: Iteration 6 complete
+TB_TOP: Starting iteration 7
+TB_TOP: Iteration 7 complete
+TB_TOP: Starting iteration 8
+TB_TOP: Iteration 8 complete
+TB_TOP: Starting iteration 9
+TB_TOP: Iteration 9 complete
+TB_TOP: Starting iteration 10
+TB_TOP: Iteration 10 complete
+TB_TOP: Starting iteration 11
+TB_TOP: Iteration 11 complete
+TB_TOP: Starting iteration 12
+TB_TOP: Iteration 12 complete
+TB_TOP: Starting iteration 13
+TB_TOP: Iteration 13 complete
+TB_TOP: Starting iteration 14
+TB_TOP: Iteration 14 complete
+TB_TOP: All 15 iterations complete.
+CHECKER summary: 135 elements passed, 0 failed
+SIMULATION RESULT: PASS — all checks passed, no errors detected
+$finish called at time : 18625 ns : File "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3/tb/tb_top.sv" Line 744
+exit
+INFO: [Common 17-206] Exiting xsim at Tue May 26 00:41:05 2026...
