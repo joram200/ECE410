@@ -1,0 +1,38 @@
+Open On-Chip Debugger 0.11.0+dev-02060-g857b5cec1 (2021-11-04-13:16)
+Licensed under GNU GPL v2
+For bug reports, read
+	http://openocd.org/doc/doxygen/bugs.html
+DEPRECATED! use 'ftdi device_desc' not 'ftdi_device_desc'
+DEPRECATED! use 'ftdi vid_pid' not 'ftdi_vid_pid'
+DEPRECATED! use 'ftdi channel' not 'ftdi_channel'
+DEPRECATED! use 'ftdi layout_init' not 'ftdi_layout_init'
+Warn : `riscv set_prefer_sba` is deprecated. Please use `riscv set_mem_access` instead.
+Info : ftdi: if you experience problems at higher adapter clocks, try the command "ftdi tdo_sample_edge falling"
+Info : clock speed 15000 kHz
+Info : JTAG tap: riscv.cpu tap/device found: 0x13631093 (mfg: 0x049 (Xilinx), part: 0x3631, ver: 0x1)
+Info : datacount=2 progbufsize=0
+Warn : We won't be able to execute fence instructions on this target. Memory may not always appear consistent. (progbufsize=0, impebreak=0)
+Info : Examined RISC-V core; found 1 harts
+Info :  hart 0: XLEN=32, misa=0x40001104
+Info : starting gdb server for riscv.cpu on 3333
+Info : Listening on port 3333 for gdb connections
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+Info : accepting 'gdb' connection on tcp/3333
+Warn : Prefer GDB command "target extended-remote :3333" instead of "target remote :3333"
+Info : JTAG tap: riscv.cpu tap/device found: 0x13631093 (mfg: 0x049 (Xilinx), part: 0x3631, ver: 0x1)
+Info : [riscv.cpu] Found 4 triggers
+Info : dropped 'gdb' connection
+Info : accepting 'gdb' connection on tcp/3333
+Info : JTAG tap: riscv.cpu tap/device found: 0x13631093 (mfg: 0x049 (Xilinx), part: 0x3631, ver: 0x1)
+Info : dropped 'gdb' connection
+Info : accepting 'gdb' connection on tcp/3333
+Info : JTAG tap: riscv.cpu tap/device found: 0x13631093 (mfg: 0x049 (Xilinx), part: 0x3631, ver: 0x1)
+Info : dropped 'gdb' connection
+Info : accepting 'gdb' connection on tcp/3333
+Info : JTAG tap: riscv.cpu tap/device found: 0x13631093 (mfg: 0x049 (Xilinx), part: 0x3631, ver: 0x1)
+Info : dropped 'gdb' connection
+Info : accepting 'gdb' connection on tcp/3333
+Info : JTAG tap: riscv.cpu tap/device found: 0x13631093 (mfg: 0x049 (Xilinx), part: 0x3631, ver: 0x1)
+Info : dropped 'gdb' connection
+shutdown command invoked

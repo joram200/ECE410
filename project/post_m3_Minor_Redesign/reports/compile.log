@@ -1,0 +1,15 @@
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv" into library work
+INFO: [VRFC 10-311] analyzing module f64_mul
+INFO: [VRFC 10-311] analyzing module f64_add
+INFO: [VRFC 10-311] analyzing module gemm_systolic
+INFO: [VRFC 10-311] analyzing module kalman_update
+INFO: [VRFC 10-311] analyzing module axilite_slave
+INFO: [VRFC 10-311] analyzing module top
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/tb/tb_top.sv" into library work
+INFO: [VRFC 10-311] analyzing module clk_gen
+INFO: [VRFC 10-311] analyzing module veerwolf_bfm
+INFO: [VRFC 10-311] analyzing module axi_monitor
+INFO: [VRFC 10-311] analyzing module compute_core_checker
+INFO: [VRFC 10-311] analyzing module result_checker
+INFO: [VRFC 10-311] analyzing module program_block
+INFO: [VRFC 10-311] analyzing module tb_top

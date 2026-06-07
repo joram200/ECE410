@@ -1,0 +1,1 @@
+"tb_top" -s "m3_snap" -debug "typical" --log "reports/elab.log" 

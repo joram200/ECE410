@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Jun  3 02:27:30 2026
+# Process ID         : 14916
+# Current directory  : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign
+# Command line       : vivado -mode batch -source synth/run_ooc.tcl -log synth/openlane_run.log -journal reports/ooc.jou
+# Log file           : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/synth/openlane_run.log
+# Journal file       : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/reports/ooc.jou
+# Running On         : archlinux
+# Platform           : unknown
+# Operating System   : unknown
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+# CPU Frequency      : 1908.183 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 16533 MB
+# Swap memory        : 8266 MB
+# Total Virtual      : 24800 MB
+# Available Virtual  : 21153 MB
+#-----------------------------------------------------------
+source synth/run_ooc.tcl

@@ -1,0 +1,28 @@
+#
+# An unexpected error has occurred (6) Aborted
+#
+Stack:
+/usr/lib/libc.so.6(+0x3e8f0) [0x7f58ebe3e8f0]
+/usr/lib/libc.so.6(+0x9a29c) [0x7f58ebe9a29c]
+/usr/lib/libc.so.6(gsignal+0x20) [0x7f58ebe3e7d0]
+/usr/lib/libc.so.6(abort+0x26) [0x7f58ebe25681]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/Default/libstdc++.so.6(+0x8ba13) [0x7f58ec68ba13]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/Default/libstdc++.so.6(+0x91b86) [0x7f58ec691b86]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/Default/libstdc++.so.6(+0x91bc1) [0x7f58ec691bc1]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(hdi::tcltasks::detail::collection_wrapper_base::~collection_wrapper_base()+0x27f) [0x7f58f75ff6f5]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(+0x7118d5) [0x7f58f77118d5]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(hdi::tcltasks::detail::collection_wrapper_base::decr_ref() const+0x27) [0x7f58f75fc7db]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_tcltasks.so(+0x1109c78) [0x7f58e5f09c78]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_tcltasks.so(+0x1104212) [0x7f58e5f04212]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_tcltasks.so(+0x1104261) [0x7f58e5f04261]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libboost_program_options.so.1.72.0(boost::program_options::option_description::~option_description()+0xd1) [0x7f58f6bccbe1]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libboost_program_options.so.1.72.0(boost::program_options::option_description::~option_description()+0x11) [0x7f58f6bccc31]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(boost::detail::sp_counted_impl_p<boost::program_options::option_description>::dispose()+0x13) [0x7f58f78f3d3b]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(+0x42fc24) [0x7f58f742fc24]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(hdi::tcltasks::options_description::~options_description()+0xe1) [0x7f58f79a9bb3]
+/usr/lib/libc.so.6(+0x41101) [0x7f58ebe41101]
+/usr/lib/libc.so.6(+0x411de) [0x7f58ebe411de]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_synth.so(HARTSJobManager::thisThreadWaitForChildError()+0x140) [0x7f58da486ac0]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/Default/libstdc++.so.6(+0xbadff) [0x7f58ec6badff]
+/usr/lib/libc.so.6(+0x981b9) [0x7f58ebe981b9]
+/usr/lib/libc.so.6(+0x11d21c) [0x7f58ebf1d21c]

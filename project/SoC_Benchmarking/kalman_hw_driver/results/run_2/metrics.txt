@@ -1,0 +1,11 @@
+run=2
+cycles_start=179285
+cycles_end=230657
+cycles_elapsed=51372
+time_ms=3.952
+time_sec=0.003952
+samples_per_s=11387.53
+gflops=2.7330e-04
+heap_start=42200
+heap_end=42200
+heap_bytes=0

@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <Eigen/Dense>
+#include <stdint.h>
 
 #include "kalman.hpp"
 
@@ -14,6 +15,17 @@
  * arc_table is placed by the linker at _end (first byte past BSS), so the
  * CRT's BSS zero-init loop misses it.  We zero it explicitly here. */
 extern "C" void __monstartup(void);
+
+/* Defined in syscalls.c — returns current bump allocator high-water mark. */
+extern "C" uint32_t get_bump_top(void);
+
+/* Performance measurement globals.
+ * Declared volatile so the compiler cannot elide the CSR stores.
+ * Read by GDB (by symbol name) at hbreak *<main_ret> after all 45 updates. */
+volatile uint32_t kf_cycles_start = 0;
+volatile uint32_t kf_cycles_end   = 0;
+volatile uint32_t kf_heap_start   = 0;
+volatile uint32_t kf_heap_end     = 0;
 
 int main(int argc, char* argv[]) {
   __monstartup();   /* zero arc_table before any _mcount inserts */
@@ -61,6 +73,10 @@ int main(int argc, char* argv[]) {
   kf.init(t, x0);
 
   // Feed measurements into filter, output estimated states
+  // Bracket the update loop with mcycle CSR reads and heap snapshots so GDB
+  // can compute elapsed cycles, time_ms, throughput, and heap allocation.
+  kf_heap_start = get_bump_top();
+  { uint32_t c; __asm__ volatile("csrr %0, mcycle" : "=r"(c)); kf_cycles_start = c; }
 
   Eigen::VectorXd y(m);
   for(int i = 0; i < (int)measurements.size(); i++) {
@@ -68,6 +84,9 @@ int main(int argc, char* argv[]) {
     y << measurements[i];
     kf.update(y);
   }
+
+  { uint32_t c; __asm__ volatile("csrr %0, mcycle" : "=r"(c)); kf_cycles_end = c; }
+  kf_heap_end = get_bump_top();
 
   return 0;
 }

@@ -1,0 +1,23 @@
+RVfpgaEL2 Kalman Filter — Performance Summary
+Hardware : SweRV EL2, rv32imac, 13 MHz, software FP, Nexys A7 FPGA
+Workload : 45 Kalman update steps, 3×3 matrices, 10,350 total FLOPs
+Runs     : 5 of 5 successful
+
+ Run        Cycles   Time(ms)   Samples/s     GFLOP/s   Heap(B)   Arcs
+----------------------------------------------------------------------
+   1     5,587,059    429.774     104.710  2.4082e-05     49760    185
+   2     5,587,246    429.788     104.700  2.4082e-05     49760    185
+   3     5,587,246    429.788     104.700  2.4082e-05     49760    185
+   4     5,587,059    429.774     104.710  2.4082e-05     49760    185
+   5     5,586,952    429.766     104.710  2.4083e-05     49760    185
+----------------------------------------------------------------------
+ AVG   5,587,112.4    429.778     104.706  2.4082e-05     49760    185
+
+Notes:
+  Cycles   : mcycle CSR delta across the 45 update() calls (excludes __monstartup)
+  Time(ms) : cycles / 13000  (clock = 13 MHz)
+  Samples/s: 45 samples / time_sec
+  GFLOP/s  : 10,350 FLOPs / time_sec / 1e9
+  Heap(B)  : bump_top delta (Eigen matrix allocs; never freed)
+  Arcs     : non-empty entries in arc_table (call-graph arcs recorded by _mcount)
+  Arc table: 12,288 bytes fixed (1024 slots × 12 bytes; separate from heap)

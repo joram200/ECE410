@@ -1,0 +1,3 @@
+xilinx rtfpga
+rt::do_reinfer_area_combined 0
+DSP Report: Generating DSP product, operation Mode is: A*B.

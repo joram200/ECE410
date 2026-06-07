@@ -1,0 +1,27 @@
+#
+# An unexpected error has occurred (6) Aborted
+#
+Stack:
+/usr/lib/libc.so.6(+0x3e8f0) [0x7fb37fc3e8f0]
+/usr/lib/libc.so.6(+0x9a29c) [0x7fb37fc9a29c]
+/usr/lib/libc.so.6(gsignal+0x20) [0x7fb37fc3e7d0]
+/usr/lib/libc.so.6(abort+0x26) [0x7fb37fc25681]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/Default/libstdc++.so.6(+0x8ba13) [0x7fb38048ba13]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/Default/libstdc++.so.6(+0x91b86) [0x7fb380491b86]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/Default/libstdc++.so.6(+0x91bc1) [0x7fb380491bc1]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(hdi::tcltasks::detail::collection_wrapper_base::~collection_wrapper_base()+0x27f) [0x7fb38b3ff6f5]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(+0x7118d5) [0x7fb38b5118d5]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(hdi::tcltasks::detail::collection_wrapper_base::decr_ref() const+0x27) [0x7fb38b3fc7db]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_tcltasks.so(+0x1109c78) [0x7fb379d09c78]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_tcltasks.so(+0x1104212) [0x7fb379d04212]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_tcltasks.so(+0x1104261) [0x7fb379d04261]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libboost_program_options.so.1.72.0(boost::program_options::option_description::~option_description()+0xd1) [0x7fb38a9ccbe1]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libboost_program_options.so.1.72.0(boost::program_options::option_description::~option_description()+0x11) [0x7fb38a9ccc31]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(boost::detail::sp_counted_impl_p<boost::program_options::option_description>::dispose()+0x13) [0x7fb38b6f3d3b]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(+0x42fc24) [0x7fb38b22fc24]
+/tools/Xilinx/2025.2/Vivado/lib/lnx64.o/libxv_common.so(hdi::tcltasks::options_description::~options_description()+0xe1) [0x7fb38b7a9bb3]
+/usr/lib/libc.so.6(+0x41101) [0x7fb37fc41101]
+/usr/lib/libc.so.6(+0x411de) [0x7fb37fc411de]
+/usr/lib/libc.so.6(+0x27748) [0x7fb37fc27748]
+/usr/lib/libc.so.6(__libc_start_main+0x89) [0x7fb37fc27879]
+/tools/Xilinx/2025.2/Vivado/bin/unwrapped/lnx64.o/vivado() [0x4011fe]

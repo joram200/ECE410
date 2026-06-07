@@ -150,6 +150,14 @@ void *__wrap_malloc(size_t n) {
 
 void  __wrap_free(void *p) { (void)p; /* bump allocator: no-op */ }
 
+/* Return current bump_top as a uint32_t address for performance measurement.
+ * GDB reads this value (by symbol name) at the hardware breakpoint to compute
+ * heap bytes consumed by Eigen matrix allocations. */
+uint32_t get_bump_top(void) {
+    if (bump_top == 0) return (uint32_t)(uintptr_t)_sp;
+    return (uint32_t)(uintptr_t)bump_top;
+}
+
 void __wrap__exit(int status) {
     (void)status;
     /* Flush gmon.out profiling data over UART before halting */

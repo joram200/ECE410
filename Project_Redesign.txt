@@ -1,0 +1,656 @@
+╭─── Claude Code v2.1.88 ──────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back Jose!                 │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ Recent activity         │
+│                        ▘▘ ▝▝                       │ No recent activity      │
+│     Sonnet 4.6 · Claude Pro · joram2@pdx.edu's     │                         │
+│     Organization                                   │                         │
+│       /…/2025-2026/Spring_2026/ECE_410/ECE410      │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+✻ Conversation compacted (ctrl+o for history)
+
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(project/new_hdl/rtl/kalman_update.sv)
+  ⎿  Removed 2 lines
+      137              end
+      138              for (ii = 0; ii < 9; ii++) P_out[ii] <= 64'h0;
+      139              z_reg   <= 64'h0;
+      140 -            y_tilde <= 64'h0;                                 
+      141 -            S_reg   <= 64'h0;                                 
+      140              S_inv   <= 64'h0;
+      141              nr_x    <= 64'h0;
+      142          end else begin
+
+● Now fix the create_project_a.tcl and create_project_b.tcl to remove the
+  spurious get_files -filter {FILE_TYPE == Verilog} blocks:
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(project/new_hdl/synth/create_project_a.tcl)
+  ⎿  Removed 6 lines
+      22      }
+      23  }
+      24  
+      25 -# Ensure .sv files are marked as SystemVerilog (Vivado 2024.1 a
+         -uto-detects,                                                   
+      26 -# but set explicitly in case of file-type override)            
+      27 -set vlog_srcs [get_files -filter {FILE_TYPE == Verilog} -of_obj
+         -ects [get_filesets sources_1]]                                 
+      28 -if {[llength $vlog_srcs] > 0} {                                
+      29 -    set_property file_type {SystemVerilog} $vlog_srcs          
+      30 -}                                                              
+      25  set_property top accel_top_a [get_filesets sources_1]
+      26  
+      27  # TB and sim-only files
+
+● Update(project/new_hdl/synth/create_project_a.tcl)
+  ⎿  Removed 4 lines
+      40      }
+      41  }
+      42  
+      43 -set vlog_sims [get_files -filter {FILE_TYPE == Verilog} -of_obj
+         -ects [get_filesets sim_1]]                                     
+      44 -if {[llength $vlog_sims] > 0} {                                
+      45 -    set_property file_type {SystemVerilog} $vlog_sims          
+      46 -}                                                              
+      43  set_property top     tb_option_a    [get_filesets sim_1]
+      44  set_property top_lib xil_defaultlib [get_filesets sim_1]
+      45  
+
+● Update(project/new_hdl/synth/create_project_b.tcl)
+  ⎿  Removed 4 lines
+      23      }
+      24  }
+      25  
+      26 -set vlog_srcs [get_files -filter {FILE_TYPE == Verilog} -of_obj
+         -ects [get_filesets sources_1]]                                 
+      27 -if {[llength $vlog_srcs] > 0} {                                
+      28 -    set_property file_type {SystemVerilog} $vlog_srcs          
+      29 -}                                                              
+      26  set_property top accel_top_b [get_filesets sources_1]
+      27  
+      28  # TB and sim-only files
+
+● Update(project/new_hdl/synth/create_project_b.tcl)
+  ⎿  Removed 4 lines
+      41      }
+      42  }
+      43  
+      44 -set vlog_sims [get_files -filter {FILE_TYPE == Verilog} -of_obj
+         -ects [get_filesets sim_1]]                                     
+      45 -if {[llength $vlog_sims] > 0} {                                
+      46 -    set_property file_type {SystemVerilog} $vlog_sims          
+      47 -}                                                              
+      44  set_property top     tb_option_b    [get_filesets sim_1]
+      45  set_property top_lib xil_defaultlib [get_filesets sim_1]
+      46  
+
+● Now clean the old project artifacts and re-run through step 18:
+
+● Bash(rm -rf vivado_option_a vivado_option_b reports/*.log reports/*.rpt .STOP
+      2>/dev/null; ls)
+  ⎿  reports
+     rtl
+     run_m3.sh
+     … +2 lines (ctrl+o to expand)
+
+● Bash(bash run_m3.sh 2>&1)
+  ⎿  Creating Vivado Option A project...
+     /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     … +426 lines (ctrl+o to expand)
+
+  Searched memories (ctrl+o to expand)
+
+● The OOC synthesis is clean. The simulation fails because dist is a reserved SV
+   keyword. Let me fix that in checker.sv:
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(project/new_hdl/tb/checker.sv)
+  ⎿  Added 3 lines, removed 3 lines
+      125      always_ff @(posedge clk) begin
+      126          if (check_en) begin
+      127              for (int i = 0; i < 9; i++) begin
+      128 -                automatic logic [63:0] dist = ulp_dist(dut_C[i
+          -], ref_C[i]);                                                 
+      129 -                if (dist > $realtobits(ULP_TOLERANCE)) begin  
+      128 +                automatic logic [63:0] ulp_d = ulp_dist(dut_C[
+          +i], ref_C[i]);                                                
+      129 +                if (ulp_d > $realtobits(ULP_TOLERANCE)) begin 
+      130                      $error("CHECKER: C[%0d] ULP error=%0d  dut
+           =%h  ref=%h",
+      131 -                           i, dist, dut_C[i], ref_C[i]);      
+      131 +                           i, ulp_d, dut_C[i], ref_C[i]);     
+      132                      fail_count++;
+      133                  end else begin
+      134                      pass_count++;
+
+● Now re-run just the simulation steps. First clean the sim artifacts and remove
+   the .STOP that was created:
+
+● Bash(rm -f .STOP && rm -rf vivado_option_a vivado_option_b && bash run_m3.sh
+      2>&1)
+  ⎿  Creating Vivado Option A project...
+     /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     … +426 lines (ctrl+o to expand)
+
+  Searched memories (ctrl+o to expand)
+
+● The OOC synthesis is fully clean. The sim error is fail_count driven by both
+  initial and always_ff blocks — xsim doesn't allow that. Fix: initialize at
+  declaration and use always instead of always_ff in the checker:
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(project/new_hdl/tb/checker.sv)
+  ⎿  Added 2 lines, removed 6 lines
+      116          end
+      117      endfunction
+      118  
+      119 -    int unsigned pass_count, fail_count;                      
+      120 -    initial begin                                             
+      121 -        pass_count = 0;                                       
+      122 -        fail_count = 0;                                       
+      123 -    end                                                       
+      119 +    int unsigned pass_count = 0, fail_count = 0;              
+      120  
+      125 -    always_ff @(posedge clk) begin                            
+      121 +    always @(posedge clk) begin                               
+      122          if (check_en) begin
+      123              for (int i = 0; i < 9; i++) begin
+      124                  automatic logic [63:0] ulp_d = ulp_dist(dut_C[
+           i], ref_C[i]);
+
+● Bash(rm -f .STOP && rm -rf vivado_option_a vivado_option_b && bash run_m3.sh
+      2>&1)
+  ⎿  Creating Vivado Option A project...
+     /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     … +426 lines (ctrl+o to expand)
+
+  Searched memories (ctrl+o to expand)
+
+● xsim doesn't support the SV checker construct at all. I need to convert
+  compute_core_checker from a checker to a plain module with explicit clocking
+  on each property:
+  Read 1 file (ctrl+o to expand)
+
+● Update(project/new_hdl/tb/checker.sv)
+  ⎿  Added 17 lines, removed 9 lines
+       1 -// checker.sv — F64 ULP checker + compute-core checker block wi
+         -th SVAs                                                        
+       1 +// checker.sv — F64 ULP checker + compute-core SVA module      
+       2  // Two layers:
+       3 -//   1. module checker: functional ULP comparator (triggered by
+         - check_en)                                                     
+       4 -//   2. checker block compute_core_checker: 7 concurrent SVAs o
+         -n FSM contracts                                                
+       3 +//   1. module compute_core_checker: 7 concurrent SVAs on FSM c
+         +ontracts                                                       
+       4 +//   2. module result_checker: functional ULP comparator (trigg
+         +ered by check_en)                                              
+       5 +// Note: xsim does not support the SV 'checker' construct; SVAs
+         + are placed in                                                 
+       6 +// a plain module with explicit @(posedge clk) clocking on each
+         + property.                                                     
+       7  
+       8  // ============================================================
+          ================
+       7 -// SV checker construct — must be defined before the module tha
+         -t instantiates it                                              
+       9 +// module compute_core_checker — SVA assertions on core FSM con
+         +tracts                                                         
+      10  // ============================================================
+          ================
+       9 -checker compute_core_checker (                                 
+      11 +module compute_core_checker (                                  
+      12      input logic clk,
+      13      input logic core_start,
+      14      input logic core_busy,
+      15      input logic core_done,
+      16      input logic core_rst_n
+      17  );
+      16 -    default clocking cb @(posedge clk); endclocking            
+      17 -    default disable iff (!core_rst_n);                         
+      18  
+      19      // 1. start must not assert while busy
+      20      property p_no_start_while_busy;
+      21 +        @(posedge clk) disable iff (!core_rst_n)               
+      22          !(core_start && core_busy);
+      23      endproperty
+      24      assert property (p_no_start_while_busy)
+     ...
+      26  
+      27      // 2. busy must rise within one cycle of start
+      28      property p_busy_follows_start;
+      29 +        @(posedge clk) disable iff (!core_rst_n)               
+      30          core_start |=> core_busy;
+      31      endproperty
+      32      assert property (p_busy_follows_start)
+     ...
+      34  
+      35      // 3. busy must hold HIGH for at least 3 cycles (minimum GE
+          MM latency)
+      36      property p_busy_min_duration;
+      37 +        @(posedge clk) disable iff (!core_rst_n)               
+      38          $rose(core_busy) |-> core_busy [*3];
+      39      endproperty
+      40      assert property (p_busy_min_duration)
+     ...
+      42  
+      43      // 4. done must not assert without busy having been HIGH (n
+          o phantom done)
+      44      property p_done_requires_busy;
+      45 +        @(posedge clk) disable iff (!core_rst_n)               
+      46          $rose(core_done) |-> $past(core_busy, 1);
+      47      endproperty
+      48      assert property (p_done_requires_busy)
+     ...
+      50  
+      51      // 5. busy and done are mutually exclusive
+      52      property p_busy_done_mutex;
+      53 +        @(posedge clk) disable iff (!core_rst_n)               
+      54          !(core_busy && core_done);
+      55      endproperty
+      56      assert property (p_busy_done_mutex)
+     ...
+      58  
+      59      // 6. After done pulses, busy must be LOW
+      60      property p_idle_after_done;
+      61 +        @(posedge clk) disable iff (!core_rst_n)               
+      62          $rose(core_done) |=> !core_busy;
+      63      endproperty
+      64      assert property (p_idle_after_done)
+     ...
+      66  
+      67      // 7. done is a single-cycle pulse
+      68      property p_done_one_cycle;
+      69 +        @(posedge clk) disable iff (!core_rst_n)               
+      70          $rose(core_done) |=> !core_done;
+      71      endproperty
+      72      assert property (p_done_one_cycle)
+      73          else $error("CHECKER: done held HIGH for more than one 
+          cycle");
+      74  
+      75      // Cover: full start → busy → done sequence
+      69 -    cover property (core_start ##1 core_busy [*1:$] ##1 core_do
+         -ne)                                                            
+      76 +    cover property (@(posedge clk) disable iff (!core_rst_n)   
+      77 +        core_start ##1 core_busy [*1:$] ##1 core_done)         
+      78          $display("CHECKER cover: full compute cycle observed");
+      79  
+      72 -endchecker : compute_core_checker                              
+      80 +endmodule : compute_core_checker                               
+      81  
+      82  // ============================================================
+          ================
+      83  // module result_checker — ULP comparator
+
+● Bash(rm -f .STOP && rm -rf vivado_option_a vivado_option_b && bash run_m3.sh
+      2>&1)
+  ⎿  Creating Vivado Option A project...
+     /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     … +426 lines (ctrl+o to expand)
+
+  Searched memories (ctrl+o to expand)
+
+● Option A passes perfectly (135/135). Option B is hanging — the simulation
+  exits without completing any iterations. Let me check why:
+
+  Searched memories (ctrl+o to expand)
+
+● The SVA fires: busy and done simultaneously asserted in kalman_update. Then it
+   hangs. Let me look at the FSM output logic:
+
+  Searched for 7 patterns, read 4 files (ctrl+o to expand)
+
+● The fix needed: done and busy are simultaneously high for 1 cycle, and the BFM
+   polls done (1-cycle pulse) which is unreliable. I need to:
+  1. Fix busy in both FSMs to exclude FINISH/DONE_S states
+  2. Fix fire_and_wait() to poll !busy (reliable persistent signal)
+
+● Update(project/new_hdl/rtl/gemm_systolic.sv)
+  ⎿  Added 1 line, removed 1 line
+      133  
+      134      // Output signals
+      135      assign done = (state == FINISH);
+      136 -    assign busy = (state != IDLE);                            
+      136 +    assign busy = (state != IDLE) && (state != FINISH);       
+      137  
+      138  endmodule
+
+● Update(project/new_hdl/rtl/kalman_update.sv)
+  ⎿  Added 1 line, removed 1 line
+      248  
+      249      // Outputs
+      250      assign done = (state == DONE_S);
+      251 -    assign busy = (state != IDLE);                            
+      251 +    assign busy = (state != IDLE) && (state != DONE_S);       
+      252  
+      253  endmodule
+
+● Update(project/new_hdl/tb/veerwolf_bfm.sv)
+  ⎿  Added 4 lines, removed 4 lines
+      123          logic [63:0] stat;
+      124          // Write start bit
+      125          axi_write(32'h00, 64'h0000_0000_0000_0001);
+      126 -        // Poll STAT until done (bit 0)                       
+      126 +        // Poll STAT[1] (busy). Two-phase: wait for busy to as
+          +sert then deassert.                                           
+      127 +        // This is more reliable than catching the 1-cycle don
+          +e pulse (STAT[0]).                                            
+      128          stat = 64'h0;
+      128 -        while (!stat[0]) begin                                
+      129 -            axi_read(32'h08, stat);                           
+      130 -        end                                                   
+      129 +        while (!stat[1]) axi_read(32'h08, stat);  // wait for 
+          +busy                                                          
+      130 +        while  (stat[1]) axi_read(32'h08, stat);  // wait for 
+          +done (busy drops)                                             
+      131      endtask
+      132  
+      133  endmodule
+
+● Also need to check the SVA p_busy_follows_start: it says core_start |=> 
+  core_busy. With the new busy definition excluding FINISH/DONE_S, does busy
+  still assert the cycle after start? Yes — start fires during IDLE, FSM moves
+  to LOAD/INNOV next cycle, busy = (state != IDLE) && (state != FINISH/DONE_S) =
+   1. Good.
+
+  Also verify p_idle_after_done: $rose(core_done) |=> !core_busy. When done=1
+  (FINISH/DONE_S), busy=0 already. Next cycle (IDLE), busy=0 still. ✓
+
+  Now re-run:
+
+● Bash(rm -f .STOP && rm -rf vivado_option_a vivado_option_b && bash run_m3.sh
+      2>&1)
+  ⎿  Creating Vivado Option A project...
+     /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     … +426 lines (ctrl+o to expand)
+
+  Searched memories (ctrl+o to expand)
+
+● Both simulations run to completion now. Option A: 135/135 pass. Option B:
+  39/135 ULP failures. Let me check what's failing:
+
+  Read 1 file, searched memories (ctrl+o to expand)
+● The DUT outputs 0 for P_out values (C[3..8]). The hardware bug: in P_UPD
+  state, IKH[0] <= f64_neg(K_reg[0]) and gs_A[0] <= IKH[0] are simultaneous NBA
+  assignments — gs_A gets the stale IKH[0]=0. Also, IKH[0] should be 1-K[0], not
+   -K[0]. The software reference also has incorrect P_new loop indices. I need
+  to fix both:
+
+  Read 1 file (ctrl+o to expand)
+
+● I'll fix the kalman_update: add a 1-K[0] combinational instance, build the
+  complete IKH in X_CORR, and load gs_A correctly in P_UPD:
+
+● Update(project/new_hdl/rtl/kalman_update.sv)
+  ⎿  Added 4 lines
+      88      f64_add u_xo1 (.a(x_reg[1]), .b(ky1), .result(xout1));
+      89      f64_add u_xo2 (.a(x_reg[2]), .b(ky2), .result(xout2));
+      90  
+      91 +    // IKH[0,0] = 1 - K[0]: compute combinationally from K_reg[
+         +0]                                                             
+      92 +    logic [63:0] one_minus_k0;                                 
+      93 +    f64_add u_1mk0 (.a(F64_ONE), .b(f64_neg(K_reg[0])), .result
+         +(one_minus_k0));                                               
+      94 +                                                               
+      95      // FSM next-state
+      96      always_comb begin
+      97          state_nxt = state;
+
+● Now fix the X_CORR state to build complete IKH and fix P_UPD to just load
+  gs_A:
+
+● Update(project/new_hdl/rtl/kalman_update.sv)
+  ⎿  Added 8 lines, removed 15 lines
+      190                      x_out[0] <= xout0;
+      191                      x_out[1] <= xout1;
+      192                      x_out[2] <= xout2;
+      193 -                    // Build IKH = I - K*H; H=[1,0,0] so K*H i
+          -s rank-1                                                      
+      194 -                    // IKH[i][j] = delta(i,j) - K[i]*H[j]     
+      195 -                    // H[0]=1, H[1]=H[2]=0 → only column 0 is 
+          -modified                                                      
+      196 -                    // Row 0: [1-K[0], 0, 0]                  
+      197 -                    // Row 1: [-K[1], 1, 0]                   
+      198 -                    // Row 2: [-K[2], 0, 1]                   
+      199 -                    IKH[0] <= 64'h0;  // will be set by f64_ad
+          -d below — placeholder                                         
+      193 +                    // Build complete IKH = I - K*H; H=[1,0,0]
+      194 +                    // Row 0: [1-K[0],  0,       0      ]     
+      195 +                    // Row 1: [-K[1],   1,       0      ]     
+      196 +                    // Row 2: [-K[2],   0,       1      ]     
+      197 +                    IKH[0] <= one_minus_k0;      // 1 - K[0]  
+      198                      IKH[1] <= 64'h0;
+      199                      IKH[2] <= 64'h0;
+      202 -                    IKH[3] <= 64'h0;                          
+      200 +                    IKH[3] <= f64_neg(K_reg[1]); // -K[1]     
+      201                      IKH[4] <= F64_ONE;
+      202                      IKH[5] <= 64'h0;
+      205 -                    IKH[6] <= 64'h0;                          
+      203 +                    IKH[6] <= f64_neg(K_reg[2]); // -K[2]     
+      204                      IKH[7] <= 64'h0;
+      205                      IKH[8] <= F64_ONE;
+      206                  end
+      207  
+      208                  P_UPD: begin
+      211 -                    // IKH[0] = 1 - K[0]; IKH[3] = -K[1]; IKH[
+          -6] = -K[2]                                                    
+      212 -                    // Use precomputed column-0 entries       
+      213 -                    IKH[0] <= f64_neg(K_reg[0]);  // simplifie
+          -d: 1-K approximation; full done by gemm                       
+      214 -                    IKH[3] <= f64_neg(K_reg[1]);              
+      215 -                    IKH[6] <= f64_neg(K_reg[2]);              
+      216 -                    // Fire gemm_systolic: C = IKH * P_reg    
+      209 +                    // Load IKH (built in X_CORR) and P into g
+          +emm_systolic; fire start                                      
+      210                      for (ii = 0; ii < 9; ii++) begin
+      211                          gs_A[ii] <= IKH[ii];
+      212                          gs_B[ii] <= P_reg[ii];
+
+● Now fix the reference function in tb_option_b.sv — the P_new loop uses wrong
+  index variables:
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(project/new_hdl/tb/tb_option_b.sv)
+  ⎿  Added 5 lines, removed 6 lines
+      144          for (int i = 0; i < 3; i++) x_new[i] = x[i] + K[i] * y
+           _tilde;
+      145  
+      146          // Covariance update P_new = (I - K*H) * P; H=[1,0,0]
+      147 -        // (I - K*H)[i][j] = delta(i,j) - K[i]*H[j]           
+      148 -        // H[0]=1, H[1..2]=0 → only col 0 is modified         
+      147 +        // (I - K*H)[i,k] = delta(i,k) - K[i]*H[k] = delta(i,k
+          +) - K[i]*delta(k,0)                                           
+      148 +        // P_new[i,j] = sum_k (I-K*H)[i,k] * P[k,j]           
+      149          for (int i = 0; i < 3; i++) begin
+      150              for (int j = 0; j < 3; j++) begin
+      151 -                real IKH_ij;                                  
+      152 -                IKH_ij = ((i == j) ? 1.0 : 0.0) - K[i] * (j ==
+          - 0 ? 1.0 : 0.0);                                              
+      151                  P_new[i*3+j] = 0.0;
+      152                  for (int k = 0; k < 3; k++) begin
+      155 -                    P_new[i*3+j] = P_new[i*3+j] +             
+      156 -                        (((k == j) ? 1.0 : 0.0) - K[k] * (j ==
+          - 0 ? 1.0 : 0.0)) * P[j*3+k];                                  
+      153 +                    real ikH_ik;                              
+      154 +                    ikH_ik = ((i == k) ? 1.0 : 0.0) - K[i] * (
+          +k == 0 ? 1.0 : 0.0);                                          
+      155 +                    P_new[i*3+j] = P_new[i*3+j] + ikH_ik * P[k
+          +*3+j];                                                        
+      156                  end
+      157              end
+      158          end
+
+● Bash(rm -f .STOP && rm -rf vivado_option_a vivado_option_b && bash run_m3.sh
+      2>&1)
+  ⎿  Creating Vivado Option A project...
+     /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     … +426 lines (ctrl+o to expand)
+
+  Searched memories (ctrl+o to expand)
+
+● Option B is down to 6 failures. Let me see which elements:
+
+  Searched memories (ctrl+o to expand)
+
+● Let me check the program_block values to understand the P_in inputs:
+
+  Read 1 file (ctrl+o to expand)
+
+● The 6 failures are caused by a 1-cycle timing issue: when gs_done=1 (gemm in
+  FINISH state), gs_C still holds the OLD C values (NBA update doesn't take
+  effect until next cycle). The kalman reads stale C. Fix: latch P_out in DONE_S
+   (one cycle later, after the new C is stable):
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(project/new_hdl/rtl/kalman_update.sv)
+  ⎿  Added 7 lines, removed 3 lines
+      216  
+      217                  WAIT_P: begin
+      218                      gs_start <= 1'b0;
+      219 -                    if (gs_done) begin                        
+      220 -                        for (ii = 0; ii < 9; ii++) P_out[ii] <
+          -= gs_C[ii];                                                   
+      221 -                    end                                       
+      219 +                    // gs_done fires while gemm is in FINISH; 
+          +gs_C holds old C until                                        
+      220 +                    // the next cycle (NBA update). Latch P_ou
+          +t in DONE_S instead.                                          
+      221                  end
+      222  
+      223 +                DONE_S: begin                                 
+      224 +                    // One cycle after FINISH: gs_C now holds 
+          +the updated gemm result                                       
+      225 +                    for (ii = 0; ii < 9; ii++) P_out[ii] <= gs
+          +_C[ii];                                                       
+      226 +                end                                           
+      227 +                                                              
+      228                  default: ;
+      229              endcase
+      230          end
+
+● Bash(rm -f .STOP && rm -rf vivado_option_a vivado_option_b && bash run_m3.sh
+      2>&1)
+  ⎿  Creating Vivado Option A project...
+     /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     … +426 lines (ctrl+o to expand)
+
+  Searched memories (ctrl+o to expand)
+
+● Down to 1 failure. Let me see which element:
+
+  Searched memories (ctrl+o to expand)
+
+● The remaining failure is a timing issue: y_tilde and S_reg are latched in the
+  INNOV cycle, but z_reg, x_reg, and P_reg are also set via NBA in the SAME
+  INNOV cycle — so the latch reads stale (pre-INNOV) values. The latch should
+  trigger in S_COMP instead, after those registers have settled:
+
+● Update(project/new_hdl/rtl/kalman_update.sv)
+  ⎿  Added 3 lines, removed 2 lines
+      236      f64_add u_ytilde (.a(z_reg),   .b(f64_neg(x_reg[0])), .res
+           ult(y_tilde_comb));
+      237      f64_add u_scomb  (.a(P_reg[0]),.b(R_CONST),            .re
+           sult(S_comb));
+      238  
+      239 -    // Latch y_tilde and S_reg when leaving INNOV→S_COMP      
+      239 +    // Latch y_tilde and S_reg in S_COMP (one cycle after INNO
+          +V so that z_reg,                                              
+      240 +    // x_reg, and P_reg have settled from their NBA updates in
+          + INNOV).                                                      
+      241      always_ff @(posedge clk or negedge rst_n) begin
+      242          if (!rst_n) begin
+      243              y_tilde <= 64'h0;
+      244              S_reg   <= 64'h0;
+      244 -        end else if (state == INNOV) begin                    
+      245 +        end else if (state == S_COMP) begin                   
+      246              y_tilde <= y_tilde_comb;
+      247              S_reg   <= S_comb;
+      248          end
+
+● Now I also need to check when the NR seed nr_x gets its initial value — it
+  needs S_reg to be correct before NR0:
+
+  Read 1 file (ctrl+o to expand)
+● The S_COMP state also computes the NR seed. With S_reg now correctly latched
+  in S_COMP (instead of stale INNOV values), the NR sequence uses the correct
+  S=105 in NR0 onward. Let me run:
+
+● Bash(rm -f .STOP && rm -rf vivado_option_a vivado_option_b && bash run_m3.sh
+      2>&1)
+  ⎿  Creating Vivado Option A project...
+     /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     … +426 lines (ctrl+o to expand)
+
+  Searched memories (ctrl+o to expand)
+
+● Both simulations now pass: 135/135 elements, 0 failures for both Option A and
+  Option B. Let me verify no significant warnings remain in the OOC reports:
+
+  Searched memories (ctrl+o to expand)
+
+● Zero errors, zero critical warnings. The full run through step 18 completes
+  cleanly:
+
+  ┌──────────────────────────┬─────────────────────────────────┐
+  │           Step           │             Result              │
+  ├──────────────────────────┼─────────────────────────────────┤
+  │ Project creation (A & B) │ ✓ No errors                     │
+  ├──────────────────────────┼─────────────────────────────────┤
+  │ Simulation Option A      │ ✓ 135/135 pass, 0 fail          │
+  ├──────────────────────────┼─────────────────────────────────┤
+  │ Simulation Option B      │ ✓ 135/135 pass, 0 fail          │
+  ├──────────────────────────┼─────────────────────────────────┤
+  │ OOC synthesis Option A   │ ✓ 0 errors, 0 critical warnings │
+  ├──────────────────────────┼─────────────────────────────────┤
+  │ OOC synthesis Option B   │ ✓ 0 errors, 0 critical warnings │
+  └──────────────────────────┴─────────────────────────────────┘
+
+  Here's a summary of all fixes applied in this session:
+
+  kalman_update.sv:
+  - Removed duplicate y_tilde/S_reg initialization from main FSM reset
+  (multi-driver)
+  - Fixed busy to exclude DONE_S: (state != IDLE) && (state != DONE_S)
+  - Added f64_add u_1mk0 for 1-K[0] and built complete IKH in X_CORR state
+  - Moved P_out latch from WAIT_P to DONE_S (1-cycle settling for gemm C
+  register)
+  - Changed y_tilde/S_reg latch trigger from INNOV to S_COMP (NBA ordering fix)
+
+  gemm_systolic.sv: Fixed busy to exclude FINISH: (state != IDLE) && (state != 
+  FINISH)
+
+  checker.sv: Converted checker compute_core_checker construct to a plain module
+   (xsim doesn't support checker); renamed local variable dist → ulp_d; changed
+  always_ff → always for counter; initialized counters at declaration
+
+  veerwolf_bfm.sv: Changed fire_and_wait() to poll busy (bit 1) with two-phase
+  wait instead of polling the 1-cycle done pulse (bit 0)
+
+  tb_option_b.sv: Fixed P_new loop indices in kalman_ref() to correctly
+  implement P_new = (I−K·H)·P
+
+  create_project_a/b.tcl: Removed spurious get_files -filter {FILE_TYPE == 
+  Verilog} blocks
+
+✻ Cogitated for 1h 40m 5s
+
+❯ /exit                                                                         
+  ⎿  Goodbye!

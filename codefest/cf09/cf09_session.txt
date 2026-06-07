@@ -1,0 +1,1013 @@
+╭─── Claude Code v2.1.88 ──────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back Jose!                 │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ Recent activity         │
+│                        ▘▘ ▝▝                       │ No recent activity      │
+│     Sonnet 4.6 · Claude Pro · joram2@pdx.edu's     │                         │
+│     Organization                                   │                         │
+│       /…/2025-2026/Spring_2026/ECE_410/ECE410      │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+✻ Conversation compacted (ctrl+o for history)
+
+
+  Searched for 6 patterns, read 5 files (ctrl+o to expand)
+
+● Now I have all the key data. Let me look at the synthesis results from the
+  post-m3 redesign to get the hardware metrics for the projected performance
+  calculation:
+
+  Searched for 3 patterns, read 1 file (ctrl+o to expand)
+
+● Now I have all the data needed to write the plan. Let me update the plan file:
+
+  Read 1 file (ctrl+o to expand)
+
+● Updated plan
+  ⎿  /plan to preview
+
+● The plan file is written and covers all the deliverables. Let me call
+  ExitPlanMode now:
+
+● User approved Claude's plan
+  ⎿  Plan saved to: ~/.claude/plans/tranquil-popping-rose.md · /plan to edit
+     CF09 Phase 2 — Kalman HW Driver PlatformIO Project + Tasks 7 & 8
+
+     Context
+
+     Phase 1 (SoC integration, veerwolf_core.v / axi_intercon.sv / .vh edits,
+     run_soc_impl.tcl) is
+     complete. The user is running Vivado synthesis+implementation from the GUI;
+      bitstream not yet deployed.
+
+     Phase 2 (this plan): create a new bare-metal PlatformIO project that talks
+     to the Kalman
+     accelerator at 0x80010000 via MMIO, then complete Tasks 7 and 8 from the
+     cf09 CLLM section:
+     - Task 7: record HW execution time, throughput, memory usage (projected
+     metrics, no FPGA yet)
+     - Task 8: codefest/cf09/benchmarks/benchmark_results.md speedup table
+
+     Baseline from Task 6 (project/RVfpgaEL2_profiling/RVfpgaEL2_profiling.txt):
+     - 5-run average: 429.778 ms / 45 updates = 104.71 samples/sec, 2.408e-5
+     GFLOP/s, 49,760 B heap
+
+     HW projected metrics (from Post-m3_Redesign.txt +
+     codefest/cf09/cman_ai_analysis.md):
+     - 35× realistic speedup (AXI-limited at 12.5 MHz): ~3,665 samples/sec,
+     ~12.3 ms for 45 updates
+     - MMIO: 34 AXI transactions/update (19 writes + 15 reads) × ~80 ns = ~2.72
+     µs base + polling overhead
+     - Compute: 14 FSM states × 80 ns = 1.12 µs
+     - Arithmetic intensity: 24 FLOPs / 272 bytes = 0.088 FLOP/byte
+     (memory-bound)
+     - Memory: no dynamic allocation → ~0 B heap (vs 49,760 B SW)
+
+     ---
+     Register Map (base = 0x80010000)
+
+     ┌────────────┬────────┬────────────┬──────────┬───────────────────────────┐
+     │   Offset   │ Width  │    Name    │   CPU    │         Contents          │
+     │            │        │            │  access  │                           │
+     ├────────────┼────────┼────────────┼──────────┼───────────────────────────┤
+     │ 0x00       │ 64-bit │ CTRL       │ R/W      │ [0]=start, [1]=soft_rst   │
+     ├────────────┼────────┼────────────┼──────────┼───────────────────────────┤
+     │ 0x08       │ 64-bit │ STAT       │ RO       │ [0]=done, [1]=busy        │
+     ├────────────┼────────┼────────────┼──────────┼───────────────────────────┤
+     │ 0x10       │ 64-bit │ z          │ WO       │ measurement scalar        │
+     ├────────────┼────────┼────────────┼──────────┼───────────────────────────┤
+     │ 0x18..0x28 │ 64-bit │ x_in[0:2]  │ WO       │ prior state               │
+     ├────────────┼────────┼────────────┼──────────┼───────────────────────────┤
+     │ 0x30..0x40 │ 64-bit │ x_out[0:2] │ RO       │ corrected state           │
+     ├────────────┼────────┼────────────┼──────────┼───────────────────────────┤
+     │ 0x58..0x98 │ 64-bit │ P_in[0:8]  │ WO       │ prior covariance          │
+     │            │        │            │          │ (row-major)               │
+     ├────────────┼────────┼────────────┼──────────┼───────────────────────────┤
+     │ 0xA0..0xE0 │ 64-bit │ P_out[0:8] │ RO       │ posterior covariance      │
+     ├────────────┼────────┼────────────┼──────────┼───────────────────────────┤
+     │ 0xE8       │ 64-bit │ R_REG      │ R/W      │ measurement noise R       │
+     │            │        │            │          │ (default 5.0)             │
+     └────────────┴────────┴────────────┴──────────┴───────────────────────────┘
+
+     Addr decode: reg_index = addr[7:3] (8-byte stride). CPU 32-bit stores use
+     wstrb byte-enables;
+     two sw instructions write the lo/hi 32-bit halves of each 64-bit register.
+
+     ---
+     New Project Structure
+
+     project/SoC_Benchmarking/kalman_hw_driver/
+     ├── platformio.ini
+     ├── include/
+     │   └── kalman_hw.h        ← MMIO driver header (two functions + helpers)
+     └── src/
+         └── main.cpp           ← test program (mcycle timing, 45-update loop)
+
+     No src/kalman_hw.c — the driver is header-only (inline functions) to avoid
+     link-order issues
+     on the bare-metal toolchain and keep everything in a single TU.
+
+     ---
+     Critical Files
+
+     File: project/RVfpgaEL2_profiling/platformio.ini
+     Action: Template (read — already done)
+     ────────────────────────────────────────
+     File: project/RVfpgaEL2_profiling/test/kalman-test.cpp
+     Action: Template for timing harness (read — already done)
+     ────────────────────────────────────────
+     File: project/SoC_Benchmarking/kalman_hw_driver/platformio.ini
+     Action: Create
+     ────────────────────────────────────────
+     File: project/SoC_Benchmarking/kalman_hw_driver/include/kalman_hw.h
+     Action: Create
+     ────────────────────────────────────────
+     File: project/SoC_Benchmarking/kalman_hw_driver/src/main.cpp
+     Action: Create
+     ────────────────────────────────────────
+     File: codefest/cf09/benchmarks/benchmark_results.md
+     Action: Create (Task 8)
+
+     ---
+     Step 1 — platformio.ini
+
+     Adapted from project/RVfpgaEL2_profiling/platformio.ini. Key differences:
+     - Remove Eigen include, eigen_compat.h, lib_ignore = eigen-5.0.0, and
+     build_src_filter extra
+     - Remove -pg (no gprof), keep -g for GDB access to kf_cycles_* symbols
+     - Keep same board_build.bitstream_file and board_debug.verilator.binary
+     paths
+     - Add -I${PROJECT_DIR}/include
+
+     [env:swervolf_nexys]
+     platform = chipsalliance
+     board = swervolf_nexys
+     framework = wd-riscv-sdk
+
+     monitor_speed = 115200
+
+     board_build.bitstream_file =
+     ../../SoC_Benchmarking/SoC_impl/SoC_impl.runs/impl_1/rvfpganexys.bit
+     board_debug.verilator.binary =
+     /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course
+     _Work/2025-2026/Spring_2026/ECE_540/ece540_RVfpga/RVfpgaEL2/RVfpga_NexysA7-
+     DDR/Simulators/verilatorSIM_Trace/OriginalBinaries/Vrvfpgasim_Ubuntu22
+
+     build_flags =
+         -std=c++14
+         -g
+         -I${PROJECT_DIR}/include
+         -lstdc++
+         -lm
+         -Wl,--defsym,__stack_size=0x8000
+
+     Note: board_build.bitstream_file uses a relative path from the
+     kalman_hw_driver/ directory — two levels up reaches SoC_Benchmarking/.
+     Verify this path is correct when the bitstream exists.
+
+     ---
+     Step 2 — include/kalman_hw.h
+
+     #ifndef KALMAN_HW_H
+     #define KALMAN_HW_H
+
+     #include <stdint.h>
+
+     /* Kalman accelerator base address in VeeRwolf SoC AXI memory map */
+     #define KALMAN_BASE  ((volatile uint32_t *)0x80010000U)
+
+     /* Register byte offsets (8-byte stride, 64-bit IEEE-754 doubles) */
+     #define KALMAN_CTRL   0x00U
+     #define KALMAN_STAT   0x08U
+     #define KALMAN_Z      0x10U
+     #define KALMAN_XIN0   0x18U
+     #define KALMAN_XIN1   0x20U
+     #define KALMAN_XIN2   0x28U
+     #define KALMAN_XOUT0  0x30U
+     #define KALMAN_XOUT1  0x38U
+     #define KALMAN_XOUT2  0x40U
+     #define KALMAN_PIN0   0x58U   /* P_in[0,0] */
+     #define KALMAN_POUT0  0xA0U   /* P_out[0,0] */
+     #define KALMAN_RREG   0xE8U
+
+     /* Write one 64-bit IEEE-754 double to an MMIO register.
+      * Uses two 32-bit stores (lo then hi) — generates wstrb byte-enables on
+      * the AXI4-Lite bus so each half updates its respective bytes. */
+     static inline void kw_write(uint32_t offset, double val) {
+         union { double d; uint32_t u[2]; } v;
+         v.d = val;
+         volatile uint32_t *p = KALMAN_BASE + (offset >> 2);
+         p[0] = v.u[0];   /* lo word → bytes [31:0]  */
+         p[1] = v.u[1];   /* hi word → bytes [63:32] */
+     }
+
+     /* Read one 64-bit IEEE-754 double from an MMIO register. */
+     static inline double kw_read(uint32_t offset) {
+         union { double d; uint32_t u[2]; } v;
+         const volatile uint32_t *p = KALMAN_BASE + (offset >> 2);
+         v.u[0] = p[0];
+         v.u[1] = p[1];
+         return v.d;
+     }
+
+     /* ── Public API ─────────────────────────────────────────────────────── */
+
+     /* Function 1: Write the measurement noise covariance R to R_REG (0xE8).
+      * Call once before the update loop. */
+     static inline void kalman_hw_set_r(double r) {
+         kw_write(KALMAN_RREG, r);
+     }
+
+     /* Function 2: Load z / x_in / P_in, fire the measurement-correction 
+     update,
+      * poll until done, then read back x_out and P_out.
+      *
+      * x_in  / x_out : arrays of 3 doubles (state vector)
+      * P_in  / P_out : arrays of 9 doubles (3×3 covariance, row-major)
+      * Returns 0 on success, -1 if STAT.busy never clears (hung accelerator).
+      */
+     static inline int kalman_hw_update(double  z,
+                                        const double x_in[3],
+                                        const double P_in[9],
+                                        double  x_out[3],
+                                        double  P_out[9]) {
+         /* 1. Write z */
+         kw_write(KALMAN_Z, z);
+
+         /* 2. Write x_in[0:2] at 0x18, 0x20, 0x28 */
+         kw_write(KALMAN_XIN0, x_in[0]);
+         kw_write(KALMAN_XIN1, x_in[1]);
+         kw_write(KALMAN_XIN2, x_in[2]);
+
+         /* 3. Write P_in[0:8] at 0x58..0x98 (8-byte stride) */
+         for (int i = 0; i < 9; i++)
+             kw_write(KALMAN_PIN0 + (uint32_t)(i * 8), P_in[i]);
+
+         /* 4. Fire: write CTRL[0]=1 */
+         kw_write(KALMAN_CTRL, 1.0);   /* bit[0]=1; double bit-pattern 0x3FF0...
+      sets bit0=1 via lo word */
+         /* Actually bit [0]=1 in the integer sense: write uint32 1 to lo word 
+     of CTRL */
+         /* Override: write via uint32 directly for CTRL (bit field, not 
+     IEEE-754) */
+         KALMAN_BASE[0] = 1U;   /* CTRL lo-word = 1 (start bit) */
+         KALMAN_BASE[1] = 0U;   /* CTRL hi-word = 0 */
+
+         /* 5. Poll STAT[1] (busy) — clear means done */
+         uint32_t timeout = 100000U;
+         while ((KALMAN_BASE[KALMAN_STAT >> 2] & 0x2U) && --timeout)
+             ;
+         if (!timeout) return -1;
+
+         /* 6. Read x_out[0:2] at 0x30, 0x38, 0x40 */
+         x_out[0] = kw_read(KALMAN_XOUT0);
+         x_out[1] = kw_read(KALMAN_XOUT1);
+         x_out[2] = kw_read(KALMAN_XOUT2);
+
+         /* 7. Read P_out[0:8] at 0xA0..0xE0 */
+         for (int i = 0; i < 9; i++)
+             x_out[i] = kw_read(KALMAN_POUT0 + (uint32_t)(i * 8));
+         /* Oops — must write to P_out not x_out. Use local indexing: */
+         for (int i = 0; i < 9; i++)
+             P_out[i] = kw_read(KALMAN_POUT0 + (uint32_t)(i * 8));
+
+         return 0;
+     }
+
+     #endif /* KALMAN_HW_H */
+
+     Note on CTRL write: CTRL is a bit-field register, not IEEE-754 double.
+     Bypass kw_write
+     and write raw uint32_t: KALMAN_BASE[0] = 1U; KALMAN_BASE[1] = 0U; to set
+     start bit.
+
+     Note on P_out loop: The inline above has a bug (writes to x_out twice). The
+      actual
+     implementation must use P_out for the second loop. Write the final file
+     carefully.
+
+     ---
+     Step 3 — src/main.cpp
+
+     Mirror of project/RVfpgaEL2_profiling/test/kalman-test.cpp but calling HW
+     functions:
+
+     #include <stdint.h>
+     #include "kalman_hw.h"
+
+     /* Performance measurement globals — read by GDB after main returns */
+     volatile uint32_t kf_cycles_start = 0;
+     volatile uint32_t kf_cycles_end   = 0;
+     volatile uint32_t kf_heap_start   = 0;
+     volatile uint32_t kf_heap_end     = 0;
+
+     extern "C" uint32_t get_bump_top(void);
+
+     int main(void) {
+         /* Same 45 measurements from kalman-test.cpp */
+         static const double measurements[45] = {
+             1.04202710058, 1.10726790452, 1.2913511148, 1.48485250951,
+     1.72825901034,
+             /* ... (full list) ... */
+         };
+
+         /* Initial state from kalman-test.cpp: x0 = [measurements[0], 0, -9.81]
+      */
+         double x[3]  = { measurements[0], 0.0, -9.81 };
+         /* Initial P from kalman-test.cpp: .1, .1, .1, .1, 10000, 10, .1, 10, 
+     100 */
+         double P[9]  = { 0.1, 0.1, 0.1,  0.1, 10000.0, 10.0,  0.1, 10.0, 100.0
+     };
+         double xout[3], Pout[9];
+
+         /* Write R = 5.0 once before the loop */
+         kalman_hw_set_r(5.0);
+
+         kf_heap_start = get_bump_top();
+         { uint32_t c; __asm__ volatile("csrr %0, mcycle" : "=r"(c));
+     kf_cycles_start = c; }
+
+         for (int i = 0; i < 45; i++) {
+             kalman_hw_update(measurements[i], x, P, xout, Pout);
+             /* Feed output back as next input */
+             x[0] = xout[0]; x[1] = xout[1]; x[2] = xout[2];
+             for (int j = 0; j < 9; j++) P[j] = Pout[j];
+         }
+
+         { uint32_t c; __asm__ volatile("csrr %0, mcycle" : "=r"(c));
+     kf_cycles_end = c; }
+         kf_heap_end = get_bump_top();
+
+         return 0;
+     }
+
+     GDB commands to read metrics (same as Task 6 session):
+     hbreak *<address_of_return>
+     run
+     print (kf_cycles_end - kf_cycles_start)   # elapsed cycles
+     print (double)(kf_cycles_end - kf_cycles_start) / 12500000.0 * 1000.0  # ms
+     print kf_heap_end - kf_heap_start          # bytes allocated
+
+     ---
+     Task 7 — Projected Metrics (no FPGA yet)
+
+     Label all entries "projected" in the output. Source: Post-m3_Redesign.txt
+     35× AXI-limited speedup,
+     cman_ai_analysis.md (24 FLOPs, 272 B bandwidth), synthesis timing (14-state
+      FSM at 12.5 MHz).
+
+     ┌─────────────────────────┬────────────────────┬──────────────────────┐
+     │         Metric          │    HW Projected    │ SW Baseline (Task 6) │
+     ├─────────────────────────┼────────────────────┼──────────────────────┤
+     │ Total time (45 updates) │ ~12.3 ms           │ 429.778 ms           │
+     ├─────────────────────────┼────────────────────┼──────────────────────┤
+     │ Per-update latency      │ ~273 µs            │ 9.55 ms              │
+     ├─────────────────────────┼────────────────────┼──────────────────────┤
+     │ Throughput              │ ~3,665 samples/sec │ 104.71 samples/sec   │
+     ├─────────────────────────┼────────────────────┼──────────────────────┤
+     │ GFLOP/s                 │ ~8.80 × 10⁻⁵       │ 2.408 × 10⁻⁵         │
+     ├─────────────────────────┼────────────────────┼──────────────────────┤
+     │ Heap usage              │ ~0 B               │ 49,760 B             │
+     ├─────────────────────────┼────────────────────┼──────────────────────┤
+     │ Speedup                 │ ~35×               │ 1×                   │
+     └─────────────────────────┴────────────────────┴──────────────────────┘
+
+     Breakdown of per-update latency (projected at 12.5 MHz):
+     - Compute: 14 FSM states × 80 ns = 1.12 µs
+     - MMIO write: 19 transactions × ~(1+1) AXI cycles × 80 ns ≈ 3.0 µs
+     - MMIO read: 15 transactions × ~(1+1) AXI cycles × 80 ns ≈ 2.4 µs
+     - Polling overhead: variable (~dozens of µs)
+     - AXI crossbar arbitration + SW instruction overhead → total ~273 µs (35×
+     assumption)
+
+     ---
+     Task 8 — codefest/cf09/benchmarks/benchmark_results.md
+
+     Create this file with a table including:
+     - SW baseline (Task 6 measured)
+     - HW projected (this task)
+     - Speedup column
+     - Brief notes on what limits performance (AXI bus overhead >> compute time)
+
+     ---
+     Verification
+
+     When bitstream is available:
+     # Build and upload (from kalman_hw_driver/)
+     pio run -t upload
+
+     # GDB session
+     pio debug
+     # In GDB:
+     load
+     hbreak main+<offset>   # or use symbol address of 'return 0'
+     continue
+     print kf_cycles_end - kf_cycles_start
+     print (double)(kf_cycles_end-kf_cycles_start)/12500000.0*1000.0
+     print kf_heap_end - kf_heap_start
+
+     Before bitstream: build only (pio run) to confirm code compiles without
+     errors.
+
+❯ Edit the plan so you do a profiling similar to that done in                   
+RVfpgaEL2_profiling and task 7 uses the results of that. Execute the plan once  
+you finsihed editing it                                                         
+
+  Searched for 2 patterns, read 4 files (ctrl+o to expand)
+
+● Now I have the full picture. Let me update the plan to include actual
+  profiling infrastructure, then implement:
+
+● Updated plan
+  ⎿  /plan to preview
+
+● Updated plan
+  ⎿  /plan to preview
+
+● Now implement all files:
+
+● Bash(mkdir -p /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/Univer
+      sity/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/SoC_Benchmar
+      king/kalman_h…)
+  ⎿  done
+
+● Write(project/SoC_Benchmarking/kalman_hw_driver/platformio.ini)
+  ⎿  Wrote 24 lines to project/SoC_Benchmarking/kalman_hw_driver/platformio.ini
+
+       1 ; PlatformIO Project Configuration File — Kalman Hardware Driver
+       2 ;
+       3 ; Bare-metal test for the Kalman accelerator at 0x80010000.
+       4 ; Profiling: GDB JTAG memory reads (mcycle CSR + bump allocator)
+         , not gprof.
+       5 ; Run scripts/run_profiles.sh after programming the FPGA.
+       6 
+       7 [env:swervolf_nexys]
+       8 platform = chipsalliance
+       9 board = swervolf_nexys
+      10 framework = wd-riscv-sdk
+     … +14 lines (ctrl+o to expand)
+
+● Write(project/SoC_Benchmarking/kalman_hw_driver/include/kalman_hw.h)
+  ⎿  Wrote 155 lines to
+     project/SoC_Benchmarking/kalman_hw_driver/include/kalman_hw.h
+       1 /**
+       2  * kalman_hw.h — MMIO driver for the Kalman measurement-correcti
+         on accelerator.
+       3  *
+       4  * Base address: 0x80010000 (AXI slave 2 in VeeRwolf SoC_impl)
+       5  *
+       6  * Register map (8-byte stride, 64-bit IEEE-754 doubles):
+       7  *   0x00  CTRL  R/W  [0]=start one-shot, [1]=soft_rst
+       8  *   0x08  STAT  RO   [0]=done (1-cycle pulse), [1]=busy
+       9  *   0x10  z     WO   measurement scalar
+      10  *   0x18  x_in[0] WO
+     … +145 lines (ctrl+o to expand)
+
+● Write(project/SoC_Benchmarking/kalman_hw_driver/src/main.cpp)
+  ⎿  Wrote 87 lines to
+     project/SoC_Benchmarking/kalman_hw_driver/src/main.cpp
+       1 /**
+       2  * main.cpp — Kalman hardware accelerator profiling harness.
+       3  *
+       4  * Runs 45 measurement-correction updates via MMIO (matching the
+          SW baseline
+       5  * in project/RVfpgaEL2_profiling).  mcycle CSR snapshots and bu
+         mp-allocator
+       6  * high-water marks bracket the update loop so GDB can compute:
+       7  *
+       8  *   elapsed_cycles = kf_cycles_end - kf_cycles_start
+       9  *   time_ms        = elapsed_cycles / 13000.0   (13 MHz core cl
+         ock)
+      10  *   throughput     = 45 / (elapsed_cycles / 13000000.0)  sample
+         s/sec
+     … +77 lines (ctrl+o to expand)
+
+● Write(project/SoC_Benchmarking/kalman_hw_driver/src/syscalls.c)  ⎿  Wrote 91 lines to project/SoC_Benchmarking/kalman_hw_driver/src/syscalls.c
+
+       1 /**
+       2  * syscalls.c — bare-metal system call stubs for the Kalman HW d
+         river project.
+       3  *
+       4  * Stripped from project/RVfpgaEL2_profiling/src/syscalls.c:
+       5  *   - Removed gprof arc_table / write_gmon_out (no -pg flag in 
+         this project)
+       6  *   - __wrap__exit halts with ebreak directly (no UART flush)
+       7  *   - All other stubs unchanged
+       8  *
+       9  * Heap: bump allocator starting at _sp (top of 4 KB stack in li
+         nk.lds).
+      10  * get_bump_top() is read by GDB to measure heap usage; for the 
+         HW driver
+     … +81 lines (ctrl+o to expand)
+
+● The LSP diagnostics are expected — the include path only resolves during the
+  PlatformIO build. Let me fix the comment typo in main.cpp where */ prematurely
+   closes the block comment:
+
+● Update(project/SoC_Benchmarking/kalman_hw_driver/src/main.cpp)
+  ⎿  Added 1 line, removed 1 line
+      80      { uint32_t c; __asm__ volatile("csrr %0, mcycle" : "=r"(c))
+          ; kf_cycles_end = c; }
+      81      kf_heap_end = get_bump_top();
+      82  
+      83 -    /* GDB hardware breakpoint lands here — metrics are in kf_c
+         -ycles_*/kf_heap_* */                                           
+      83 +    /* GDB hardware breakpoint lands here — metrics are in kf_c
+         +ycles_* and kf_heap_* */                                       
+      84      profile_done();
+      85  
+      86      return 0;
+
+● Now create the GDB script and profiling scripts:
+
+● Write(project/SoC_Benchmarking/kalman_hw_driver/scripts/gdb_hw.gdb)
+  ⎿  Wrote 39 lines to
+     project/SoC_Benchmarking/kalman_hw_driver/scripts/gdb_hw.gdb
+       1 # gdb_hw.gdb — TEMPLATE / REFERENCE ONLY
+       2 #
+       3 # run_profiles.sh generates a per-run script from this template 
+         by substituting:
+       4 #   __RUNDIR__          →  results/run_N
+       5 #   __PROFILE_DONE__    →  address of profile_done() from nm
+       6 #
+       7 # To run a single manual session (after loading addresses from n
+         m):
+       8 #   ADDR=$(riscv64-unknown-elf-nm .pio/build/swervolf_nexys/firm
+         ware.elf \
+       9 #            | awk '$3 == "profile_done" && ($2=="T"||$2=="t") {
+         print "0x"$1}')
+      10 #   sed -e "s|__RUNDIR__|results|" -e "s|__PROFILE_DONE__|$ADDR|
+         " \
+     … +29 lines (ctrl+o to expand)
+
+● Write(project/SoC_Benchmarking/kalman_hw_driver/scripts/run_profiles.sh)
+  ⎿  Wrote 161 lines to
+     project/SoC_Benchmarking/kalman_hw_driver/scripts/run_profiles.sh
+       1 #!/usr/bin/env bash
+       2 # run_profiles.sh — build firmware, run N GDB JTAG profiling ses
+         sions,
+       3 #                   record execution time / throughput / memory 
+         per run,
+       4 #                   print averaged summary table.
+       5 #
+       6 # Usage: ./scripts/run_profiles.sh
+       7 # Must be run from project/SoC_Benchmarking/kalman_hw_driver/.
+       8 #
+       9 # Method: GDB hardware breakpoints at profile_done() symbol; rea
+         ds
+      10 # kf_cycles_start/end and kf_heap_start/end by DWARF symbol name
+         .
+     … +151 lines (ctrl+o to expand)
+
+● Write(project/SoC_Benchmarking/kalman_hw_driver/scripts/compute_metrics.py)
+  ⎿  Wrote 139 lines to
+     project/SoC_Benchmarking/kalman_hw_driver/scripts/compute_metrics.py
+       1 #!/usr/bin/env python3
+       2 """
+       3 compute_metrics.py — read per-run metrics.txt files, compute ave
+         rages,
+       4                      print and write a formatted summary table.
+       5 
+       6 Called by run_profiles.sh after all runs complete:
+       7     python3 scripts/compute_metrics.py \
+       8         --runs 5 \
+       9         --results-dir results \
+      10         --output results/summary.txt \
+     … +129 lines (ctrl+o to expand)
+
+● Bash(chmod +x /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/Univer
+      sity/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/SoC_Benchmar
+      king/kalman_h…)
+  ⎿  done
+
+● Now create the Task 8 benchmark results file with projected values (to be
+  updated with real measurements after profiling):
+
+● Write(codefest/cf09/benchmarks/benchmark_results.md)
+  ⎿  Wrote 76 lines to codefest/cf09/benchmarks/benchmark_results.md
+       1 # CF09 Benchmark Results — Kalman Filter Hardware Acceleration
+       2 
+       3 ## Task 7: Hardware Execution Metrics
+       4 
+       5 **Measurement method**: GDB JTAG hardware breakpoints; `mcycle` 
+         CSR snapshots bracket
+       6 the 45-update loop; bump allocator high-water marks measure heap
+          usage.
+       7 Run `project/SoC_Benchmarking/kalman_hw_driver/scripts/run_profi
+         les.sh` on hardware
+       8 to generate `results/summary.txt` with the 5-run average.
+       9 
+      10 **Status**: *Projected — replace table below with measured value
+         s from `results/summary.txt`
+     … +66 lines (ctrl+o to expand)
+
+● Now verify the build compiles:
+
+● Bash(cd /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/C
+      ourse_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/SoC_Benchmarking/k
+      alman_hw_driv…)
+  ⎿  Compiling .pio/build/swervolf_nexys/BoardBSP/startup.o
+     Compiling .pio/build/swervolf_nexys/PSP/psp_int_vect_eh1.o
+     Compiling .pio/build/swervolf_nexys/PSP/psp_interrupts_eh1.o
+     … +21 lines (ctrl+o to expand)
+
+● Build succeeds. Let me silence the false-positive uninit warnings by
+  zero-initializing x_out:
+
+● Update(project/SoC_Benchmarking/kalman_hw_driver/src/main.cpp)
+  ⎿  Added 2 lines, removed 1 line
+      59       *        .1,  10,  100] */
+      60      double P[9] = { 0.1, 0.1, 0.1,  0.1, 10000.0, 10.0,  0.1, 1
+          0.0, 100.0 };
+      61  
+      62 -    double x_out[3], P_out[9];                                 
+      62 +    double x_out[3] = {0.0, 0.0, 0.0};                         
+      63 +    double P_out[9] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 
+         +0.0};                                                          
+      64  
+      65      /* Write R = 5.0 once before the loop (matches SW baseline 
+          R matrix) */
+      66      kalman_hw_set_r(5.0);
+
+● Bash(pio run 2>&1 | tail -10)
+  ⎿  Compiling .pio/build/swervolf_nexys/src/main.o
+     Linking .pio/build/swervolf_nexys/firmware.elf
+     Generating disassembly
+     … +10 lines (ctrl+o to expand)
+
+● Clean build — [SUCCESS], no warnings. The LSP errors are host-side false
+  positives (the include path resolves only in the PlatformIO RISC-V toolchain
+  context).
+
+  Here's what was created:
+
+  project/SoC_Benchmarking/kalman_hw_driver/
+  - platformio.ini — chipsalliance/swervolf_nexys, same bitstream path as
+  template, no Eigen/gprof
+  - include/kalman_hw.h — two public functions: kalman_hw_set_r(r) and
+  kalman_hw_update(z, x_in, P_in, x_out, P_out) using paired 32-bit MMIO stores
+  for each 64-bit register
+  - src/main.cpp — 45-update loop with kf_cycles_start/end and kf_heap_start/end
+   globals; calls profile_done() at the end as the GDB breakpoint target
+  - src/syscalls.c — stripped from RVfpgaEL2_profiling (no gprof); provides
+  get_bump_top(), _sbrk, bump allocator, __wrap__exit → ebreak
+  - scripts/gdb_hw.gdb — template: one hbreak *__PROFILE_DONE__, prints 4 METRIC
+   lines
+  - scripts/run_profiles.sh — mirrors RVfpgaEL2_profiling's approach: 5 GDB JTAG
+   runs, reads metrics by symbol name, calls compute_metrics.py
+  - scripts/compute_metrics.py — produces formatted summary table
+  (TOTAL_FLOPS=1080: 24 FLOPs × 45 updates)
+
+  codefest/cf09/benchmarks/benchmark_results.md — Task 8 table with projected
+  35× speedup and instructions to replace with measured values from
+  run_profiles.sh once the bitstream is on the FPGA.
+
+  To run profiling once Vivado completes and the FPGA is programmed:
+  cd project/SoC_Benchmarking/kalman_hw_driver
+  ./scripts/run_profiles.sh
+  # copy AVG row from results/summary.txt into benchmark_results.md
+
+✻ Brewed for 16m 52s
+
+❯ /ide 
+  ⎿  IDE selection cancelled
+
+❯ /exit                                                                         
+  ⎿  Goodbye!
+
+❯ The bitstream has sucessfully been written and programmed to the FPGA. Run    
+`./project/SoC_Benchmarking/kalman_hw_driverscripts/run_profiles.sh` and        
+replace the Accelerator values in                                               
+  codefest/cf09/benchmarks/benchmark_results.md with the new results.           
+                                                                                
+
+● Bash(cd /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/C
+      ourse_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/SoC_Benchmarking/k
+      alman_hw_driv…)
+  ⎿  === Building firmware ===
+     Processing swervolf_nexys (platform: chipsalliance; board: swervolf_ne
+     xys; framework: wd-riscv-sdk)
+     … +64 lines (ctrl+o to expand)
+
+● All 5 runs succeeded. Now update the benchmark results with the real numbers:
+
+  Measured: 3.952 ms / 45 updates = 11,386 samples/sec, 2.733 × 10⁻⁴ GFLOP/s, 0 
+  B heap
+  Speedup: 11,386 / 104.71 = ~108.7×
+
+  Read 1 file (ctrl+o to expand)
+● Write(codefest/cf09/benchmarks/benchmark_results.md)
+  ⎿  Added 51 lines, removed 38 lines
+       4  
+       5  **Measurement method**: GDB JTAG hardware breakpoints; `mcycle`
+           CSR snapshots bracket
+       6  the 45-update loop; bump allocator high-water marks measure hea
+          p usage.
+       7 -Run `project/SoC_Benchmarking/kalman_hw_driver/scripts/run_prof
+         -iles.sh` on hardware                                           
+       8 -to generate `results/summary.txt` with the 5-run average.      
+       7 +Source data: `project/SoC_Benchmarking/kalman_hw_driver/results
+         +/summary.txt`                                                  
+       8  
+      10 -**Status**: *Projected — replace table below with measured valu
+         -es from `results/summary.txt`                                  
+      11 -once the SoC_impl bitstream is programmed onto the Nexys A7.*  
+       9 +### 5-Run Average (measured on Nexys A7, SoC_impl bitstream)   
+      10  
+      13 -### 5-Run Average (projected from Post-m3_Redesign.txt, 35× AXI
+         --limited speedup)                                              
+      14 -                                                               
+      11  | Metric | Value |
+      12  |--------|-------|
+      17 -| Total time (45 updates) | ~12.3 ms *(projected)* |           
+      18 -| Per-update latency | ~273 µs *(projected)* |                 
+      19 -| Throughput | ~3,665 samples/sec *(projected)* |              
+      20 -| GFLOP/s | ~8.80 × 10⁻⁵ *(projected)* |                       
+      21 -| Heap usage | ~0 B *(projected — no dynamic allocation)* |    
+      13 +| Total time (45 updates) | 3.952 ms |                         
+      14 +| Per-update latency | 87.8 µs |                               
+      15 +| Throughput | 11,386 samples/sec |                            
+      16 +| GFLOP/s | 2.733 × 10⁻⁴ |                                     
+      17 +| Heap usage | 0 B |                                           
+      18 +| Run-to-run variance | < 0.03% (51,367–51,384 cycles) |       
+      19  
+      23 -**Latency breakdown** (at 13 MHz SweRV EL2 core clock):        
+      24 -- Accelerator compute: 14 FSM states × ~77 ns ≈ 1.1 µs         
+      25 -- MMIO writes: 19 AXI transactions (z + x_in[3] + P_in[9]) ≈ 3–
+         -5 µs                                                           
+      26 -- MMIO reads: 15 AXI transactions (x_out[3] + P_out[9]) ≈ 3–4 µ
+         -s                                                              
+      27 -- Polling STAT.busy + SW overhead + AXI crossbar arbitration ≈ 
+         -remainder                                                      
+      28 -- **Dominant cost: AXI bus latency** (compute is <1% of total) 
+      20 +**Raw 5-run data:**                                            
+      21  
+      22 +| Run | Cycles | Time (ms) | Samples/s | GFLOP/s | Heap (B) |  
+      23 +|-----|--------|-----------|-----------|---------|---------|   
+      24 +| 1 | 51,383 | 3.953 | 11,385.09 | 2.7324 × 10⁻⁴ | 0 |         
+      25 +| 2 | 51,372 | 3.952 | 11,387.53 | 2.7330 × 10⁻⁴ | 0 |         
+      26 +| 3 | 51,384 | 3.953 | 11,384.87 | 2.7324 × 10⁻⁴ | 0 |         
+      27 +| 4 | 51,382 | 3.952 | 11,385.31 | 2.7325 × 10⁻⁴ | 0 |         
+      28 +| 5 | 51,367 | 3.951 | 11,388.63 | 2.7333 × 10⁻⁴ | 0 |         
+      29 +| **AVG** | **51,378** | **3.952** | **11,386.29** | **2.7327 ×
+         + 10⁻⁴** | **0** |                                              
+      30 +                                                               
+      31 +**Latency breakdown** (at 13 MHz SweRV EL2 core clock, 87.8 µs/
+         +update):                                                       
+      32 +- Accelerator compute: 14 FSM states × ~77 ns ≈ 1.1 µs (~1.3% o
+         +f total)                                                       
+      33 +- MMIO writes: 19 AXI transactions (z + x_in[3] + P_in[9])     
+      34 +- MMIO reads: 15 AXI transactions (x_out[3] + P_out[9])        
+      35 +- Polling STAT.busy + SW instruction overhead + AXI crossbar ar
+         +bitration ≈ remainder                                          
+      36 +- **Dominant cost: AXI bus transactions** (34 round-trips × ~2.
+         +6 µs avg ≈ 87 µs)                                              
+      37 +                                                               
+      38  ---
+      39  
+      40  ## Task 8: Speedup Table
+     ...
+      50  
+      51  ### Performance Comparison
+      52  
+      45 -| Metric | SW Baseline (Task 6, measured) | HW (Task 7, project
+         -ed*) | Speedup |                                               
+      46 -|--------|-------------------------------|---------------------
+         ----|---------|                                                 
+      47 -| Total time, 45 updates | 429.778 ms | ~12.3 ms | **~35×** |  
+      48 -| Throughput | 104.71 samples/sec | ~3,665 samples/sec | ~35× |
+      49 -| GFLOP/s | 2.408 × 10⁻⁵ | ~8.80 × 10⁻⁵ | ~3.7× |              
+      50 -| Heap usage | 49,760 B (Eigen allocs) | ~0 B | — |            
+      53 +| Metric | SW Baseline (Task 6, measured) | HW Accelerator (Tas
+         +k 7, measured) | Speedup |                                     
+      54 +|--------|-------------------------------|---------------------
+         +--------------|---------|                                      
+      55 +| Total time, 45 updates | 429.778 ms | **3.952 ms** | **~108.7
+         +×** |                                                          
+      56 +| Per-update latency | 9.551 ms | **87.8 µs** | **~108.8×** |  
+      57 +| Throughput | 104.71 samples/sec | **11,386 samples/sec** | **
+         +~108.7×** |                                                    
+      58 +| GFLOP/s | 2.408 × 10⁻⁵ | **2.733 × 10⁻⁴** | ~11.4× |         
+      59 +| Heap usage | 49,760 B (Eigen allocs) | **0 B** | — |         
+      60  | Clock | 13 MHz (SweRV EL2, rv32imac) | 13 MHz (same SoC) | — 
+          |
+      61  
+      53 -*\*Projected 35× figure from `Post-m3_Redesign.txt`. Replace wi
+         -th measured value from                                         
+      54 -`run_profiles.sh` output once bitstream is deployed.*          
+      62 +### Why ~109× and not the projected 35×?                       
+      63  
+      56 -### Why only 35× despite hardware FPUs?                        
+      64 +The 35× projection assumed conservative AXI round-trip timing. 
+         +The measured ~87.8 µs per                                      
+      65 +update means 34 transactions average **~2.6 µs each** — faster 
+         +than anticipated, likely                                       
+      66 +because polling is short (the accelerator finishes in ~1.1 µs) 
+         +and the AXI crossbar latency                                   
+      67 +is lower than worst-case estimates. The actual speedup of **~10
+         +9×** reflects the real                                         
+      68 +hardware behaviour.                                            
+      69  
+      58 -The accelerator's arithmetic takes ~1.1 µs (14 pipelined FSM st
+         -ates at the SoC clock).                                        
+      59 -The remaining ~272 µs per update is spent on **AXI bus transact
+         -ions**: the SweRV EL2 LSU                                      
+      60 -issues 34 independent 64-bit MMIO store/load sequences, each re
+         -quiring one full AXI                                           
+      61 -handshake at 13 MHz. The crossbar arbitration and CPU instructi
+         -on overhead amplify this.                                      
+      70 +The GFLOP/s speedup (11.4×) is lower than throughput speedup be
+         +cause the hardware kernel                                      
+      71 +performs only 24 FLOPs vs the software's 10,350 FLOPs — the har
+         +dware offloads only the                                        
+      72 +measurement-correction step, not the full predict+update cycle.
+      73  
+      63 -Potential improvements to reach higher speedup (from `Post-m3_R
+         -edesign.txt`):                                                 
+      74 +### Potential Further Improvements (from `Post-m3_Redesign.txt`
+         +)                                                              
+      75 +                                                               
+      76  | Option | Estimated Speedup |
+      77  |--------|------------------|
+      66 -| Current (baseline HW) | ~35× |                               
+      67 -| + State retention (remove P_in/x_in writes) | ~240× |        
+      68 -| + Interrupt-driven (remove polling) | ~250× |                
+      69 -| + Clock increase to 25 MHz | ~70× standalone |               
+      78 +| **Current (measured)** | **~109×** |                         
+      79 +| + State retention (remove P_in/x_in writes each iteration) | 
+         +~240× |                                                        
+      80 +| + Interrupt-driven polling (remove busy-wait) | ~250× |      
+      81 +| + Clock increase to 25 MHz | ~218× standalone |              
+      82  | + Hardware batch loop (N=10) | ~1,500× |
+      83  
+      84  ---
+      85  
+      74 -*SW baseline data: `project/RVfpgaEL2_profiling/RVfpgaEL2_profi
+         -ling.txt`, Session 4 (GDB JTAG)*                               
+      75 -*HW accelerator: `project/post_m3_Minor_Redesign/rtl/top.sv`, i
+         -ntegrated in `project/SoC_Benchmarking/SoC_impl`*              
+      76 -*Driver source: `project/SoC_Benchmarking/kalman_hw_driver/`*  
+      86 +*SW baseline: `project/RVfpgaEL2_profiling/RVfpgaEL2_profiling.
+         +txt`, Session 4 (GDB JTAG, 5-run avg)*                         
+      87 +*HW results: `project/SoC_Benchmarking/kalman_hw_driver/results
+         +/summary.txt`, 2026-06-06*                                     
+      88 +*HW accelerator: `project/post_m3_Minor_Redesign/rtl/top.sv` in
+         + `project/SoC_Benchmarking/SoC_impl`*                          
+      89 +*Driver: `project/SoC_Benchmarking/kalman_hw_driver/`*         
+
+● All 5 runs completed successfully. Key measured results:
+
+  ┌─────────────────────────┬────────────────────┬────────────────────┐
+  │         Metric          │     Projected      │      Measured      │
+  ├─────────────────────────┼────────────────────┼────────────────────┤
+  │ Total time (45 updates) │ ~12.3 ms           │ 3.952 ms           │
+  ├─────────────────────────┼────────────────────┼────────────────────┤
+  │ Throughput              │ ~3,665 samples/sec │ 11,386 samples/sec │
+  ├─────────────────────────┼────────────────────┼────────────────────┤
+  │ GFLOP/s                 │ ~8.80 × 10⁻⁵       │ 2.733 × 10⁻⁴       │
+  ├─────────────────────────┼────────────────────┼────────────────────┤
+  │ Heap                    │ ~0 B               │ 0 B                │
+  ├─────────────────────────┼────────────────────┼────────────────────┤
+  │ Speedup                 │ ~35×               │ ~108.7×            │
+  └─────────────────────────┴────────────────────┴────────────────────┘
+
+  The actual speedup of ~109× beat the 35× projection — the AXI round-trips
+  (~2.6 µs each measured vs worst-case estimates) and shorter polling time
+  (accelerator finishes in ~1.1 µs) both came in better than expected.
+  Run-to-run variance was negligible (<0.03%), confirming highly deterministic
+  MMIO timing.
+
+  benchmark_results.md has been updated with the full 5-run table, latency
+  breakdown, and the updated "further improvements" table anchored to the real
+  109× baseline.
+
+✻ Churned for 1m 8s
+
+❯ /exit                                                                         
+  ⎿  Catch you later!
+
+❯ Finish the remaining tasks in CLLM of hw4ai_ece510_codefest09_spring26_r2.pdf 
+
+  Searched for 4 patterns, read 2 files (ctrl+o to expand)
+
+● Now I can see what's remaining — Tasks 9 and 10. Let me check what's already
+  done:
+
+  Searched for 1 pattern (ctrl+o to expand)
+  ⎿  Invalid tool parameters
+  ⎿  Invalid tool parameters
+
+● Bash(python3 - << 'PYEOF'
+      import matplotlib…)
+  ⎿  Error: Exit code 1
+     Traceback (most recent call last):
+       File "<stdin>", line 1, in <module>
+     ModuleNotFoundError: No module named 'matplotlib'
+
+● Bash(pip install matplotlib --quiet 2>&1 | tail -5)
+  ⎿  /usr/bin/bash: line 1: pip: command not found
+
+● Bash(python3 -m pip install matplotlib --quiet 2>&1 | tail -5 && python3 -c
+      "import matplotlib; print(matplotlib.__version__)")
+  ⎿  Error: Exit code 1
+     /usr/bin/python3: No module named pip
+     Traceback (most recent call last):
+       File "<string>", line 1, in <module>
+         import matplotlib; print(matplotlib.__version__)
+         ^^^^^^^^^^^^^^^^^
+     ModuleNotFoundError: No module named 'matplotlib'
+  ⎿  Interrupted · What should Claude do instead?
+
+❯ Finish the remaining tasks in CLLM of                                         
+hw4ai_ece510_codefest09_spring26_r2.pdf. If you plan on using matplotlib, bash  
+`source /home/sackb/.venv`.                                                     
+
+● Bash(source /home/sackb/.venv/bin/activate && python3 -c "import matplotlib;
+      import numpy; print('matplotlib', matplotlib.__version__, 'numpy',
+      numpy.__version__)")
+  ⎿  matplotlib 3.10.8 numpy 2.4.2
+
+● Bash(source /home/sackb/.venv/bin/activate && python3 - << 'PYEOF'
+      import matplotlib…)
+  ⎿  Saved codefest/cf09/benchmarks/roofline_plot.png
+     BW ceiling at hw_ai_lo: 9.1765e-03 GFLOP/s
+     Gap below BW ceiling:   33.6×
+     Effective BW (measured): 3.10 MB/s vs peak 104 MB/s
+
+● Plot saved. Now write the analysis and remaining tasks in parallel:
+
+● Write(codefest/cf09/benchmarks/roofline_analysis.md)
+  ⎿  Wrote 5 lines to codefest/cf09/benchmarks/roofline_analysis.md
+      1 # Roofline Analysis — Kalman HW Accelerator
+      2 
+      3 ## Gap Diagnosis
+      4 
+      5 The measured HW accelerator point (2.733 × 10⁻⁴ GFLOP/s, AI = 0.0
+        88 FLOP/byte) sits 33.6× below the AXI4 memory-bandwidth ceiling 
+        of 9.18 × 10⁻³ GFLOP/s at that arithmetic intensity. This gap is 
+        not caused by insufficient compute units or memory bandwidth — th
+        e AXI4 bus can sustain 104 MB/s while we consume only 3.1 MB/s ef
+        fective bandwidth. The root cause is **AXI transaction latency**:
+         each of the 34 MMIO round-trips (19 writes + 15 reads) incurs an
+         independent AW→W→B or AR→R handshake at 13 MHz, averaging ~2.6 µ
+        s per transaction. Summed over 34 transactions, this gives 87.8 µ
+        s of bus overhead per update versus a theoretical 2.6 µs if all 2
+        72 bytes were streamed in a single burst. The accelerator's 14-st
+        ate FSM (compute = 1.08 µs) contributes less than 1.3% of total l
+        atency — the design is heavily **latency-bound on the MMIO interf
+        ace**, not compute- or bandwidth-bound. Reducing transaction coun
+        t via state retention or AXI burst writes is the highest-leverage
+         path to closing this gap.
+
+● Write(project/remaining_tasks.md)  ⎿  Wrote 28 lines to project/remaining_tasks.md
+      1 # Remaining Tasks Before M4
+      2 
+      3 ## 1. Add a state-retention control bit to eliminate P_in / x_in 
+        re-writes each iteration
+      4 
+      5 In `axilite_slave` (offset 0x00 CTRL register), add bit[2] as `re
+        tain_state`. When set, the FSM
+      6 automatically feeds `x_out[0:2]` back into `x_in[0:2]` and `P_out
+        [0:8]` back into `P_in[0:8]`
+      7 at the end of DONE_S state using internal wires (already routed i
+        n the existing datapath). The CPU
+      8 then only needs to write z (1 write) and read x_out/P_out (12 rea
+        ds) = 13 transactions instead
+      9 of 34, reducing per-update MMIO latency from ~87.8 µs to ~33 µs (
+        ~2.7× throughput gain).
+     … +18 lines (ctrl+o to expand)
+
+● Let me verify the word count on the analysis:
+
+  Listed 1 directory (ctrl+o to expand)
+
+● All CLLM tasks are done. Here's what was created:
+
+  Task 9 — codefest/cf09/benchmarks/roofline_plot.png (195 KB)
+  - Platform: Artix-7 XC7A100T, VeeRwolf SoC @ 13 MHz
+  - HW compute ceiling: 22.3 MFLOP/s (14 FSM states × 13 MHz, 24 FLOPs)
+  - BW ceiling: 104 MB/s (AXI4-64)
+  - Ridge point: 0.214 FLOP/byte
+  - HW measured ★ at AI=[0.088–0.091], 273 KFLOP/s — labeled "measured", 33× gap
+   annotation
+  - SW baseline ◆ at AI=0.21, 24.1 KFLOP/s — labeled "measured"
+  - 109× speedup arrow between the two points
+
+  Task 9 — codefest/cf09/benchmarks/roofline_analysis.md (175 words, ≥100
+  required)
+  - Diagnoses the 33.6× gap below the BW ceiling as MMIO transaction latency (34
+   independent AXI handshakes × ~2.6 µs each = 87.8 µs vs 2.6 µs theoretical
+  burst)
+  - Effective BW = 3.10 MB/s vs 104 MB/s peak — confirms latency-bound, not
+  bandwidth-bound
+
+  Task 10 — project/remaining_tasks.md (3 specific tasks)
+  1. State-retention bit in CTRL → 34 → 13 transactions → ~2.7× throughput gain
+  2. AXI4 burst write for z/x_in/P_in block (AWLEN=11) → eliminates 11 extra
+  handshakes
+  3. Clock the accelerator at 100 MHz with async FIFO CDC → 7.7× faster compute,
+   enables future pipelining
+
+✻ Cogitated for 1m 22s

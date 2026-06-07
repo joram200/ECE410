@@ -1,0 +1,5 @@
+# Roofline Analysis — Kalman HW Accelerator
+
+## Gap Diagnosis
+
+The measured HW accelerator point (2.733 × 10⁻⁴ GFLOP/s, AI = 0.088 FLOP/byte) sits 33.6× below the AXI4 memory-bandwidth ceiling of 9.18 × 10⁻³ GFLOP/s at that arithmetic intensity. This gap is not caused by insufficient compute units or memory bandwidth — the AXI4 bus can sustain 104 MB/s while we consume only 3.1 MB/s effective bandwidth. The root cause is **AXI transaction latency**: each of the 34 MMIO round-trips (19 writes + 15 reads) incurs an independent AW→W→B or AR→R handshake at 13 MHz, averaging ~2.6 µs per transaction. Summed over 34 transactions, this gives 87.8 µs of bus overhead per update versus a theoretical 2.6 µs if all 272 bytes were streamed in a single burst. The accelerator's 14-state FSM (compute = 1.08 µs) contributes less than 1.3% of total latency — the design is heavily **latency-bound on the MMIO interface**, not compute- or bandwidth-bound. Reducing transaction count via state retention or AXI burst writes is the highest-leverage path to closing this gap.

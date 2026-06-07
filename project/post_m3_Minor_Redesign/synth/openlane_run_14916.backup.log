@@ -1,0 +1,1523 @@
+#-----------------------------------------------------------
+# Vivado v2025.2 (64-bit)
+# SW Build 6299465 on Fri Nov 14 12:34:56 MST 2025
+# IP Build 6300035 on Fri Nov 14 10:48:45 MST 2025
+# SharedData Build 6298862 on Thu Nov 13 04:50:51 MST 2025
+# Start of session at: Wed Jun  3 02:27:30 2026
+# Process ID         : 14916
+# Current directory  : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign
+# Command line       : vivado -mode batch -source synth/run_ooc.tcl -log synth/openlane_run.log -journal reports/ooc.jou
+# Log file           : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/synth/openlane_run.log
+# Journal file       : /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/reports/ooc.jou
+# Running On         : archlinux
+# Platform           : unknown
+# Operating System   : unknown
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+# CPU Frequency      : 1908.183 MHz
+# CPU Physical cores : 8
+# CPU Logical cores  : 16
+# Host memory        : 16533 MB
+# Swap memory        : 8266 MB
+# Total Virtual      : 24800 MB
+# Available Virtual  : 21153 MB
+#-----------------------------------------------------------
+source synth/run_ooc.tcl
+# set base [file normalize [pwd]]
+# set rpt_dir "$base/synth"
+# file mkdir $rpt_dir
+# read_verilog -sv "$base/rtl/top.sv"
+# synth_design -top top \
+#              -mode out_of_context \
+#              -part xc7a100tcsg324-1
+Command: synth_design -top top -mode out_of_context -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 14936
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2024.770 ; gain = 412.672 ; free physical = 7223 ; free virtual = 19027
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'top' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:1097]
+INFO: [Synth 8-6157] synthesizing module 'axilite_slave' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:841]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000001000000 
+INFO: [Synth 8-6155] done synthesizing module 'axilite_slave' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:841]
+INFO: [Synth 8-6157] synthesizing module 'kalman_update' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:479]
+INFO: [Synth 8-6157] synthesizing module 'gemm_systolic' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:277]
+INFO: [Synth 8-6157] synthesizing module 'f64_mul' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:25]
+INFO: [Synth 8-6155] done synthesizing module 'f64_mul' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:25]
+INFO: [Synth 8-6157] synthesizing module 'f64_add' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:113]
+INFO: [Synth 8-6155] done synthesizing module 'f64_add' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:113]
+INFO: [Synth 8-6155] done synthesizing module 'gemm_systolic' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:277]
+INFO: [Synth 8-6155] done synthesizing module 'kalman_update' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:479]
+INFO: [Synth 8-6155] done synthesizing module 'top' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:1097]
+WARNING: [Synth 8-6014] Unused sequential element s1_big_sign_reg was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:178]
+WARNING: [Synth 8-3936] Found unconnected internal register 'shifted_reg' and it is trimmed from '53' to '52' bits. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:222]
+WARNING: [Synth 8-6014] Unused sequential element a_k_reg[0][0] was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:390]
+WARNING: [Synth 8-6014] Unused sequential element a_k_reg[0][1] was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:390]
+WARNING: [Synth 8-6014] Unused sequential element a_k_reg[0][2] was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:390]
+WARNING: [Synth 8-6014] Unused sequential element b_k_reg[0][0] was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:391]
+WARNING: [Synth 8-6014] Unused sequential element b_k_reg[0][1] was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:391]
+WARNING: [Synth 8-6014] Unused sequential element b_k_reg[0][2] was removed.  [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/rtl/top.sv:391]
+WARNING: [Synth 8-7129] Port s_wstrb[7] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[6] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[5] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[4] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[3] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[2] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[1] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[0] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[31] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[30] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[29] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[28] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[27] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[26] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[25] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[24] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[23] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[22] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[21] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[20] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[19] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[18] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[17] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[16] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[15] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[14] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[13] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[12] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[11] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[10] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[9] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[8] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[2] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[1] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[0] in module axilite_slave is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 2125.738 ; gain = 513.641 ; free physical = 7129 ; free virtual = 18935
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2143.551 ; gain = 531.453 ; free physical = 7130 ; free virtual = 18935
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 2143.551 ; gain = 531.453 ; free physical = 7130 ; free virtual = 18935
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'gemm_systolic'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'kalman_update'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |               000000000000000001 |                            00000
+                    LOAD |               000000000000000010 |                            00001
+                  STEP0M |               000000000000000100 |                            00010
+                 STEP0MW |               000000000000001000 |                            00011
+                  STEP0A |               000000000000010000 |                            00100
+                 STEP0AW |               000000000000100000 |                            00101
+                STEP0AW2 |               000000000001000000 |                            00110
+                  STEP1M |               000000000010000000 |                            00111
+                 STEP1MW |               000000000100000000 |                            01000
+                  STEP1A |               000000001000000000 |                            01001
+                 STEP1AW |               000000010000000000 |                            01010
+                STEP1AW2 |               000000100000000000 |                            01011
+                  STEP2M |               000001000000000000 |                            01100
+                 STEP2MW |               000010000000000000 |                            01101
+                  STEP2A |               000100000000000000 |                            01110
+                 STEP2AW |               001000000000000000 |                            01111
+                STEP2AW2 |               010000000000000000 |                            10000
+                  FINISH |               100000000000000000 |                            10001
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'gemm_systolic'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE | 0000000000000000000000000000000000001 |                           000000
+                   INNOV | 0000000000000000000000000000000000010 |                           000001
+                 INNOV_W | 0000000000000000000000000000000000100 |                           000010
+                INNOV_W2 | 0000000000000000000000000000000001000 |                           000011
+                  S_COMP | 0000000000000000000000000000000010000 |                           000100
+                   NR0_A | 0000000000000000000000000000000100000 |                           000101
+                  NR0_AW | 0000000000000000000000000000001000000 |                           000110
+                  NR0_AS | 0000000000000000000000000000010000000 |                           000111
+                 NR0_AS2 | 0000000000000000000000000000100000000 |                           001000
+                  NR0_BS | 0000000000000000000000000001000000000 |                           001001
+                  NR0_BM | 0000000000000000000000000010000000000 |                           001010
+                 NR0_BMW | 0000000000000000000000000100000000000 |                           001011
+                   NR1_A | 0000000000000000000000001000000000000 |                           001100
+                  NR1_AW | 0000000000000000000000010000000000000 |                           001101
+                  NR1_AS | 0000000000000000000000100000000000000 |                           001110
+                 NR1_AS2 | 0000000000000000000001000000000000000 |                           001111
+                  NR1_BS | 0000000000000000000010000000000000000 |                           010000
+                  NR1_BM | 0000000000000000000100000000000000000 |                           010001
+                 NR1_BMW | 0000000000000000001000000000000000000 |                           010010
+                   NR2_A | 0000000000000000010000000000000000000 |                           010011
+                  NR2_AW | 0000000000000000100000000000000000000 |                           010100
+                  NR2_AS | 0000000000000001000000000000000000000 |                           010101
+                 NR2_AS2 | 0000000000000010000000000000000000000 |                           010110
+                  NR2_BS | 0000000000000100000000000000000000000 |                           010111
+                  NR2_BM | 0000000000001000000000000000000000000 |                           011000
+                 NR2_BMW | 0000000000010000000000000000000000000 |                           011001
+                  K_COMP | 0000000000100000000000000000000000000 |                           011010
+                K_COMP_W | 0000000001000000000000000000000000000 |                           011011
+                  K_WAIT | 0000000010000000000000000000000000000 |                           011100
+                K_WAIT_W | 0000000100000000000000000000000000000 |                           011101
+                X_CORR_M | 0000001000000000000000000000000000000 |                           011110
+                X_CORR_A | 0000010000000000000000000000000000000 |                           011111
+               X_CORR_AW | 0000100000000000000000000000000000000 |                           100000
+              X_CORR_AW2 | 0001000000000000000000000000000000000 |                           100001
+                   P_UPD | 0010000000000000000000000000000000000 |                           100010
+                  WAIT_P | 0100000000000000000000000000000000000 |                           100011
+                  DONE_S | 1000000000000000000000000000000000000 |                           100100
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'one-hot' in module 'kalman_update'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:06 . Memory (MB): peak = 2170.543 ; gain = 558.445 ; free physical = 7163 ; free virtual = 18970
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   64 Bit       Adders := 1     
+	   3 Input   54 Bit       Adders := 16    
+	   3 Input   13 Bit       Adders := 17    
+	   2 Input   13 Bit       Adders := 17    
+	   3 Input   12 Bit       Adders := 32    
+	   2 Input   12 Bit       Adders := 16    
+	   3 Input    6 Bit       Adders := 16    
++---XORs : 
+	   2 Input      1 Bit         XORs := 33    
++---Registers : 
+	              106 Bit    Registers := 17    
+	               64 Bit    Registers := 188   
+	               54 Bit    Registers := 16    
+	               53 Bit    Registers := 32    
+	               32 Bit    Registers := 1     
+	               13 Bit    Registers := 17    
+	               11 Bit    Registers := 32    
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 368   
++---Multipliers : 
+	              53x53  Multipliers := 17    
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 16    
+	   7 Input   64 Bit        Muxes := 15    
+	  19 Input   64 Bit        Muxes := 1     
+	   2 Input   54 Bit        Muxes := 16    
+	   2 Input   53 Bit        Muxes := 32    
+	   2 Input   52 Bit        Muxes := 49    
+	   2 Input   12 Bit        Muxes := 32    
+	   2 Input   11 Bit        Muxes := 32    
+	   2 Input    6 Bit        Muxes := 16    
+	   2 Input    1 Bit        Muxes := 72    
+	  16 Input    1 Bit        Muxes := 16    
+	   7 Input    1 Bit        Muxes := 3     
+	  18 Input    1 Bit        Muxes := 1     
+	  19 Input    1 Bit        Muxes := 4     
+	  37 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: PCIN+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: Generating DSP s1_product0, operation Mode is: A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product0, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product0.
+DSP Report: Generating DSP s1_product_reg, operation Mode is: (PCIN+A*B)'.
+DSP Report: register s1_product_reg is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+DSP Report: operator s1_product0 is absorbed into DSP s1_product_reg.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[47]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[46]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[45]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[44]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[43]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[42]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[41]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[40]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[39]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[38]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[37]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[36]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[35]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[34]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[33]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[32]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[31]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[30]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[29]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[28]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[27]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[26]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[25]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[24]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[23]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[22]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[21]) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[47]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[46]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[45]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[44]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[43]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[42]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[41]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[40]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[39]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[38]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[37]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[36]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[35]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[34]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[33]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[32]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[31]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[30]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[29]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[28]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[27]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[26]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[25]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[24]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[23]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[22]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[21]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[20]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[19]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[18]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[17]__0) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[47]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[46]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[45]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[44]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[43]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[42]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[41]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[40]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[39]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[38]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[37]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[36]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[35]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[34]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[33]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[32]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[31]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[30]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[29]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[28]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[27]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[26]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[25]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[24]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[23]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[22]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[21]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[20]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[19]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[18]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[17]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[16]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[15]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[14]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[13]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[12]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[11]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[10]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[9]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[8]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[7]__1) is unused and will be removed from module f64_mul__1.
+WARNING: [Synth 8-3332] Sequential element (s1_product_reg[6]__1) is unused and will be removed from module f64_mul__1.
+INFO: [Common 17-14] Message 'Synth 8-3332' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:44 ; elapsed = 00:00:44 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6826 ; free virtual = 18633
+---------------------------------------------------------------------------------
+ Sort Area is gemm_systolic__GC0 s1_product0_10 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_10 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_10 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_13 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_13 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_13 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_16 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_16 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_16 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_19 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_19 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_19 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1c : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1c : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1c : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1f : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1f : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1f : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_22 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_22 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_22 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_25 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_25 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_25 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_28 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_28 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_28 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2b : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2b : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2b : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2e : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2e : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2e : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_31 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_31 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_31 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_34 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_34 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_34 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_37 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_37 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_37 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_3a : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_3a : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_3a : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_8 : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_8 : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_8 : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_d : 0 0 : 2916 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_d : 0 1 : 2925 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_d : 0 2 : 2975 8816 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_12 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_12 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_12 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_15 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_15 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_15 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_18 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_18 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_18 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1b : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1b : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1b : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1e : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1e : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1e : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_21 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_21 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_21 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_24 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_24 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_24 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_27 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_27 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_27 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2a : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2a : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2a : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2d : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2d : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2d : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_30 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_30 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_30 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_33 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_33 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_33 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_36 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_36 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_36 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_39 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_39 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_39 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_4 : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_4 : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_4 : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_c : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_c : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_c : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_f : 0 0 : 2916 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_f : 0 1 : 2712 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_f : 0 2 : 2973 8601 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_0 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_0 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_0 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_11 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_11 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_11 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_14 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_14 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_14 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_17 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_17 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_17 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1a : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1a : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1a : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1d : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1d : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_1d : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_20 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_20 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_20 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_23 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_23 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_23 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_26 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_26 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_26 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_29 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_29 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_29 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2c : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2c : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2c : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2f : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2f : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_2f : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_32 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_32 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_32 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_35 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_35 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_35 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_38 : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_38 : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is kalman_update__GC0 s1_product0_38 : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_b : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_b : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_b : 0 2 : 2760 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_e : 0 0 : 2701 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_e : 0 1 : 2710 8171 : Used 1 time 0
+ Sort Area is gemm_systolic__GC0 s1_product0_e : 0 2 : 2760 8171 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'    | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:45 ; elapsed = 00:00:44 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6826 ; free virtual = 18633
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:48 ; elapsed = 00:00:47 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6825 ; free virtual = 18632
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:51 ; elapsed = 00:00:51 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6822 ; free virtual = 18629
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:51 ; elapsed = 00:00:51 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6821 ; free virtual = 18628
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:52 ; elapsed = 00:00:52 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6822 ; free virtual = 18630
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:52 ; elapsed = 00:00:52 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6823 ; free virtual = 18630
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:53 ; elapsed = 00:00:52 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6823 ; free virtual = 18630
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:53 ; elapsed = 00:00:52 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6823 ; free virtual = 18630
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping     | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17+A*B)' | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B        | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
+|f64_mul     | A*B             | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B    | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN+A*B)'     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 1    | 
++------------+-----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |CARRY4  |  1101|
+|2     |DSP48E1 |   153|
+|3     |LUT1    |   188|
+|4     |LUT2    |  3086|
+|5     |LUT3    |  2078|
+|6     |LUT4    |  3512|
+|7     |LUT5    |  3584|
+|8     |LUT6    | 10252|
+|9     |MUXF7   |   128|
+|10    |MUXF8   |    64|
+|11    |FDCE    |  7044|
+|12    |FDPE    |     8|
+|13    |FDRE    |  7775|
+|14    |FDSE    |    11|
++------+--------+------+
+
+Report Instance Areas: 
++------+------------------------------------+--------------+------+
+|      |Instance                            |Module        |Cells |
++------+------------------------------------+--------------+------+
+|1     |top                                 |              | 38984|
+|2     |  u_core                            |kalman_update | 37278|
+|3     |    u_1mk0                          |f64_add       |  1266|
+|4     |    u_gemm                          |gemm_systolic | 20421|
+|5     |      \gen_row[0].gen_col[0].u_add  |f64_add_13    |  1585|
+|6     |      \gen_row[0].gen_col[0].u_mul  |f64_mul_14    |   338|
+|7     |      \gen_row[0].gen_col[1].u_add  |f64_add_15    |  1585|
+|8     |      \gen_row[0].gen_col[1].u_mul  |f64_mul_16    |   338|
+|9     |      \gen_row[0].gen_col[2].u_add  |f64_add_17    |  1585|
+|10    |      \gen_row[0].gen_col[2].u_mul  |f64_mul_18    |   378|
+|11    |      \gen_row[1].gen_col[0].u_add  |f64_add_19    |  1585|
+|12    |      \gen_row[1].gen_col[0].u_mul  |f64_mul_20    |   338|
+|13    |      \gen_row[1].gen_col[1].u_add  |f64_add_21    |  1585|
+|14    |      \gen_row[1].gen_col[1].u_mul  |f64_mul_22    |   338|
+|15    |      \gen_row[1].gen_col[2].u_add  |f64_add_23    |  1585|
+|16    |      \gen_row[1].gen_col[2].u_mul  |f64_mul_24    |   403|
+|17    |      \gen_row[2].gen_col[0].u_add  |f64_add_25    |  1585|
+|18    |      \gen_row[2].gen_col[0].u_mul  |f64_mul_26    |   363|
+|19    |      \gen_row[2].gen_col[1].u_add  |f64_add_27    |  1585|
+|20    |      \gen_row[2].gen_col[1].u_mul  |f64_mul_28    |   403|
+|21    |      \gen_row[2].gen_col[2].u_add  |f64_add_29    |  1585|
+|22    |      \gen_row[2].gen_col[2].u_mul  |f64_mul_30    |   338|
+|23    |    u_k0                            |f64_mul       |   367|
+|24    |    u_k1                            |f64_mul_0     |   392|
+|25    |    u_k2                            |f64_mul_1     |   367|
+|26    |    u_ky0                           |f64_mul_2     |   367|
+|27    |    u_ky1                           |f64_mul_3     |   392|
+|28    |    u_ky2                           |f64_mul_4     |   367|
+|29    |    u_nr_mul1                       |f64_mul_5     |   392|
+|30    |    u_nr_mul2                       |f64_mul_6     |   457|
+|31    |    u_nr_sub                        |f64_add_7     |  1254|
+|32    |    u_scomb                         |f64_add_8     |  1473|
+|33    |    u_xo0                           |f64_add_9     |  1409|
+|34    |    u_xo1                           |f64_add_10    |  1534|
+|35    |    u_xo2                           |f64_add_11    |  1534|
+|36    |    u_ytilde                        |f64_add_12    |  1494|
+|37    |  u_slave                           |axilite_slave |  1706|
++------+------------------------------------+--------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6823 ; free virtual = 18630
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 1845 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 2611.230 ; gain = 999.133 ; free physical = 6823 ; free virtual = 18630
+Synthesis Optimization Complete : Time (s): cpu = 00:00:53 ; elapsed = 00:00:53 . Memory (MB): peak = 2611.238 ; gain = 999.133 ; free physical = 6823 ; free virtual = 18630
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.15 ; elapsed = 00:00:00.16 . Memory (MB): peak = 2611.238 ; gain = 0.000 ; free physical = 6990 ; free virtual = 18797
+INFO: [Netlist 29-17] Analyzing 1446 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2731.969 ; gain = 0.000 ; free physical = 6935 ; free virtual = 18742
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: ae5966f3
+INFO: [Common 17-83] Releasing license: Synthesis
+29 Infos, 143 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:00 ; elapsed = 00:00:58 . Memory (MB): peak = 2732.004 ; gain = 1119.906 ; free physical = 6935 ; free virtual = 18742
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 2235.033; main = 2139.003; forked = 339.663
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 3600.293; main = 2731.973; forked = 989.059
+# create_clock -period 10.000 -name clk [get_ports clk]
+# set_input_delay  2.0 -clock clk [all_inputs]
+WARNING: [Constraints 18-6211] Setting input delay on a clock pin 'clk' relative to clock 'clk' defined on the same pin is not supported, ignoring it
+# set_output_delay 2.0 -clock clk [all_outputs]
+# report_utilization    -file "$rpt_dir/area_report.txt"
+# report_timing_summary -file "$rpt_dir/timing_report.txt"
+WARNING: [Constraints 18-6211] Setting input delay on a clock pin 'clk' relative to clock 'clk' defined on the same pin is not supported, ignoring it
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 8 CPUs
+WARNING: [Timing 38-242] The property HD.CLK_SRC of clock port "clk" is not set. In out-of-context mode, this prevents timing estimation for clock delay/skew
+Resolution: Set the HD.CLK_SRC property of the out-of-context port to the location of the clock buffer instance in the top-level design
+report_timing_summary: Time (s): cpu = 00:00:37 ; elapsed = 00:00:16 . Memory (MB): peak = 2812.000 ; gain = 79.996 ; free physical = 6911 ; free virtual = 18718
+# report_timing -max_paths 30 -nworst 1 -path_type full \
+#               -file "$rpt_dir/critical_paths.txt"
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 8 CPUs
+INFO: [Timing 38-78] ReportTimingParams: -max_paths 30 -nworst 1 -delay_type max -sort_by slack.
+# report_power          -file "$rpt_dir/power_report.txt"
+Command: report_power -file /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/synth/power_report.txt
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+WARNING: [Power 33-332] Found switching activity that implies high-fanout reset nets being asserted for excessive periods of time which may result in inaccurate power analysis.
+Resolution: To review and fix problems, please run Power Constraints Advisor in the GUI from Tools > Power Constraints Advisor or run report_power with the -advisory option to generate a text report.
+0 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+# puts "INFO: OOC synthesis complete. Reports in $rpt_dir"
+INFO: OOC synthesis complete. Reports in /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/post_m3_Minor_Redesign/synth
+# puts "INFO: area_report.txt / timing_report.txt / power_report.txt generated."
+INFO: area_report.txt / timing_report.txt / power_report.txt generated.
+INFO: [Common 17-206] Exiting Vivado at Wed Jun  3 02:28:51 2026...

@@ -1,0 +1,19 @@
+profile_done () at src/main.cpp:36
+36	    __asm__ volatile("" ::: "memory");   /* prevent optimization across call */
+JTAG tap: riscv.cpu tap/device found: 0x13631093 (mfg: 0x049 (Xilinx), part: 0x3631, ver: 0x1)
+Loading section .text.init, size 0x88 lma 0x0
+Loading section .text, size 0x25c lma 0x88
+Loading section .rodata, size 0x1c8 lma 0x2e8
+Start address 0x0, load size 1196
+Transfer rate: 389 KB/sec, 398 bytes/write.
+Hardware assisted breakpoint 1 at 0x88: file src/main.cpp, line 36.
+
+Breakpoint 1, profile_done () at src/main.cpp:36
+36	    __asm__ volatile("" ::: "memory");   /* prevent optimization across call */
+HIT profile_done — reading metrics
+METRIC kf_cycles_start 180327
+METRIC kf_cycles_end   231709
+METRIC kf_heap_start   42200
+METRIC kf_heap_end     42200
+metrics captured — run results/run_4
+[Inferior 1 (Remote target) detached]

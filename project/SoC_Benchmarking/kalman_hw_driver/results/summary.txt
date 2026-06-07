@@ -1,0 +1,23 @@
+Kalman HW Accelerator — Performance Summary
+Hardware : SweRV EL2 + Kalman AXI slave, 13 MHz core clock, Nexys A7
+Workload : 45 measurement-correction updates, 3-state filter
+FLOPs    : 1,080 total (24 per update)
+Runs     : 5 of 5 successful
+
+ Run        Cycles   Time(ms)   Samples/s     GFLOP/s   Heap(B)
+---------------------------------------------------------------
+   1        51,383      3.953   11385.090  2.7324e-04         0
+   2        51,372      3.952   11387.530  2.7330e-04         0
+   3        51,384      3.953   11384.870  2.7324e-04         0
+   4        51,382      3.952   11385.310  2.7325e-04         0
+   5        51,367      3.951   11388.630  2.7333e-04         0
+---------------------------------------------------------------
+ AVG        51,378      3.952   11386.286  2.7327e-04         0
+
+Notes:
+  Cycles   : mcycle CSR delta across 45 kalman_hw_update() calls
+  Time(ms) : cycles / 13000  (clock = 13 MHz)
+  Samples/s: 45 / time_sec
+  GFLOP/s  : 1,080 FLOPs / time_sec / 1e9
+  Heap(B)  : bump_top delta — should be ~0 (no dynamic allocation in HW driver)
+  FLOPs/update: 24 (11 MACs x2 + 2 extra; see cman_ai_analysis.md)

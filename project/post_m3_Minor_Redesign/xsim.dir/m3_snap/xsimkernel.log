@@ -1,0 +1,7 @@
+Running: xsim.dir/m3_snap/xsimk -runall -simmode gui -wdb m3_snap.wdb -simrunnum 0 -socket 53103
+Design successfully loaded
+Design Loading Memory Usage: 197320 KB (Peak: 197328 KB)
+Design Loading CPU Usage: 1090 ms
+Simulation completed
+Simulation Memory Usage: 288200 KB (Peak: 336588 KB)
+Simulation CPU Usage: 1140 ms
