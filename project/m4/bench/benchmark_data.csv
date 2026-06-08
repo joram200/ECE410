@@ -1,0 +1,13 @@
+mode,run,cycles,time_ms,samples_per_sec,gflops,heap_bytes,notes
+sw,1,5587059,429.774,104.710,2.4082e-5,49760,RVfpgaEL2 bitstream; GDB JTAG mcycle snapshot
+sw,2,5587246,429.788,104.700,2.4082e-5,49760,RVfpgaEL2 bitstream; GDB JTAG mcycle snapshot
+sw,3,5587246,429.788,104.700,2.4082e-5,49760,RVfpgaEL2 bitstream; GDB JTAG mcycle snapshot
+sw,4,5587059,429.774,104.710,2.4082e-5,49760,RVfpgaEL2 bitstream; GDB JTAG mcycle snapshot
+sw,5,5586952,429.766,104.710,2.4083e-5,49760,RVfpgaEL2 bitstream; GDB JTAG mcycle snapshot
+sw,avg,5587112,429.778,104.706,2.4082e-5,49760,5-run average
+hw,1,51383,3.953,11385.09,2.7324e-4,0,SoC_impl bitstream; GDB JTAG mcycle snapshot
+hw,2,51372,3.952,11387.53,2.7330e-4,0,SoC_impl bitstream; GDB JTAG mcycle snapshot
+hw,3,51384,3.953,11384.87,2.7324e-4,0,SoC_impl bitstream; GDB JTAG mcycle snapshot
+hw,4,51382,3.952,11385.31,2.7325e-4,0,SoC_impl bitstream; GDB JTAG mcycle snapshot
+hw,5,51367,3.951,11388.63,2.7333e-4,0,SoC_impl bitstream; GDB JTAG mcycle snapshot
+hw,avg,51378,3.952,11386.29,2.7327e-4,0,5-run average
