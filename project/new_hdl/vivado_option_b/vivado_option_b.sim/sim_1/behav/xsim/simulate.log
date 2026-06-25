@@ -1,0 +1,34 @@
+Time resolution is 1 ps
+TB_B: Starting iteration 0
+TB_B: Iteration 0 complete
+TB_B: Starting iteration 1
+TB_B: Iteration 1 complete
+TB_B: Starting iteration 2
+TB_B: Iteration 2 complete
+TB_B: Starting iteration 3
+TB_B: Iteration 3 complete
+TB_B: Starting iteration 4
+TB_B: Iteration 4 complete
+TB_B: Starting iteration 5
+TB_B: Iteration 5 complete
+TB_B: Starting iteration 6
+TB_B: Iteration 6 complete
+TB_B: Starting iteration 7
+TB_B: Iteration 7 complete
+TB_B: Starting iteration 8
+TB_B: Iteration 8 complete
+TB_B: Starting iteration 9
+TB_B: Iteration 9 complete
+TB_B: Starting iteration 10
+TB_B: Iteration 10 complete
+TB_B: Starting iteration 11
+TB_B: Iteration 11 complete
+TB_B: Starting iteration 12
+TB_B: Iteration 12 complete
+TB_B: Starting iteration 13
+TB_B: Iteration 13 complete
+TB_B: Starting iteration 14
+TB_B: Iteration 14 complete
+TB_B: All 15 iterations complete
+CHECKER summary: 135 elements passed, 0 failed
+$finish called at time : 18625 ns : File "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/tb_option_b.sv" Line 214

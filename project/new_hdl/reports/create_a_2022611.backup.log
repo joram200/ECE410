@@ -1,0 +1,72 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Mon May 25 23:19:23 2026
+# Process ID: 2022611
+# Current directory: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl
+# Command line: vivado -mode batch -source synth/create_project_a.tcl -log reports/create_a.log -journal reports/create_a.jou
+# Log file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/create_a.log
+# Journal file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/create_a.jou
+# Running On        :archlinux
+# Platform          :unknown
+# Operating System  :unknown
+# Processor Detail  :11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+# CPU Frequency     :1782.005 MHz
+# CPU Physical cores:8
+# CPU Logical cores :16
+# Host memory       :16535 MB
+# Swap memory       :8266 MB
+# Total Virtual     :24802 MB
+# Available Virtual :12479 MB
+#-----------------------------------------------------------
+source synth/create_project_a.tcl
+# set hdl_dir [pwd]
+# create_project vivado_option_a "$hdl_dir/vivado_option_a" \
+#     -part xc7a100tcsg324-1 -force
+# foreach f [list \
+#     "$hdl_dir/rtl/f64_mul.sv" \
+#     "$hdl_dir/rtl/f64_add.sv" \
+#     "$hdl_dir/rtl/gemm_systolic.sv" \
+#     "$hdl_dir/rtl/axilite_slave.sv" \
+#     "$hdl_dir/rtl/accel_top_a.sv" ] {
+#     if {[file exists $f]} {
+#         add_files -fileset [get_filesets sources_1] $f
+#         puts "INFO: Added source: $f"
+#     } else {
+#         puts "WARNING: File not found: $f"
+#     }
+# }
+INFO: Added source: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv
+INFO: Added source: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv
+INFO: Added source: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/gemm_systolic.sv
+INFO: Added source: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/axilite_slave.sv
+INFO: Added source: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/accel_top_a.sv
+# set_property top accel_top_a [get_filesets sources_1]
+# foreach f [list \
+#     "$hdl_dir/rtl/clk_gen.sv" \
+#     "$hdl_dir/tb/veerwolf_bfm.sv" \
+#     "$hdl_dir/tb/axi_monitor.sv" \
+#     "$hdl_dir/tb/checker.sv" \
+#     "$hdl_dir/tb/program_block.sv" \
+#     "$hdl_dir/tb/tb_option_a.sv" ] {
+#     if {[file exists $f]} {
+#         add_files -fileset [get_filesets sim_1] $f
+#         puts "INFO: Added sim file: $f"
+#     } else {
+#         puts "WARNING: File not found: $f"
+#     }
+# }
+INFO: Added sim file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/clk_gen.sv
+INFO: Added sim file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/veerwolf_bfm.sv
+INFO: Added sim file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/axi_monitor.sv
+INFO: Added sim file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv
+INFO: Added sim file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/program_block.sv
+INFO: Added sim file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/tb_option_a.sv
+# set_property top     tb_option_a    [get_filesets sim_1]
+# set_property top_lib xil_defaultlib [get_filesets sim_1]
+# close_project
+# puts "INFO: vivado_option_a project created."
+INFO: vivado_option_a project created.
+INFO: [Common 17-206] Exiting Vivado at Mon May 25 23:19:30 2026...

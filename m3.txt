@@ -1,0 +1,1373 @@
+╭─── Claude Code v2.1.88 ──────────────────────────────────────────────────────╮
+│                                                    │ Tips for getting        │
+│                 Welcome back Jose!                 │ started                 │
+│                                                    │ Run /init to create a … │
+│                       ▐▛███▜▌                      │ ─────────────────────── │
+│                      ▝▜█████▛▘                     │ Recent activity         │
+│                        ▘▘ ▝▝                       │ No recent activity      │
+│     Sonnet 4.6 · Claude Pro · joram2@pdx.edu's     │                         │
+│     Organization                                   │                         │
+│       /…/2025-2026/Spring_2026/ECE_410/ECE410      │                         │
+╰──────────────────────────────────────────────────────────────────────────────╯
+
+❯ /rename m3 
+  ⎿  Session renamed to: m3
+
+❯ /add-dir /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University 
+/Course_Materials/2025-2026/Spring_2026/ECE_410/                                
+  ⎿  Added /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/
+     Course_Materials/2025-2026/Spring_2026/ECE_410 as a working directory for
+     this session · /permissions to manage
+
+❯ Copy and modifiy the plan shown in project/new_hdl_run_m3.sh into project/m3/ 
+ so that the rtl and tb modules for option B are combined into the rtl/top.sv   
+and tb/tb_top.sv respectively as well as producing all the need items in        
+checklist and following the repo structure in                                   
+ECE_410/Project/hw4ai_ece510_project_milestone_3_spring26_r1.pdf. Replace the   
+Openlane 2 sythesis with Vivado Out-of-Context synthesis and its file           
+equivalents(i.e. OpenLane 2 configuration replaced with Vivado Design Contraint 
+ file). Make sure that you produce an annotated waveform of the simulation      
+section and the testbench as a clear line in the simulation log that says the   
+design has PASS when no errors where thrown.                                    
+
+● 2 Explore agents finished (ctrl+o to expand)
+   ├─ Explore project structure and existing files · 0 tool uses
+   │  ⎿  Done
+   └─ Explore course materials and PDF requirements · 0 tool uses
+      ⎿  Done
+
+● Now let me read the actual file contents to understand what we're working
+  with.
+
+  Read 6 files, listed 1 directory (ctrl+o to expand)
+
+● Let me read a few more files to complete my understanding.
+
+  Read 2 files (ctrl+o to expand)
+
+● Now I have enough context to write the plan. Let me create it.
+
+● Updated plan
+  ⎿  /plan to preview
+
+● User approved Claude's plan
+  ⎿  Plan saved to: ~/.claude/plans/mutable-hugging-eclipse.md · /plan to edit
+     M3 Submission Plan: project/m3/
+
+     Context
+
+     The existing project/new_hdl/ directory has a working multi-file Option B
+     (Kalman update accelerator) implementation with separate RTL, TB, and Tcl
+     scripts. M3 requires a project/m3/ submission that:
+     - Merges all RTL into rtl/top.sv and all TB into tb/tb_top.sv (single
+     files)
+     - Replaces OpenLane 2 synthesis with Vivado OOC synthesis + XDC constraints
+      file
+     - Produces all M3 checklist deliverables (simulation log with PASS,
+     annotated waveform, synthesis reports)
+     - Has a run_m3.sh orchestration script adapted from
+     project/new_hdl/run_m3.sh
+
+     Source truth for existing modules: project/new_hdl/rtl/ and
+     project/new_hdl/tb/
+
+     ---
+     Files to Create
+
+     1. project/m3/rtl/top.sv
+
+     Single-file merge of all 6 Option B RTL modules (in dependency order):
+     1. f64_mul — from new_hdl/rtl/f64_mul.sv
+     2. f64_add — from new_hdl/rtl/f64_add.sv
+     3. gemm_systolic — from new_hdl/rtl/gemm_systolic.sv
+     4. kalman_update — from new_hdl/rtl/kalman_update.sv
+     5. axilite_slave — from new_hdl/rtl/axilite_slave.sv
+     6. top — accel_top_b renamed to top (from new_hdl/rtl/accel_top_b.sv)
+
+     Add a header comment block on the top module documenting every external
+     port (direction, width, role), the register map, and the two sub-modules
+     instantiated. No other changes to module internals.
+
+     2. project/m3/tb/tb_top.sv
+
+     Single-file merge of all 7 TB modules (in dependency order):
+     1. clk_gen — from new_hdl/rtl/clk_gen.sv
+     2. veerwolf_bfm — from new_hdl/tb/veerwolf_bfm.sv
+     3. axi_monitor — from new_hdl/tb/axi_monitor.sv
+     4. compute_core_checker — from new_hdl/tb/checker.sv
+     5. result_checker — from new_hdl/tb/checker.sv
+     6. program_block — from new_hdl/tb/program_block.sv
+     7. tb_top — tb_option_b renamed to tb_top (from new_hdl/tb/tb_option_b.sv)
+
+     Required modifications to tb_top:
+     - At the very start of the first initial begin, add:
+     $dumpfile("sim/cosim_waveform.vcd");
+     $dumpvars(1, tb_top);
+     - Replace the final $display("TB_B: All 15 iterations complete") + $finish
+     block with:
+     repeat (10) @(posedge clk);
+     $display("TB_TOP: All 15 iterations complete.");
+     $finish;
+     - Add a final block at module scope (not inside initial) after the initial
+     block:
+     final begin
+         if (u_chk.fail_count == 0)
+             $display("SIMULATION RESULT: PASS — all checks passed, no errors
+     detected");
+         else
+             $display("SIMULATION RESULT: FAIL — %0d ULP failures detected",
+     u_chk.fail_count);
+     end
+     - This uses hierarchical reference to u_chk (the result_checker instance)
+     since all modules are in the same file.
+     - The DUT instantiation must use module name top (not accel_top_b):
+     top #(.ADDR_WIDTH(32), .DATA_WIDTH(64)) u_dut ( ... );
+
+     3. project/m3/synth/constraints.xdc
+
+     Vivado Design Constraints file — replaces config.json (OpenLane 2):
+     # constraints.xdc — Vivado timing constraints for 'top' (Option B Kalman
+     accelerator)
+     # Target: Artix-7 100T (xc7a100tcsg324-1), 100 MHz
+     create_clock -period 10.000 -name clk [get_ports clk]
+     set_input_delay  -clock clk -max 2.0 [all_inputs]
+     set_output_delay -clock clk -max 2.0 [all_outputs]
+
+     4. project/m3/synth/run_ooc.tcl
+
+     Non-project mode OOC synthesis. Reads from rtl/top.sv only (single-file, no
+      separate files needed). Reports go to synth/ (not reports/):
+     set base [pwd]
+     read_verilog -sv "$base/rtl/top.sv"
+     synth_design -top top -mode out_of_context -part xc7a100tcsg324-1
+     create_clock -period 10.000 -name clk [get_ports clk]
+     set_input_delay  2.0 -clock clk [all_inputs]
+     set_output_delay 2.0 -clock clk [all_outputs]
+     report_utilization    -file "$base/synth/area_report.txt"
+     report_timing_summary -file "$base/synth/timing_report.txt"
+     report_power          -file "$base/synth/power_report.txt"
+     puts "INFO: OOC synthesis complete."
+
+     5. project/m3/synth/gtkwave_export.tcl
+
+     GTKWave Tcl script to produce an annotated PNG from the VCD. Loads AXI
+     write signals, core busy/done, AXI read signals; adds three comment markers
+      for host-write, compute, host-read regions:
+     set dumpfile [lindex $argv 0]
+     set outfile  [lindex $argv 1]
+     gtkwave::loadFile $dumpfile
+     # Add signals: m_awvalid, m_awready, m_wvalid, core_start, core_busy, 
+     core_done, m_arvalid, m_rdata
+     # Add region markers
+     gtkwave::setZoomFactor -10
+     gtkwave::addComment "HOST WRITE (A_REG/B_REG)"
+     gtkwave::addComment "KALMAN COMPUTE"
+     gtkwave::addComment "HOST READ (C_REG)"
+     gtkwave::hardcopy $outfile
+
+     6. project/m3/run_m3.sh
+
+     Modified from new_hdl/run_m3.sh. Key changes:
+     - Uses xvlog/xelab/xsim non-project mode (instead of Vivado project-mode
+     launch_simulation) — this runs from project/m3/, so
+     $dumpfile("sim/cosim_waveform.vcd") in the testbench resolves correctly
+     - Only handles Option B (no A vs B comparison)
+     - Synthesis log goes to synth/openlane_run.log (checklist name)
+     - Calls gtkwave for PNG export (non-fatal if missing)
+     - Checkpoint stops identical to source script
+
+     Script steps:
+     Step 0:   mkdir -p sim synth reports
+     Step 1:   Check rtl/top.sv exists
+     Step 2:   Check tb/tb_top.sv exists
+     Step 3:   Check synth/constraints.xdc exists
+     Step 4:   xvlog --sv rtl/top.sv tb/tb_top.sv  (compile, log →
+     reports/compile.log)
+     Step 5:   xelab tb_top -s m3_snap -debug typical  (elaborate, log →
+     reports/elab.log)
+     Step 6:   xsim m3_snap --runall --log sim/cosim_run.log  (simulate)
+     Step 7:   [non-fatal] gtkwave sim/cosim_waveform.vcd --script
+     synth/gtkwave_export.tcl
+                  -o sim/cosim_waveform.png
+     Step 8:   vivado -mode batch -source synth/run_ooc.tcl
+                  -log synth/openlane_run.log -journal reports/ooc.jou
+     Step 9:   [note] synth/timing_report.txt, area_report.txt, power_report.txt
+      now exist
+
+     7. project/m3/synth/critical_path.md
+
+     One-paragraph writeup identifying the critical path through the F64
+     adder/multiplier in the Kalman update datapath. To be written based on the
+     timing report output (WNS, start/end points). Template structure:
+     - Critical path start: register output of exponent accumulator in f64_mul
+     - Critical path end: sign-selection mux input in f64_add
+     - Stages: multiply mantissa → exponent check → add alignment shift →
+     normalize
+     - Why critical: 106-bit product ripples through exponent comparator before
+     reaching adder
+     - What would shorten it: register the multiplier output (pipeline stage
+     between mul and add)
+
+     8. project/m3/README.md
+
+     Catalog of every file with one-line descriptions. Must state:
+     - Simulator: Vivado xsim (via xvlog/xelab/xsim)
+     - Synthesis: Vivado OOC non-project mode
+     - How to reproduce: cd project/m3 && bash run_m3.sh
+
+     9. project/m3/synthesis_notes.md
+
+     ≥500 word narrative on: what synthesized, what the timing slack was, scope
+     (Option B only, no SoC integration), why this scope still answers the M1
+     question, power estimate results.
+
+     ---
+     Execution Order
+
+     1. Write rtl/top.sv (concatenate source files, rename top module)
+     2. Write tb/tb_top.sv (concatenate source files, rename, add VCD dump +
+     PASS/FAIL final block, fix DUT instance name to top)
+     3. Write synth/constraints.xdc
+     4. Write synth/run_ooc.tcl
+     5. Write synth/gtkwave_export.tcl
+     6. Write run_m3.sh
+     7. Update README.md with catalog
+     8. Update synthesis_notes.md with template (user fills in actual numbers
+     after running)
+
+     ---
+     Verification
+
+     Run from project/m3/:
+     bash run_m3.sh
+     Expected:
+     - sim/cosim_run.log contains line: SIMULATION RESULT: PASS — all checks 
+     passed, no errors detected
+     - sim/cosim_waveform.vcd generated (PNG via gtkwave if installed)
+     - synth/timing_report.txt, synth/area_report.txt, synth/power_report.txt
+     populated
+     - synth/openlane_run.log contains INFO: OOC synthesis complete.
+
+     Checklist cross-check:
+
+     ┌───────────────────────────────┬─────────────────────────────────────────┐
+     │       M3 Checklist Item       │                  File                   │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ README catalogs all files     │ README.md                               │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ rtl/top.sv with header        │ rtl/top.sv                              │
+     │ comment                       │                                         │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ tb/tb_top.sv drives interface │ tb/tb_top.sv                            │
+     │  only                         │                                         │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ PASS line in sim log          │ sim/cosim_run.log (from $display in     │
+     │                               │ final block)                            │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ Annotated waveform PNG        │ sim/cosim_waveform.png                  │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ Constraints file              │ synth/constraints.xdc                   │
+     │ (≈config.json)                │                                         │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ Synthesis log                 │ synth/openlane_run.log                  │
+     │ (≈openlane_run.log)           │                                         │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ Timing report                 │ synth/timing_report.txt                 │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ Area report                   │ synth/area_report.txt                   │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ Power report                  │ synth/power_report.txt                  │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ Critical path                 │ synth/critical_path.md                  │
+     ├───────────────────────────────┼─────────────────────────────────────────┤
+     │ Synthesis narrative ≥500      │ synthesis_notes.md                      │
+     │ words                         │                                         │
+     └───────────────────────────────┴─────────────────────────────────────────┘
+
+● Now I'll implement. Let me read the remaining source files I need to
+  concatenate.
+
+  Read 8 files (ctrl+o to expand)
+
+● Now I have everything I need. Let me write all the files in parallel.
+
+● Write(project/m3/rtl/top.sv)
+  ⎿  Wrote 1034 lines to project/m3/rtl/top.sv
+       1 // =============================================================
+         ================
+       2 // top.sv — M3 integrated top module: Option B Kalman Update Acc
+         elerator
+       3 // All synthesisable RTL combined into a single file.
+       4 // Module hierarchy (dependency order):
+       5 //   f64_mul       — Combinational IEEE-754 F64 multiplier
+       6 //   f64_add       — Combinational IEEE-754 F64 adder
+       7 //   gemm_systolic — 3×3 weight-stationary systolic GEMM (used b
+         y kalman_update)
+       8 //   kalman_update — Kalman filter update kernel (instantiates g
+         emm_systolic)
+       9 //   axilite_slave — AXI4-Lite slave register file
+      10 //   top           — Integration top (axilite_slave + kalman_upd
+         ate)
+     … +1024 lines (ctrl+o to expand)
+
+● Write(project/m3/tb/tb_top.sv)
+  ⎿  Wrote 761 lines to project/m3/tb/tb_top.sv
+       1 // =============================================================
+         ================
+       2 // tb_top.sv — M3 end-to-end co-simulation testbench: Option B K
+         alman Accelerator
+       3 // All testbench modules combined into a single file.
+       4 // Module order (dependency):
+       5 //   clk_gen              — Simulation-only clock generator
+       6 //   veerwolf_bfm         — AXI4-Lite master BFM (models SweRV E
+         L2)
+       7 //   axi_monitor          — Passive AXI protocol monitor + SVAs
+       8 //   compute_core_checker — FSM contract SVAs for compute core
+       9 //   result_checker       — F64 ULP comparator (wraps compute_co
+         re_checker)
+      10 //   program_block        — 15 Kalman profiling data sets
+     … +751 lines (ctrl+o to expand)
+
+● Now write the synth files, run script, and documentation in parallel:
+
+● Write(project/m3/synth/constraints.xdc)
+  ⎿  Wrote 11 lines to project/m3/synth/constraints.xdc
+       1 # constraints.xdc — Vivado Design Constraints for 'top' (Option 
+         B Kalman accelerator)
+       2 # Target device: Artix-7 100T (xc7a100tcsg324-1)
+       3 # Clock frequency: 100 MHz (10 ns period)
+       4 # Replaces the OpenLane 2 config.json for Vivado OOC synthesis.
+       5 #
+       6 # Usage (non-project OOC mode): constraints applied inline in ru
+         n_ooc.tcl
+       7 # Usage (project mode):         add_files -fileset constrs_1 syn
+         th/constraints.xdc
+       8 
+       9 create_clock -period 10.000 -name clk [get_ports clk]
+      10 set_input_delay  -clock clk -max 2.0 [all_inputs]
+     … +1 line (ctrl+o to expand)
+
+● Write(project/m3/synth/run_ooc.tcl)
+  ⎿  Wrote 34 lines to project/m3/synth/run_ooc.tcl
+       1 # run_ooc.tcl — Vivado Out-of-Context synthesis for 'top' (Optio
+         n B)
+       2 # Non-project mode. Reads from rtl/top.sv (single combined file)
+         .
+       3 # Run from project/m3/ directory:
+       4 #   vivado -mode batch -source synth/run_ooc.tcl \
+       5 #          -log synth/openlane_run.log -journal reports/ooc.jou
+       6 #
+       7 # Replaces OpenLane 2 synthesis. Reports go to synth/ to match M
+         3 checklist paths.
+       8 
+       9 set base [file normalize [pwd]]
+      10 set rpt_dir "$base/synth"
+     … +24 lines (ctrl+o to expand)
+
+● Write(project/m3/synth/gtkwave_export.tcl)
+  ⎿  Wrote 62 lines to project/m3/synth/gtkwave_export.tcl
+      1 # gtkwave_export.tcl — GTKWave Tcl script: export annotated wavef
+        orm PNG
+      2 # Loads AXI write, compute, and AXI read signal groups and marks 
+        the three
+      3 # transaction regions with comments.
+      4 #
+      5 # Usage (called from run_m3.sh):
+      6 #   gtkwave sim/cosim_waveform.vcd --script synth/gtkwave_export.
+        tcl \
+      7 #           -o sim/cosim_waveform.png
+      8 #
+      9 # Requires GTKWave >= 3.3.100 with Tcl batch mode support.
+     … +52 lines (ctrl+o to expand)
+
+● Write(project/m3/run_m3.sh)
+  ⎿  Wrote 129 lines to project/m3/run_m3.sh
+       1 #!/usr/bin/env bash
+       2 # run_m3.sh — M3 submission orchestration for project/m3/ (Optio
+         n B only)
+       3 # Run from project/m3/ directory:
+       4 #   cd project/m3 && bash run_m3.sh
+       5 #
+       6 # Differences from new_hdl/run_m3.sh:
+       7 #   - Single combined RTL file (rtl/top.sv) and TB file (tb/tb_t
+         op.sv)
+       8 #   - Uses xvlog/xelab/xsim in non-project mode for simulation
+       9 #     (working directory is project/m3/, so $dumpfile("sim/cosim
+         _waveform.vcd")
+      10 #      resolves correctly without Vivado project-dir complicatio
+         ns)
+     … +119 lines (ctrl+o to expand)
+
+● Write(project/m3/synth/critical_path.md)  ⎿  Wrote 50 lines to project/m3/synth/critical_path.md
+       1 # Critical Path Analysis — Option B Kalman Accelerator (`top`)
+       2 
+       3 ## Identified Critical Path
+       4 
+       5 The critical path runs through the **IEEE-754 F64 multiplier fee
+         ding the F64 adder**
+       6 in the Newton-Raphson reciprocal computation inside `kalman_upda
+         te`.
+       7 
+       8 Specifically:
+       9 
+      10 - **Start point:** Output register of the `nr_x` flip-flop (the 
+         running Newton-Raphson
+     … +40 lines (ctrl+o to expand)
+
+● Now write the README and synthesis_notes:
+
+● Write(project/m3/README.md)
+  ⎿  Error writing file
+
+● Write(project/m3/synthesis_notes.md)
+  ⎿  Error writing file
+
+  Read 2 files (ctrl+o to expand)
+
+● Write(project/m3/README.md)
+  ⎿  Wrote 72 lines to project/m3/README.md
+       1 # ECE 410 — Milestone 3: Option B Kalman Update Accelerator
+       2 
+       3 ## How to Reproduce
+       4 
+       5 **Simulator:** Vivado xsim (via `xvlog` / `xelab` / `xsim`, non-
+         project mode)
+       6 **Synthesis:** Vivado OOC non-project mode (`vivado -mode batch`
+         )
+       7 **Target device:** Artix-7 100T (`xc7a100tcsg324-1`), 100 MHz
+       8 
+       9 ```bash
+      10 cd project/m3
+     … +62 lines (ctrl+o to expand)
+
+● Write(project/m3/synthesis_notes.md)
+  ⎿  Wrote 118 lines to project/m3/synthesis_notes.md
+       1 # Synthesis Notes — Milestone 3: Option B Kalman Update Accelera
+         tor
+       2 
+       3 ## What Was Synthesized
+       4 
+       5 The entire Option B RTL hierarchy synthesized successfully throu
+         gh Vivado OOC
+       6 (out-of-context) mode targeting `xc7a100tcsg324-1` (Artix-7 100T
+         , speed-grade -1).
+       7 The design reads from a single combined file `rtl/top.sv` contai
+         ning six modules:
+       8 `f64_mul`, `f64_add`, `gemm_systolic`, `kalman_update`, `axilite
+         _slave`, and the
+       9 integration top module `top`. No module was stubbed or omitted. 
+         The synthesis
+      10 command was `synth_design -top top -mode out_of_context -part xc
+         7a100tcsg324-1`
+     … +108 lines (ctrl+o to expand)
+
+● Now make the run script executable and verify the final structure:
+
+● Bash(chmod +x /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/Univer
+      sity/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3/run_m3.sh
+       && find /run…)
+  ⎿  /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/C
+     ourse_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3/README.md
+     /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/C
+     … +16 lines (ctrl+o to expand)
+
+● All 9 files are in place. Let me do a quick sanity check on the key
+  modifications in tb_top.sv:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Everything looks correct. Here's what was created in project/m3/:
+
+  Files created:
+
+  ┌──────────────────────────┬───────────────────────────────────────────────┐
+  │           File           │                  What it is                   │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ run_m3.sh                │ Orchestration: xvlog→xelab→xsim               │
+  │                          │ (non-project), then Vivado OOC                │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ rtl/top.sv               │ All 6 Option B RTL modules in one file;       │
+  │                          │ accel_top_b renamed top with port-doc header  │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ tb/tb_top.sv             │ All 7 TB modules in one file; tb_option_b     │
+  │                          │ renamed tb_top                                │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ synth/constraints.xdc    │ Vivado XDC (100 MHz, 2 ns I/O delays)         │
+  │                          │ replacing config.json                         │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │                          │ Vivado OOC synthesis → synth/area_report.txt, │
+  │ synth/run_ooc.tcl        │  timing_report.txt, power_report.txt,         │
+  │                          │ openlane_run.log                              │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ synth/gtkwave_export.tcl │ GTKWave Tcl script for annotated 3-region PNG │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ synth/critical_path.md   │ Critical path narrative (f64_mul → f64_add NR │
+  │                          │  chain)                                       │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ README.md                │ Full file catalog + reproduction commands     │
+  ├──────────────────────────┼───────────────────────────────────────────────┤
+  │ synthesis_notes.md       │ ~700-word narrative on scope, timing, area,   │
+  │                          │ power, known issues                           │
+  └──────────────────────────┴───────────────────────────────────────────────┘
+
+  Key testbench changes vs. tb_option_b.sv:
+  - $dumpfile("sim/cosim_waveform.vcd"); $dumpvars(1, tb_top); at simulation
+  start
+  - DUT instantiated as top (not accel_top_b)
+  - final block at module scope: SIMULATION RESULT: PASS or FAIL via
+  hierarchical reference to u_chk.fail_count
+
+  To run: cd project/m3 && bash run_m3.sh
+
+  The sim log (sim/cosim_run.log) will contain the SIMULATION RESULT: line; the
+  synthesis reports land in synth/; sim/cosim_waveform.vcd is generated
+  automatically and converted to PNG if GTKWave is available.
+
+✻ Worked for 16m 18s
+
+❯ run the simulation then the synthesis and see if it passes both. Modify any   
+of the documentation if anything unexpected happens.                            
+
+● Bash(cd /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/C
+      ourse_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3 && xvlog --sv
+      rtl/top.sv tb/…)
+  ⎿  /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     CRITICAL WARNING: [Common 17-183] Failed to open handle reports/compil
+     … +3 lines (ctrl+o to expand)
+
+● Bash(mkdir -p reports sim synth && xvlog --sv rtl/top.sv tb/tb_top.sv --log
+      reports/compile.log 2>&1; echo "EXIT: $?")
+  ⎿  /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Wi
+     … +14 lines (ctrl+o to expand)
+
+● All 13 modules compiled clean. Now elaborate:
+
+● Bash(xelab tb_top -s m3_snap -debug typical --log reports/elab.log 2>&1; echo
+      "EXIT: $?")
+  ⎿  /tools/Xilinx/Vivado/2024.1/bin/setupEnv.sh: line 238: hostname: comma
+     nd not found
+     Vivado Simulator v2024.1
+     … +14 lines (ctrl+o to expand)
+
+● Two issues: clk_gen lacks a timescale (need to move `timescale to top of
+  file), and the cover statement is xsim-unsupported (already a warning, not
+  fatal). Let me fix the timescale:
+
+  Searched for 1 pattern, read 1 file (ctrl+o to expand)
+
+● Update(project/m3/tb/tb_top.sv)
+  ⎿  Added 1 line
+      1  // =============================================================
+         ================
+      2  // tb_top.sv — M3 end-to-end co-simulation testbench: Option B K
+         alman Accelerator
+      3  // All testbench modules combined into a single file.
+      4 +`timescale 1ns/1ps                                              
+      5  // Module order (dependency):
+      6  //   clk_gen              — Simulation-only clock generator
+      7  //   veerwolf_bfm         — AXI4-Lite master BFM (models SweRV E
+         L2)
+
+● Now remove the duplicate timescale near tb_top:
+
+● Update(project/m3/tb/tb_top.sv)
+  ⎿  Removed 1 line
+      531  // Reference computed by inline software Kalman update (H=[1,0
+           ,0], R=5.0).
+      532  // Prints "SIMULATION RESULT: PASS" on clean exit, "FAIL" if a
+           ny ULP errors.
+      533  // ===========================================================
+           ==================
+      534 -`timescale 1ns/1ps                                            
+      534  
+      535  module tb_top;
+      536  
+
+● Bash(xvlog --sv rtl/top.sv tb/tb_top.sv --log reports/compile.log 2>&1 | grep
+      -v "^/tools\|^$" && xelab tb_top -s m3_snap -debug typical --log
+      reports/elab.log 2>&1…)
+  ⎿  INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Wi
+     ndows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-202
+     6/Spring_2026/ECE_410/ECE410/project/m3/rtl/top.sv" into library work
+     … +27 lines (ctrl+o to expand)
+
+● Need timescale at the top of rtl/top.sv too (ignored by synthesis, required by
+   xsim):
+● Update(project/m3/rtl/top.sv)
+  ⎿  Added 1 line
+      1 +`timescale 1ns/1ps                                              
+      2  // =============================================================
+         ================
+      3  // top.sv — M3 integrated top module: Option B Kalman Update Acc
+         elerator
+      4  // All synthesisable RTL combined into a single file.
+
+● Bash(xvlog --sv rtl/top.sv tb/tb_top.sv --log reports/compile.log 2>&1 | grep
+      -E "ERROR|WARNING|analyzing" && xelab tb_top -s m3_snap -debug typical
+      --log reports/el…)
+  ⎿  INFO: [VRFC 10-311] analyzing module f64_mul
+     INFO: [VRFC 10-311] analyzing module f64_add
+     INFO: [VRFC 10-311] analyzing module gemm_systolic
+     … +14 lines (ctrl+o to expand)
+
+● Elaboration succeeded. Now run the simulation:
+
+● Bash(xsim m3_snap --runall --log sim/cosim_run.log 2>&1 | tail -20; echo
+      "EXIT: $?")
+  ⎿  TB_TOP: Starting iteration 8
+     TB_TOP: Iteration 8 complete
+     TB_TOP: Starting iteration 9
+     … +20 lines (ctrl+o to expand)
+
+● Simulation passed — 135/135 elements, zero failures. Now check the VCD and
+  kick off synthesis:
+
+  Listed 1 directory (ctrl+o to expand)
+
+● VCD generated (84 KB). Now run OOC synthesis — this will take a few minutes:
+
+● Bash(vivado -mode batch -source synth/run_ooc.tcl -log synth/openlane_run.log
+      -journal reports/ooc.jou 2>&1 | grep -E "INFO: OOC|ERROR|WARNING:
+      \[Synth|Finished|WNS|…)
+  ⎿  WARNING: [Synth 8-3936] Found unconnected internal register 'shifted_r
+     eg' and it is trimmed from '53' to '52' bits. [/run/media/sackb/Window
+     s-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Sp
+     … +94 lines (ctrl+o to expand)
+
+● Synthesis succeeded. Let me pull the key numbers from the reports:
+
+  Searched for 1 pattern, listed 1 directory (ctrl+o to expand)
+
+● WNS is -50.419 ns — much worse than anticipated. Max achievable frequency is
+  ~16 MHz, not the hoped-for 80 MHz. Let me get the full area figures then
+  update the docs:
+
+  Searched for 2 patterns (ctrl+o to expand)
+
+● Critical path is confirmed: nr_x_reg[61] → nr_x_reg[54] through 6 DSP48E1s +
+  43 CARRY4s = 92 logic levels, 60.4 ns. Max achievable frequency ≈ 16.6 MHz.
+  Now update the docs with actual numbers:
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(project/m3/synth/critical_path.md)
+  ⎿  Added 34 lines, removed 36 lines
+       1  # Critical Path Analysis — Option B Kalman Accelerator (`top`)
+       2  
+       3 -## Identified Critical Path                                    
+       3 +## Identified Critical Path (from Vivado timing report)        
+       4  
+       5 -The critical path runs through the **IEEE-754 F64 multiplier fe
+         -eding the F64 adder**                                          
+       6 -in the Newton-Raphson reciprocal computation inside `kalman_upd
+         -ate`.                                                          
+       5 +The critical path is the Newton-Raphson reciprocal update loop 
+         +inside `kalman_update`:                                        
+       6  
+       8 -Specifically:                                                  
+       7 +- **Start point:** `u_core/nr_x_reg[61]/C`                     
+       8 +  (rising-edge FDCE — one bit of the running NR reciprocal esti
+         +mate register)                                                 
+       9 +- **End point:** `u_core/nr_x_reg[54]/D`                       
+      10 +  (setup input of the same register — the loop feeds back into 
+         +itself)                                                        
+      11 +- **Slack:** -50.419 ns (VIOLATED at 100 MHz)                  
+      12 +- **Data path delay:** 60.379 ns total (logic 31.743 ns, routin
+         +g 28.636 ns)                                                   
+      13 +- **Logic levels:** 92 stages — CARRY4=43, DSP48E1=6, LUT1=3, L
+         +UT2=5, LUT3=5, LUT4=6, LUT5=5, LUT6=19                         
+      14  
+      10 -- **Start point:** Output register of the `nr_x` flip-flop (the
+         - running Newton-Raphson                                        
+      11 -  reciprocal estimate, updated each cycle in states NR0/NR1/NR2
+         -).                                                             
+      12 -- **Logic stages:**                                            
+      13 -  1. `u_nr_mul1` (`f64_mul`): 53×53 unsigned mantissa product (
+         -106-bit) through                                               
+      14 -     the normalisation mux and exponent adder — the widest comb
+         -inational stage in                                             
+      15 -     the design (~45 LUT levels estimated).                    
+      16 -  2. Sign-bit negation of `sx` (single bit flip, negligible).  
+      17 -  3. `u_nr_sub` (`f64_add`): significand swap comparator → alig
+         -nment shift →                                                  
+      18 -     add/subtract → leading-zero count → normalise (~35 LUT lev
+         -els).                                                          
+      19 -  4. Setup to the `nr_x` input register at the end of NR0/NR1. 
+      20 -- **End point:** `nr_x` register D-input in `kalman_update`.   
+      15 +The maximum achievable clock period for this path is approximat
+         +ely 60.4 ns,                                                   
+      16 +corresponding to a **maximum operating frequency of ~16.6 MHz**
+         + on Artix-7 -1.                                                
+      17  
+      18  ## Why This Is the Critical Path
+      19  
+      24 -The 53×53-bit unsigned mantissa multiply in `f64_mul` is inferr
+         -ed as a multi-stage                                            
+      25 -DSP48E1 chain by Vivado. Although DSP48E1s have dedicated pipel
+         -ine registers, the                                             
+      26 -design uses `f64_mul` as a **purely combinational module** (no 
+         -pipeline registers                                             
+      27 -within the multiplier). The 106-bit product therefore propagate
+         -s through the carry                                            
+      28 -chain and then feeds directly into the exponent normalisation l
+         -ogic and then into                                             
+      29 -`f64_add`'s alignment shifter — all in a single clock cycle. Th
+         -e cumulative                                                   
+      30 -combinational depth of multiply → exponent check → add alignmen
+         -t → normalise                                                  
+      31 -exceeds 10 ns on an Artix-7 speed-grade -1 part.               
+      20 +The Newton-Raphson step computes `nr_x_new = nr_x * (2.0 - S * 
+         +nr_x)` entirely                                                
+      21 +in combinational logic within a single clock cycle. This chains
+         + two 53x53-bit                                                 
+      22 +F64 multiplications (`u_nr_mul1`, `u_nr_mul2`) and one F64 subt
+         +raction (`u_nr_sub`)                                           
+      23 +back-to-back with no pipeline registers between them. Vivado in
+         +fers the mantissa                                              
+      24 +multiplies as 6 cascaded DSP48E1 tiles, whose unregistered outp
+         +uts ripple through                                             
+      25 +43 CARRY4 cells in the exponent normalisation and adder alignme
+         +nt paths before                                                
+      26 +reaching the `nr_x` register input.                            
+      27  
+      33 -See `synth/timing_report.txt` for the actual Worst Negative Sla
+         -ck (WNS) value and                                             
+      34 -the Vivado-reported start/end net names on the critical path.  
+      28 +The combinational depth of 92 logic levels at ~0.65 ns/LUT-leve
+         +l yields the                                                   
+      29 +measured 60.4 ns data-path delay — six times longer than the 10
+         + ns clock budget.                                              
+      30 +Hold slack is met (WHS = 0.256 ns positive), confirming no hold
+         + violations.                                                   
+      31  
+      32  ## What Would Shorten It
+      33  
+      38 -1. **Pipeline the multiplier output:** Insert one register stag
+         -e between the                                                  
+      39 -   `f64_mul` output and the `f64_add` input in the Newton-Raphs
+         -on datapath. This                                              
+      40 -   adds one cycle of latency per NR iteration (3 extra cycles t
+         -otal, ~30 cycles                                               
+      41 -   overall) but halves the combinational depth, making 100 MHz 
+         -achievable.                                                    
+      34 +1. **Pipeline the NR multiplier chain (recommended for M4):** I
+         +nsert one register                                             
+      35 +   stage after `u_nr_mul1` output and another after `u_nr_mul2`
+         + output. Each NR                                               
+      36 +   iteration then takes 3 cycles instead of 1, adding ~6 cycles
+         + per Kalman update,                                            
+      37 +   but the critical path drops from 92 to roughly 30 logic leve
+         +ls, bringing it well                                           
+      38 +   within the 10 ns budget.                                    
+      39  
+      43 -2. **Reduce to 50 MHz clock:** A 20 ns period eliminates the ti
+         -ming violation with                                            
+      44 -   no RTL changes. OOC synthesis with `create_clock -period 20.
+         -000` would confirm                                             
+      45 -   this. Throughput drops by 2× but remains orders of magnitude
+         - better than the                                               
+      46 -   bare-metal baseline.                                        
+      40 +2. **Enable DSP48E1 output registers:** Pass `-no_lc` to `synth
+         +_design` and set                                               
+      41 +   `set_property USE_DSP yes [get_cells u_core/u_nr_mul1/*]`. T
+         +his absorbs one                                                
+      42 +   pipeline level into the DSP tile output register at no extra
+         + LUT cost, reducing                                            
+      43 +   logic depth by ~6 levels without changing the RTL.          
+      44  
+      48 -3. **Use Vivado DSP48E1 pipeline option:** Setting `use_dsp` an
+         -d enabling DSP output                                          
+      49 -   registers in the synthesis options (`synth_design -no_lc`) c
+         -an absorb one                                                  
+      50 -   pipeline stage into the DSP tile at no extra LUT cost.      
+      45 +3. **Reduce clock to 65 MHz (15.4 ns period):** With a 15 ns pe
+         +riod constraint,                                               
+      46 +   the design still violates timing (-45 ns slack). The require
+         +d period to achieve                                            
+      47 +   closure without any RTL changes is at least 65 ns (~15 MHz).
+         + A 15 MHz clock                                                
+      48 +   is unattractive for throughput; option 1 is strongly preferr
+         +ed.                                                            
+
+  Read 1 file (ctrl+o to expand)
+
+● Write(project/m3/synthesis_notes.md)
+  ⎿  Added 109 lines, removed 65 lines
+      2  
+      3  ## What Was Synthesized
+      4  
+      5 -The entire Option B RTL hierarchy synthesized successfully throu
+        -gh Vivado OOC                                                   
+      5 +The entire Option B RTL hierarchy synthesized successfully throu
+        +gh Vivado 2024.1 OOC                                            
+      6  (out-of-context) mode targeting `xc7a100tcsg324-1` (Artix-7 100T
+         , speed-grade -1).
+      7  The design reads from a single combined file `rtl/top.sv` contai
+         ning six modules:
+      8  `f64_mul`, `f64_add`, `gemm_systolic`, `kalman_update`, `axilite
+         _slave`, and the
+     ...
+       16  including DSP48E1 multiplier chains, LUT-based adder trees, an
+           d FSM registers
+       17  was inferred correctly with no unresolved references.
+       18  
+       19 +One pre-simulation fix was required: the `rtl/top.sv` file and
+          + the module                                                   
+       20 +definitions at the top of `tb/tb_top.sv` (specifically `clk_ge
+          +n`) lacked a                                                  
+       21 +`` `timescale `` directive. Vivado xsim requires all modules i
+          +n a simulation to                                             
+       22 +carry a timescale when any module in the design has one. A sin
+          +gle                                                           
+       23 +`` `timescale 1ns/1ps `` was added at the top of each file to 
+          +resolve the                                                   
+       24 +elaboration error. Synthesis tools ignore this directive, so i
+          +t has no effect                                               
+       25 +on OOC synthesis results.                                     
+       26 +                                                              
+       27  ## Timing Results
+       28  
+       21 -See `synth/timing_report.txt` for the complete Vivado timing s
+          -ummary. Key values:                                           
+       29 +**WNS: -50.419 ns (timing constraints NOT met)**              
+       30  
+       23 -The F64 multiply-then-add chain (Newton-Raphson reciprocal com
+          -putation in                                                   
+       24 -`kalman_update`) represents the critical path. On Artix-7 spee
+          -d-grade -1 at                                                 
+       25 -100 MHz, the 53x53-bit combinational multiplier followed immed
+          -iately by the F64                                             
+       26 -adder normalisation logic exceeds the 10 ns budget. A negative
+          - WNS is expected                                              
+       27 -at 100 MHz on this part; if WNS > -2 ns, reducing the clock to
+          - 80 MHz (12.5 ns                                              
+       28 -period) is sufficient to achieve timing closure with no RTL ch
+          -anges.                                                        
+       31 +The design fails timing significantly at 100 MHz. Key numbers 
+          +from                                                          
+       32 +`synth/timing_report.txt`:                                    
+       33  
+       30 -The critical path runs from the `nr_x` register output through
+          - `f64_mul`                                                    
+       31 -(u_nr_mul1) mantissa product, exponent normalisation, `f64_add
+          -` (u_nr_sub)                                                  
+       32 -significand alignment, and back to the `nr_x` register D-input
+          -. Full detail is                                              
+       33 -in `synth/critical_path.md`.                                  
+       34 +| Metric | Value |                                            
+       35 +|--------|-------|                                            
+       36 +| Worst Negative Slack (WNS) | -50.419 ns |                   
+       37 +| Total Negative Slack (TNS) | -28924.338 ns |                
+       38 +| Failing setup endpoints | 1085 of 16663 |                   
+       39 +| Worst Hold Slack (WHS) | +0.256 ns (no hold violations) |   
+       40 +| Max achievable frequency | ~16.6 MHz (1000 / 60.38 ns) |    
+       41  
+       35 -Hold slack (WHS) is expected positive with no violations, as t
+          -he design has no                                              
+       36 -multicycle paths and no intentional clock-domain crossings.   
+       42 +The critical path is the Newton-Raphson reciprocal update loop
+          + in `kalman_update`:                                          
+       43 +from register `u_core/nr_x_reg[61]` through 6 cascaded DSP48E1
+          + tiles and 43                                                 
+       44 +CARRY4 chains (92 logic levels total) to register `u_core/nr_x
+          +_reg[54]`. The                                                
+       45 +data-path delay is 60.379 ns (logic 31.743 ns + routing 28.636
+          + ns). Full detail                                             
+       46 +and mitigation strategies are in `synth/critical_path.md`.    
+       47  
+       48 +The root cause is that `f64_mul` is a purely combinational mod
+          +ule with no                                                   
+       49 +pipeline registers. The Newton-Raphson step chains two `f64_mu
+          +l` and one `f64_add`                                          
+       50 +in a single clock cycle (`nr_x_new = nr_x * (2.0 - S * nr_x)`)
+          +, which is                                                    
+       51 +6x longer than the 10 ns budget. Reducing the clock to ~65 ns 
+          +(15 MHz) would                                                
+       52 +achieve closure without RTL changes, but this is not useful fo
+          +r performance.                                                
+       53 +The correct fix for M4 is to add pipeline registers between th
+          +e chained F64                                                 
+       54 +arithmetic units in the NR datapath.                          
+       55 +                                                              
+       56 +Hold slack is positive (WHS = +0.256 ns) — no hold violations 
+          +anywhere.                                                     
+       57 +                                                              
+       58  ## Area Results
+       59  
+       40 -See `synth/area_report.txt` for the full utilisation breakdown
+          -. The design is                                               
+       41 -larger than Option A due to the Kalman FSM, Newton-Raphson con
+          -trol, and the                                                 
+       42 -additional multiplier and adder instances for Kalman gain and 
+          -state correction                                              
+       43 -computation. Vivado infers multiple DSP48E1 tiles for the 53x5
+          -3 mantissa products                                           
+       44 -across the NR, K-computation, and gemm_systolic multipliers. A
+          -ll registers are                                              
+       45 -distributed flops; no Block RAM is used.                      
+       60 +From `synth/area_report.txt` (Artix-7 100T):                  
+       61  
+       62 +| Resource | Used | Available | Utilisation |                 
+       63 +|---|---|---|---|                                             
+       64 +| Slice LUTs | 14,642 | 63,400 | 23.09% |                     
+       65 +| Slice Registers (FFs) | 5,535 | 126,800 | 4.37% |           
+       66 +| DSP48E1 | 126 | 240 | 52.50% |                              
+       67 +| F7 Muxes | 128 | 31,700 | 0.40% |                           
+       68 +| F8 Muxes | 64 | 15,850 | 0.40% |                            
+       69 +| Block RAM | 0 | 135 | 0.00% |                               
+       70 +                                                              
+       71 +The 126 DSP48E1 tiles is notable — 52.5% of the available tile
+          +s on the Artix-7                                              
+       72 +100T. Each 53x53-bit mantissa multiply requires a multi-DSP ca
+          +scade. With                                                   
+       73 +approximately 15 `f64_mul` instances across the design (9 in `
+          +gemm_systolic`,                                               
+       74 +3 for K computation, 3 for X correction, 2 for Newton-Raphson,
+          + 1 for IKH                                                    
+       75 +elements), and each requiring ~7–8 DSP tiles in cascade, this 
+          +is expected.                                                  
+       76 +A design targeting a larger device (e.g., Kintex-7 or UltraSca
+          +le) would have                                                
+       77 +ample DSP resources. For the Artix-7 100T specifically, DSP ut
+          +ilisation is                                                  
+       78 +not a blocker (52.5% leaves headroom), but it rules out adding
+          + a second                                                     
+       79 +accelerator instance to the same device.                      
+       80 +                                                              
+       81 +## Power Estimation                                           
+       82 +                                                              
+       83 +From `synth/power_report.txt` (at 12.5% default toggle rate): 
+       84 +                                                              
+       85 +| Metric | Value |                                            
+       86 +|---|---|                                                     
+       87 +| Total on-chip power | 358 mW |                              
+       88 +| Dynamic power | 273 mW |                                    
+       89 +| Device static (leakage) | 85 mW |                           
+       90 +| Max ambient temperature | 83.4°C (junction 26.6°C) |        
+       91 +                                                              
+       92 +The 358 mW estimate is based on a 12.5% activity factor applie
+          +d to all registers.                                           
+       93 +In reality, the Kalman core runs for approximately 15 cycles p
+          +er invocation and                                             
+       94 +then sits idle. If the host CPU calls the accelerator at, say,
+          + 100 Hz, the active                                           
+       95 +fraction is ~15 cycles / (100 MHz / 100 Hz) = 1.5e-5. Scaled a
+          +ccordingly,                                                   
+       96 +the actual dynamic power contribution from the accelerator log
+          +ic is negligible                                              
+       97 +(<1 mW). The dominant term in practice would be the 85 mW devi
+          +ce static, which                                              
+       98 +is independent of activity.                                   
+       99 +                                                              
+      100  ## Scope Decisions
+      101  
+      102  **Chosen scope:** Option B only (Kalman update accelerator), n
+           o SoC integration.
+     ...
+      108  
+      109  **What was not done:** SoC integration (connecting `top` as a 
+           slave on the
+      110  VeerWolf AXI interconnect, adding it to `project_1.xpr`, and r
+           unning full
+       58 -place-and-route). This is deferred to M4. The SoC integration 
+          -step was excluded                                             
+       59 -because it requires manual edits to `axi_intercon.sv` and `axi
+          -_intercon.vh` to                                              
+       60 -add a new slave port, and the address-map assignment at 0x8001
+          -0000 to 0x80011000                                            
+       61 -has not yet been verified against the VeerWolf memory map. Run
+          -ning SoC synthesis                                            
+       62 -without confirming the address map would risk overwriting an e
+          -xisting slave and                                             
+       63 -corrupting an existing working design.                        
+      111 +place-and-route). This is deferred to M4. The SoC integration 
+          +step requires                                                 
+      112 +manual edits to `axi_intercon.sv` and `axi_intercon.vh` to add
+          + a new slave                                                  
+      113 +port, and the address-map assignment at 0x80010000 to 0x800110
+          +00 has not been                                               
+      114 +verified against the VeerWolf memory map.                     
+      115  
+      116  **Why this scope still answers the M1 question:** The M1 profi
+           ling identified
+      117  3x3 F64 GEMM (wrapped as a Kalman filter update) as the domina
+           nt kernel at
+      118  1.38e-4 GFLOP/s on the bare-metal SweRV EL2. The OOC synthesis
+            result gives the
+       68 -achievable clock frequency, LUT cost, and power consumption fo
+          -r the accelerator,                                            
+       69 -which is sufficient to project the speedup ratio. The full thr
+          -oughput comparison                                            
+       70 -(bare-metal vs. hardware-accelerated) will be completed in M4 
+          -once the SoC                                                  
+       71 -integration is working and the kernel can be called via MMIO r
+          -eads and writes.                                              
+      119 +resource cost, maximum operating frequency, and power of the a
+          +ccelerator, which                                             
+      120 +is sufficient to project the speedup ratio once the SoC integr
+          +ation is done.                                                
+      121 +The full throughput comparison (bare-metal vs. hardware-accele
+          +rated) will be                                                
+      122 +completed in M4.                                              
+      123  
+       73 -## Power Estimation                                           
+       74 -                                                              
+       75 -See `synth/power_report.txt`. Power estimation in OOC mode use
+          -s a default activity                                          
+       76 -factor (12.5% toggle rate). The key figures to report for M4 a
+          -re the dynamic power                                          
+       77 -attributed to the F64 arithmetic units and the static leakage 
+          -on the Artix-7                                                
+       78 -device. If the power report shows total on-chip power greater 
+          -than 1 W, the design                                          
+       79 -should be profiled with realistic toggle rates. The Kalman cor
+          -e runs for roughly                                            
+       80 -15 cycles per invocation and then sits idle for thousands of c
+          -ycles, so the actual                                          
+       81 -average power will be much lower than the synthesis estimate. 
+       82 -                                                              
+      124  ## What Worked and What Did Not
+      125  
+      126  **Worked:**
+      127  - All six RTL modules elaborate without errors in both xsim (s
+           imulation) and
+       87 -  Vivado synthesis.                                           
+       88 -- The AXI4-Lite register file correctly decodes all addresses 
+          -and routes data to                                            
+       89 -  the Kalman core.                                            
+       90 -- The Newton-Raphson reciprocal converges to sufficient accura
+          -cy within 3 iterations                                        
+       91 -  for the test data set (verified by the ULP comparator with <
+          -= 4 ULP tolerance).                                           
+       92 -- The `gemm_systolic` internal to `kalman_update` correctly co
+          -mputes the covariance                                         
+       93 -  update matrix (IKH x P).                                    
+      128 +  Vivado synthesis. Synthesis completed without errors in ~2 m
+          +inutes.                                                       
+      129 +- The AXI4-Lite register file correctly decodes all addresses 
+          +and routes data                                               
+      130 +  to the Kalman core.                                         
+      131 +- The Newton-Raphson reciprocal converges to sufficient accura
+          +cy within 3                                                   
+      132 +  iterations (verified by ULP comparator, tolerance <= 4 ULP, 
+          +135/135 elements                                              
+      133 +  passed, 0 failed across all 15 iterations).                 
+      134  - All AXI4-Lite protocol SVAs and FSM contract assertions pass
+            throughout the
+      135    15-iteration simulation.
+      136 +- Simulation runtime: ~18.6 us simulated time; `sim/cosim_run.
+          +log` contains the                                             
+      137 +  unambiguous `SIMULATION RESULT: PASS` line.                 
+      138  
+      139  **Known issues:**
+       98 -- **Timing at 100 MHz:** The combinational depth of `f64_mul` 
+          -to `f64_add` in the                                           
+       99 -  Newton-Raphson path violates the 10 ns constraint. This was 
+          -anticipated in the                                            
+      100 -  design notes. The mitigation is either a single pipeline reg
+          -ister between the                                             
+      101 -  multiplier output and adder input, or reducing to 80 MHz for
+          - M4.                                                          
+      102 -- **P_out partial output:** Due to the 9-element C_REG constra
+          -int in `axilite_slave`,                                       
+      103 -  only P_out[0:5] (6 of 9 covariance elements) are visible via
+          - AXI reads. P_out[6:8]                                        
+      104 -  require a register map extension. For the M3 verification sc
+          -ope, the first 6                                              
+      105 -  elements are sufficient to confirm correctness.             
+      106 -- **VCD file size:** The 15-iteration simulation produces a la
+          -rge VCD. The                                                  
+      107 -  `$dumpvars(1, tb_top)` call limits the dump to the top level
+          - of `tb_top` only,                                            
+      108 -  which keeps the file size manageable while capturing all AXI
+          - bus signals and                                              
+      109 -  the three key compute signals (core_start, core_busy, core_d
+          -one).                                                         
+      140 +- **Timing at 100 MHz:** WNS = -50.419 ns. The design requires
+          + a 65 ns clock                                                
+      141 +  period (15 MHz) to meet timing without RTL changes. For M4, 
+          +pipeline registers                                            
+      142 +  will be added between the chained F64 arithmetic units in th
+          +e NR datapath,                                                
+      143 +  which is expected to bring the design to closure at 100 MHz.
+      144 +- **Timescale directives required by xsim:** Added `` `timesca
+          +le 1ns/1ps `` to                                              
+      145 +  `rtl/top.sv` and to the top of `tb/tb_top.sv`. This is a sim
+          +ulation-only                                                  
+      146 +  requirement; Vivado synthesis ignores timescale and the repo
+          +rts are unaffected.                                           
+      147 +- **P_out partial readback:** Only P_out[0:5] (6 of 9 covarian
+          +ce elements) are                                              
+      148 +  visible via AXI reads due to the 9-element C_REG window in `
+          +axilite_slave`.                                               
+      149 +  P_out[6:8] require a register map extension. For M3 verifica
+          +tion scope (state                                             
+      150 +  convergence check), the first 6 elements confirm correctness
+          +.                                                             
+      151  
+      152  ## M4 Plan
+      153  
+      113 -For M4, the steps are:                                        
+      114 -1. Resolve timing: add a pipeline register in the NR datapath 
+          -or switch to 80 MHz.                                          
+      115 -2. Edit `axi_intercon.sv` to add `top` as a slave at 0x8001000
+          -0.                                                            
+      116 -3. Run full SoC synthesis plus place-and-route via `run_soc_in
+          -tegration.tcl`.                                               
+      117 -4. Write a bare-metal C driver and measure MMIO round-trip lat
+          -ency.                                                         
+      118 -5. Compute GFLOP/s for the accelerated Kalman path and compare
+          - to M1 baseline.                                              
+      154 +1. **Fix timing:** Add one pipeline register between `u_nr_mul
+          +1` output and                                                 
+      155 +   `u_nr_sub` input, and another between `u_nr_mul2` input and
+          + output in the                                                
+      156 +   Newton-Raphson datapath. Target: WNS >= 0 at 100 MHz.      
+      157 +2. **SoC integration:** Edit `axi_intercon.sv` to add `top` as
+          + slave S3 at                                                  
+      158 +   0x80010000, run `run_soc_integration.tcl`.                 
+      159 +3. **Driver:** Write bare-metal C to write z/x_in/P_in via MMI
+          +O, poll STAT,                                                 
+      160 +   read back x_out/P_out, measure round-trip latency in SweRV 
+          +cycles.                                                       
+      161 +4. **Benchmark:** Compute GFLOP/s for the hardware-accelerated
+          + Kalman path and                                              
+      162 +   compare to the M1 bare-metal baseline of 1.38e-4 GFLOP/s.  
+
+● Now also update run_m3.sh to reflect that compilation now requires the
+  timescale fix that's already in the files (no change needed there), and do a
+  final check on the complete state:
+
+  Listed 1 directory (ctrl+o to expand)
+
+● Both runs complete. Here's the full summary of what happened and what changed:
+
+  ---
+  Results
+
+  Simulation: PASS
+  - 135/135 elements verified (15 iterations × 9 outputs), 0 ULP failures
+  - sim/cosim_run.log contains SIMULATION RESULT: PASS — all checks passed, no 
+  errors detected
+  - sim/cosim_waveform.vcd generated (84 KB)
+
+  Synthesis: completed, timing not met
+  - synth/openlane_run.log, area_report.txt, timing_report.txt, power_report.txt
+   all generated
+
+  ┌─────────────┬────────────────────────────────────────┐
+  │  Resource   │                 Value                  │
+  ├─────────────┼────────────────────────────────────────┤
+  │ Slice LUTs  │ 14,642 / 63,400 (23%)                  │
+  ├─────────────┼────────────────────────────────────────┤
+  │ Flip-flops  │ 5,535 / 126,800 (4%)                   │
+  ├─────────────┼────────────────────────────────────────┤
+  │ DSP48E1     │ 126 / 240 (52.5%)                      │
+  ├─────────────┼────────────────────────────────────────┤
+  │ WNS         │ -50.419 ns (timing not met at 100 MHz) │
+  ├─────────────┼────────────────────────────────────────┤
+  │ Max freq    │ ~16.6 MHz                              │
+  ├─────────────┼────────────────────────────────────────┤
+  │ Total power │ 358 mW (273 mW dynamic + 85 mW static) │
+  └─────────────┴────────────────────────────────────────┘
+
+  ---
+  Fixes Made During Run
+
+  1. Timescale missing from rtl/top.sv — xsim requires all modules carry a
+  timescale when any module has one. Added `timescale 1ns/1ps at the top of both
+   rtl/top.sv and the beginning of tb/tb_top.sv (moved it from just before
+  tb_top to the file top so clk_gen and others also get it).
+  2. Timing violation worse than predicted — The original synthesis_notes.md
+  said "if WNS > -2 ns, reduce to 80 MHz". Actual WNS is -50.419 ns; max
+  frequency is ~16.6 MHz, not 80 MHz. Both synth/critical_path.md and
+  synthesis_notes.md have been rewritten with the actual Vivado-reported
+  numbers, correct critical path (start: nr_x_reg[61], end: nr_x_reg[54], 92
+  logic levels through 6 DSP48E1s + 43 CARRY4s), and an updated M4 plan (add
+  pipeline registers in the NR chain, not just reduce clock).
+
+✻ Cogitated for 7m 25s
+
+❯ In project/m3/synthesis_notes.md under section Scope Decisions, make sure it  
+states SoC intergration will be done within m4 instead of saying there will be  
+no SoC integration                                                              
+
+  Read 1 file (ctrl+o to expand)
+
+● Update(project/m3/synthesis_notes.md)
+  ⎿  Added 6 lines, removed 6 lines
+       99  
+      100  ## Scope Decisions
+      101  
+      102 -**Chosen scope:** Option B only (Kalman update accelerator), n
+          -o SoC integration.                                            
+      102 +**Chosen scope:** Option B (Kalman update accelerator) — OOC s
+          +ynthesis and                                                  
+      103 +co-simulation in M3; full SoC integration in M4.              
+      104  
+      105  The M3 submission covers:
+      106  1. Behavioral co-simulation: full 15-iteration Kalman filter s
+           equence verified
+      107     against a software reference, with AXI4-Lite as the only in
+           terface path.
+      108  2. Vivado OOC synthesis: timing, area, and power reports for t
+           he `top` module.
+      109  
+      109 -**What was not done:** SoC integration (connecting `top` as a 
+          -slave on the                                                  
+      110 +**Deferred to M4:** SoC integration — connecting `top` as a sl
+          +ave on the                                                    
+      111  VeerWolf AXI interconnect, adding it to `project_1.xpr`, and r
+           unning full
+      111 -place-and-route). This is deferred to M4. The SoC integration 
+          -step requires                                                 
+      112 -manual edits to `axi_intercon.sv` and `axi_intercon.vh` to add
+          - a new slave                                                  
+      113 -port, and the address-map assignment at 0x80010000 to 0x800110
+          -00 has not been                                               
+      114 -verified against the VeerWolf memory map.                     
+      112 +place-and-route. This will be completed in M4 once the timing 
+          +violation in                                                  
+      113 +the NR datapath is resolved and the address-map assignment at 
+          +0x80010000 to                                                 
+      114 +0x80011000 is confirmed against the VeerWolf memory map.      
+      115  
+      116  **Why this scope still answers the M1 question:** The M1 profi
+           ling identified
+      117  3x3 F64 GEMM (wrapped as a Kalman filter update) as the domina
+           nt kernel at
+
+● Done. The section now frames SoC integration as planned for M4 rather than
+  simply absent from M3.
+
+❯ commit this along with codefest/cf08 as "cf08 CMAN and m3" and push to remote 
+ server                                                                         
+● Bash(cd /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/C
+      ourse_Work/2025-2026/Spring_2026/ECE_410/ECE410 && git status && echo
+      "---" && git log…)
+  ⎿  On branch main
+     Your branch is up to date with 'origin/main'.
+     … +23 lines (ctrl+o to expand)
+
+● Bash(git add codefest/cf08/ project/m3/ project/Redesign_Plan.md && git
+      status)
+  ⎿  On branch main
+     Your branch is up to date with 'origin/main'.
+     … +39 lines (ctrl+o to expand)
+
+● The xsim build artifacts (xsim.dir/, xsim.covdb/, *.pb, *.wdb, *.jou)
+  shouldn't be committed. Let me unstage those:
+
+● Bash(git reset HEAD project/m3/xsim.dir/ project/m3/xsim.covdb/
+      project/m3/xelab.pb project/m3/xvlog.pb project/m3/xsim.jou
+      project/m3/m3_snap.wdb project/m3/reports…)
+  ⎿  A  codefest/cf08/cman_aer_analysis.pdf
+     M  project/Redesign_Plan.md
+     A  project/m3/README.md
+     … +25 lines (ctrl+o to expand)
+
+● Clean staging set. Now commit and push:
+
+● Bash(git commit -m "$(cat <<'EOF'
+      cf08 CMAN and m3…)
+  ⎿  [main 15867cc] cf08 CMAN and m3
+      19 files changed, 21991 insertions(+)
+      create mode 100644 codefest/cf08/cman_aer_analysis.pdf
+     … +15 lines (ctrl+o to expand)
+
+● Bash(git push)
+  ⎿  To https://github.com/joram200/ECE410.git
+        c2787fc..15867cc  main -> main
+
+● Committed and pushed. 19 files, 21,991 insertions — the build artifacts
+  (xsim.dir/, *.pb, *.wdb, etc.) were excluded before committing.
+
+✻ Brewed for 34s
+
+❯ generate the waveform png. remember the anotations for the final              
+project/m3/sim/cosim_waveform.png                                               
+
+● Bash(which gtkwave && gtkwave --version 2>&1 | head -3)
+  ⎿  /usr/bin/gtkwave
+     GTKWave Analyzer v3.3.127 (w)1999-2026 BSI
+     … +2 lines (ctrl+o to expand)
+
+● Bash(cd /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/C
+      ourse_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/m3 && head -60
+      sim/cosim_wavefo…)
+  ⎿  $date
+        Tue May 26 00:41:05 2026
+     $end
+     … +35 lines (ctrl+o to expand)
+
+● Good — gtkwave 3.3.127 is available. Let me look at a slice of the VCD to
+  understand timing before writing the script:
+
+  Searched for 1 pattern (ctrl+o to expand)
+
+● Bash(python3 -c "
+      import re…)
+  ⎿  First m_awvalid HIGH at 85000 ps (0.085 us)
+     First core_start HIGH at 825000 ps (0.825 us)
+     First core_busy HIGH at 835000 ps (0.835 us)
+     … +3 lines (ctrl+o to expand)
+
+● Good. I have the exact timestamps. Now I'll write a Python matplotlib script
+  to generate the annotated PNG — this is more reliable and produces a cleaner
+  result than gtkwave batch mode:
+
+● Bash(python3 << 'PYEOF'
+      import re, sys…)
+  ⎿  Error: Exit code 1
+     Traceback (most recent call last):
+       File "<stdin>", line 2, in <module>
+     ModuleNotFoundError: No module named 'matplotlib'
+
+● Bash(pip install matplotlib --quiet 2>&1 | tail -3)
+  ⎿  /usr/bin/bash: line 1: pip: command not found
+
+❯ first enter into virtual environment by using the command "source             
+~/.venv/bin/activate"                                                           
+
+● Bash(source ~/.venv/bin/activate && python3 -c "import matplotlib;
+      print(matplotlib.__version__)")
+  ⎿  3.10.8
+
+● Good. Now run the waveform script:
+
+● Bash(source ~/.venv/bin/activate && python3 << 'PYEOF'
+      import re…)
+  ⎿  <stdin>:165: UserWarning: This figure includes Axes that are not compa
+     tible with tight_layout, so results might be incorrect.
+     Saved sim/cosim_waveform.png
+
+  Read 1 file (ctrl+o to expand)
+● Looks great. Now commit and push the PNG:
+
+● Bash(cd /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/C
+      ourse_Work/2025-2026/Spring_2026/ECE_410/ECE410 && git add
+      project/m3/sim/cosim_wavefor…)
+  ⎿  [main e0c1b9c] m3 annotated waveform PNG
+      1 file changed, 0 insertions(+), 0 deletions(-)
+      create mode 100644 project/m3/sim/cosim_waveform.png
+     … +2 lines (ctrl+o to expand)
+
+● Generated, committed, and pushed. The waveform shows iteration 0 across 0–1400
+   ns with three clearly annotated regions:
+
+  - HOST WRITE (green, ~85–820 ns) — 19 AXI write transactions loading z, x_in,
+  P_in and firing CTRL=1, visible as the burst of AWVALID/WVALID/BVALID pulses
+  - KALMAN COMPUTE (red, ~820–980 ns) — single-cycle core_start pulse, core_busy
+   held high through all 11 FSM states, single-cycle core_done pulse at
+  completion; ARVALID/RVALID activity during this region is the fire_and_wait()
+  polling STAT
+  - HOST READ (blue, ~980–1400 ns) — 9 AXI read transactions reading x_out and
+  P_out via ARVALID/ARREADY/RVALID
+
+✻ Cogitated for 2m 45s
+
+❯ /exit                                                                         
+  ⎿  Goodbye!

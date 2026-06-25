@@ -1,0 +1,20 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../rtl/accel_top_b.sv" \
+"../../../../../tb/axi_monitor.sv" \
+"../../../../../rtl/axilite_slave.sv" \
+"../../../../../tb/checker.sv" \
+"../../../../../rtl/clk_gen.sv" \
+"../../../../../rtl/f64_add.sv" \
+"../../../../../rtl/f64_mul.sv" \
+"../../../../../rtl/gemm_systolic.sv" \
+"../../../../../rtl/kalman_update.sv" \
+"../../../../../tb/program_block.sv" \
+"../../../../../tb/veerwolf_bfm.sv" \
+"../../../../../tb/tb_option_b.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

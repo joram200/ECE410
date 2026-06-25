@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Mon May 25 23:20:09 2026
+# Process ID: 2023859
+# Current directory: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl
+# Command line: vivado -mode batch -source synth/run_ooc_a.tcl -log reports/ooc_a.log -journal reports/ooc_a.jou
+# Log file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/ooc_a.log
+# Journal file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/ooc_a.jou
+# Running On        :archlinux
+# Platform          :unknown
+# Operating System  :unknown
+# Processor Detail  :11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+# CPU Frequency     :1874.692 MHz
+# CPU Physical cores:8
+# CPU Logical cores :16
+# Host memory       :16535 MB
+# Swap memory       :8266 MB
+# Total Virtual     :24802 MB
+# Available Virtual :12459 MB
+#-----------------------------------------------------------
+source synth/run_ooc_a.tcl

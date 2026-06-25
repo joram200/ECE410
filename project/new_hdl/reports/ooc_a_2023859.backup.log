@@ -1,0 +1,841 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Mon May 25 23:20:09 2026
+# Process ID: 2023859
+# Current directory: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl
+# Command line: vivado -mode batch -source synth/run_ooc_a.tcl -log reports/ooc_a.log -journal reports/ooc_a.jou
+# Log file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/ooc_a.log
+# Journal file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/ooc_a.jou
+# Running On        :archlinux
+# Platform          :unknown
+# Operating System  :unknown
+# Processor Detail  :11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+# CPU Frequency     :1874.692 MHz
+# CPU Physical cores:8
+# CPU Logical cores :16
+# Host memory       :16535 MB
+# Swap memory       :8266 MB
+# Total Virtual     :24802 MB
+# Available Virtual :12459 MB
+#-----------------------------------------------------------
+source synth/run_ooc_a.tcl
+# set hdl_dir [pwd]
+# set rpt_dir    "$hdl_dir/reports"
+# file mkdir $rpt_dir
+# read_verilog -sv [list \
+#     "$hdl_dir/rtl/f64_mul.sv" \
+#     "$hdl_dir/rtl/f64_add.sv" \
+#     "$hdl_dir/rtl/gemm_systolic.sv" \
+#     "$hdl_dir/rtl/axilite_slave.sv" \
+#     "$hdl_dir/rtl/accel_top_a.sv" ]
+# synth_design -top accel_top_a \
+#              -mode out_of_context \
+#              -part xc7a100tcsg324-1
+Command: synth_design -top accel_top_a -mode out_of_context -part xc7a100tcsg324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100t'
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 2024333
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 1801.383 ; gain = 385.707 ; free physical = 5375 ; free virtual = 10884
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'accel_top_a' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/accel_top_a.sv:5]
+INFO: [Synth 8-6157] synthesizing module 'axilite_slave' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/axilite_slave.sv:10]
+	Parameter ADDR_WIDTH bound to: 32'sb00000000000000000000000000100000 
+	Parameter DATA_WIDTH bound to: 32'sb00000000000000000000000001000000 
+INFO: [Synth 8-6155] done synthesizing module 'axilite_slave' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/axilite_slave.sv:10]
+INFO: [Synth 8-6157] synthesizing module 'gemm_systolic' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/gemm_systolic.sv:7]
+INFO: [Synth 8-6157] synthesizing module 'f64_mul' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv:5]
+INFO: [Synth 8-6155] done synthesizing module 'f64_mul' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv:5]
+INFO: [Synth 8-6157] synthesizing module 'f64_add' [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'f64_add' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'gemm_systolic' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/gemm_systolic.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'accel_top_a' (0#1) [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/accel_top_a.sv:5]
+WARNING: [Synth 8-3936] Found unconnected internal register 'shifted_reg' and it is trimmed from '53' to '52' bits. [/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv:106]
+WARNING: [Synth 8-7129] Port s_wstrb[7] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[6] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[5] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[4] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[3] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[2] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[1] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_wstrb[0] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[31] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[30] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[29] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[28] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[27] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[26] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[25] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[24] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[23] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[22] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[21] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[20] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[19] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[18] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[17] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[16] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[15] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[14] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[13] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[12] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[11] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[10] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[9] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[8] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[2] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[1] in module axilite_slave is either unconnected or has no load
+WARNING: [Synth 8-7129] Port s_araddr[0] in module axilite_slave is either unconnected or has no load
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1886.352 ; gain = 470.676 ; free physical = 5276 ; free virtual = 10785
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1901.195 ; gain = 485.520 ; free physical = 5273 ; free virtual = 10783
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a100tcsg324-1
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 1909.199 ; gain = 493.523 ; free physical = 5273 ; free virtual = 10783
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'gemm_systolic'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    IDLE |                              000 |                              000
+                    LOAD |                              001 |                              001
+                   STEP0 |                              010 |                              010
+                   STEP1 |                              011 |                              011
+                   STEP2 |                              100 |                              100
+                  FINISH |                              101 |                              101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'gemm_systolic'
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1936.191 ; gain = 520.516 ; free physical = 5238 ; free virtual = 10751
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   4 Input  106 Bit       Adders := 9     
+	   3 Input   54 Bit       Adders := 9     
+	   3 Input   13 Bit       Adders := 9     
+	   3 Input   12 Bit       Adders := 18    
+	   2 Input   12 Bit       Adders := 9     
+	   3 Input    6 Bit       Adders := 9     
++---XORs : 
+	   2 Input      1 Bit         XORs := 18    
++---Registers : 
+	               64 Bit    Registers := 57    
+	               32 Bit    Registers := 1     
+	                2 Bit    Registers := 2     
+	                1 Bit    Registers := 8     
++---Muxes : 
+	   2 Input   64 Bit        Muxes := 81    
+	   4 Input   64 Bit        Muxes := 9     
+	   3 Input   64 Bit        Muxes := 6     
+	   2 Input   54 Bit        Muxes := 9     
+	   2 Input   53 Bit        Muxes := 18    
+	   2 Input   52 Bit        Muxes := 27    
+	   2 Input   12 Bit        Muxes := 18    
+	   2 Input   11 Bit        Muxes := 27    
+	   2 Input    6 Bit        Muxes := 9     
+	   2 Input    4 Bit        Muxes := 2     
+	   6 Input    3 Bit        Muxes := 2     
+	   2 Input    2 Bit        Muxes := 2     
+	   2 Input    1 Bit        Muxes := 34    
+	  20 Input    1 Bit        Muxes := 20    
+	   4 Input    1 Bit        Muxes := 3     
+	   6 Input    1 Bit        Muxes := 1     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+INFO: [Device 21-9227] Part: xc7a100tcsg324-1 does not have CEAM library.
+Part Resources:
+DSPs: 240 (col length:80)
+BRAMs: 270 (col length: RAMB18 80 RAMB36 40)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+WARNING: [Synth 8-7080] Parallel synthesis criteria is not met
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: (PCIN>>17)+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: Generating DSP product, operation Mode is: PCIN+A*B.
+DSP Report: operator product is absorbed into DSP product.
+DSP Report: operator product is absorbed into DSP product.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:03:31 ; elapsed = 00:03:32 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3662 ; free virtual = 9193
+---------------------------------------------------------------------------------
+ Sort Area is gemm_systolic__GB1 product_11 : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_11 : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_11 : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_14 : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_14 : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_14 : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_17 : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_17 : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_17 : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1a : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1a : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1a : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1d : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1d : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1d : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_20 : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_20 : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_20 : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_7 : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_7 : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_7 : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_b : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_b : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_b : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_e : 0 0 : 2916 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_e : 0 1 : 2925 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_e : 0 2 : 2815 8656 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_10 : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_10 : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_10 : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_13 : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_13 : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_13 : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_16 : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_16 : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_16 : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_19 : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_19 : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_19 : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1c : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1c : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1c : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_1f : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_1f : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_1f : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_4 : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_4 : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_4 : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_a : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_a : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_a : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_d : 0 0 : 2916 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_d : 0 1 : 2712 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_d : 0 2 : 2925 8553 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_0 : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_0 : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_0 : 0 2 : 2712 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_12 : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_12 : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_12 : 0 2 : 2712 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_15 : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_15 : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_15 : 0 2 : 2712 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_18 : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_18 : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_18 : 0 2 : 2712 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1b : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1b : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB2 product_1b : 0 2 : 2712 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_1e : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_1e : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB3 product_1e : 0 2 : 2712 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_9 : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_9 : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_9 : 0 2 : 2712 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_c : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_c : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB0 product_c : 0 2 : 2712 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_f : 0 0 : 2701 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_f : 0 1 : 2710 8123 : Used 1 time 0
+ Sort Area is gemm_systolic__GB1 product_f : 0 2 : 2712 8123 : Used 1 time 0
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+DSP: Preliminary Mapping Report (see note below. The ' indicates corresponding REG is set)
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping    | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 20     | 18     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 20     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B            | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | (PCIN>>17)+A*B | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B       | 18     | 18     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------+----------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+Note: The table above is a preliminary report that shows the DSPs inferred at the current stage of the synthesis flow. Some DSP may be reimplemented as non DSP primitives later in the synthesis flow. Multiple instantiated DSPs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:03:32 ; elapsed = 00:03:33 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3661 ; free virtual = 9193
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:03:34 ; elapsed = 00:03:35 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3720 ; free virtual = 9241
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:03:37 ; elapsed = 00:03:38 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3719 ; free virtual = 9241
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:03:37 ; elapsed = 00:03:38 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3719 ; free virtual = 9241
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:03:38 ; elapsed = 00:03:39 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3719 ; free virtual = 9240
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:03:38 ; elapsed = 00:03:39 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3719 ; free virtual = 9240
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:03:38 ; elapsed = 00:03:39 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3720 ; free virtual = 9241
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:03:38 ; elapsed = 00:03:39 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3720 ; free virtual = 9241
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+DSP Final Report (the ' indicates corresponding REG is set)
++------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|Module Name | DSP Mapping  | A Size | B Size | C Size | D Size | P Size | AREG | BREG | CREG | DREG | ADREG | MREG | PREG | 
++------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 19     | 17     | -      | -      | 38     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 19     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | A*B          | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN>>17+A*B | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
+|f64_mul     | PCIN+A*B     | 17     | 17     | -      | -      | 48     | 0    | 0    | -    | -    | -     | 0    | 0    | 
++------------+--------------+--------+--------+--------+--------+--------+------+------+------+------+-------+------+------+
+
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+--------+------+
+|      |Cell    |Count |
++------+--------+------+
+|1     |CARRY4  |   558|
+|2     |DSP48E1 |    81|
+|3     |LUT1    |    80|
+|4     |LUT2    |  1518|
+|5     |LUT3    |  2124|
+|6     |LUT4    |  2891|
+|7     |LUT5    |  2316|
+|8     |LUT6    |  5036|
+|9     |MUXF7   |   128|
+|10    |MUXF8   |    64|
+|11    |FDCE    |  3661|
+|12    |FDPE    |     3|
++------+--------+------+
+
+Report Instance Areas: 
++------+----------------------------------+--------------+------+
+|      |Instance                          |Module        |Cells |
++------+----------------------------------+--------------+------+
+|1     |top                               |              | 18460|
+|2     |  u_core                          |gemm_systolic | 16491|
+|3     |    \gen_row[0].gen_col[0].u_mul  |f64_mul       |  1626|
+|4     |    \gen_row[0].gen_col[1].u_mul  |f64_mul_0     |  1445|
+|5     |    \gen_row[0].gen_col[2].u_mul  |f64_mul_1     |  1307|
+|6     |    \gen_row[1].gen_col[0].u_mul  |f64_mul_2     |  1321|
+|7     |    \gen_row[1].gen_col[1].u_mul  |f64_mul_3     |  1454|
+|8     |    \gen_row[1].gen_col[2].u_mul  |f64_mul_4     |  1308|
+|9     |    \gen_row[2].gen_col[0].u_mul  |f64_mul_5     |  1450|
+|10    |    \gen_row[2].gen_col[1].u_mul  |f64_mul_6     |  1530|
+|11    |    \gen_row[2].gen_col[2].u_mul  |f64_mul_7     |  1621|
+|12    |  u_slave                         |axilite_slave |  1969|
++------+----------------------------------+--------------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:03:38 ; elapsed = 00:03:39 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3720 ; free virtual = 9241
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 37 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:03:38 ; elapsed = 00:03:39 . Memory (MB): peak = 3537.559 ; gain = 2121.883 ; free physical = 3720 ; free virtual = 9241
+Synthesis Optimization Complete : Time (s): cpu = 00:03:38 ; elapsed = 00:03:39 . Memory (MB): peak = 3537.566 ; gain = 2121.883 ; free physical = 3720 ; free virtual = 9241
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.07 ; elapsed = 00:00:00.07 . Memory (MB): peak = 3537.566 ; gain = 0.000 ; free physical = 4019 ; free virtual = 9541
+INFO: [Netlist 29-17] Analyzing 831 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3593.586 ; gain = 0.000 ; free physical = 4009 ; free virtual = 9542
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Synth Design complete | Checksum: 1d4c6892
+INFO: [Common 17-83] Releasing license: Synthesis
+25 Infos, 37 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:03:44 ; elapsed = 00:03:43 . Memory (MB): peak = 3593.586 ; gain = 2177.918 ; free physical = 4009 ; free virtual = 9542
+INFO: [Common 17-2834] synth_design peak Physical Memory [PSS] (MB): overall = 3351.388; main = 3066.239; forked = 443.921
+INFO: [Common 17-2834] synth_design peak Virtual Memory [VSS] (MB): overall = 4564.727; main = 3593.590; forked = 1027.164
+# create_clock -period 10.000 -name clk [get_ports clk]
+# set_input_delay  2.0 -clock clk [all_inputs]
+WARNING: [Constraints 18-6211] Setting input delay on a clock pin 'clk' relative to clock 'clk' defined on the same pin is not supported, ignoring it
+# set_output_delay 2.0 -clock clk [all_outputs]
+# report_utilization    -file "$rpt_dir/ooc_a_utilization.rpt"
+# report_timing_summary -file "$rpt_dir/ooc_a_timing.rpt"
+WARNING: [Constraints 18-6211] Setting input delay on a clock pin 'clk' relative to clock 'clk' defined on the same pin is not supported, ignoring it
+INFO: [Timing 38-35] Done setting XDC timing constraints.
+INFO: [Timing 38-91] UpdateTimingParams: Speed grade: -1, Delay Type: min_max.
+INFO: [Timing 38-191] Multithreading enabled for timing update using a maximum of 8 CPUs
+WARNING: [Timing 38-242] The property HD.CLK_SRC of clock port "clk" is not set. In out-of-context mode, this prevents timing estimation for clock delay/skew
+Resolution: Set the HD.CLK_SRC property of the out-of-context port to the location of the clock buffer instance in the top-level design
+report_timing_summary: Time (s): cpu = 00:00:11 ; elapsed = 00:00:06 . Memory (MB): peak = 3657.617 ; gain = 64.031 ; free physical = 4012 ; free virtual = 9546
+# report_power          -file "$rpt_dir/ooc_a_power.rpt"
+Command: report_power -file /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/ooc_a_power.rpt
+Running Vector-less Activity Propagation...
+
+Finished Running Vector-less Activity Propagation
+WARNING: [Power 33-332] Found switching activity that implies high-fanout reset nets being asserted for excessive periods of time which may result in inaccurate power analysis.
+Resolution: To review and fix problems, please run Power Constraints Advisor in the GUI from Tools > Power Constraints Advisor or run report_power with the -advisory option to generate a text report.
+0 Infos, 1 Warnings, 0 Critical Warnings and 0 Errors encountered.
+report_power completed successfully
+# puts "INFO: Option A OOC synthesis complete. Reports in $rpt_dir"
+INFO: Option A OOC synthesis complete. Reports in /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports
+INFO: [Common 17-206] Exiting Vivado at Mon May 25 23:24:07 2026...

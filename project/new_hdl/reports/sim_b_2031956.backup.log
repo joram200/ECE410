@@ -1,0 +1,254 @@
+#-----------------------------------------------------------
+# Vivado v2024.1 (64-bit)
+# SW Build 5076996 on Wed May 22 18:36:09 MDT 2024
+# IP Build 5075265 on Wed May 22 21:45:21 MDT 2024
+# SharedData Build 5076995 on Wed May 22 18:29:18 MDT 2024
+# Start of session at: Mon May 25 23:34:28 2026
+# Process ID: 2031956
+# Current directory: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl
+# Command line: vivado -mode batch -source synth/run_sim_b.tcl -log reports/sim_b.log -journal reports/sim_b.jou
+# Log file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/sim_b.log
+# Journal file: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/reports/sim_b.jou
+# Running On        :archlinux
+# Platform          :unknown
+# Operating System  :unknown
+# Processor Detail  :11th Gen Intel(R) Core(TM) i7-11800H @ 2.30GHz
+# CPU Frequency     :2002.391 MHz
+# CPU Physical cores:8
+# CPU Logical cores :16
+# Host memory       :16535 MB
+# Swap memory       :8266 MB
+# Total Virtual     :24802 MB
+# Available Virtual :12637 MB
+#-----------------------------------------------------------
+source synth/run_sim_b.tcl
+# set hdl_dir [pwd]
+# open_project "$hdl_dir/vivado_option_b/vivado_option_b.xpr"
+INFO: [filemgmt 56-3] Default IP Output Path : Could not find the directory '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/vivado_option_b/vivado_option_b.gen/sources_1'.
+Scanning sources...
+Finished scanning sources
+# set_property top          tb_option_b    [get_filesets sim_1]
+# set_property top_lib      xil_defaultlib [get_filesets sim_1]
+# launch_simulation -mode behavioral -simset [get_filesets sim_1]
+Command: launch_simulation  -simset sim_1 -mode behavioral
+INFO: [Vivado 12-12493] Simulation top is 'tb_option_b'
+INFO: [Vivado 12-5682] Launching behavioral simulation in '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/vivado_option_b/vivado_option_b.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-72] Using boost library from '/tools/Xilinx/Vivado/2024.1/tps/boost_1_72_0'
+INFO: [SIM-utils-54] Inspecting design source files for 'tb_option_b' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/vivado_option_b/vivado_option_b.sim/sim_1/behav/xsim'
+xvlog --incr --relax -L uvm -prj tb_option_b_vlog.prj
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/accel_top_b.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module accel_top_b
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/axi_monitor.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module axi_monitor
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/axilite_slave.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module axilite_slave
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module compute_core_checker
+INFO: [VRFC 10-311] analyzing module result_checker
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/clk_gen.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module clk_gen
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module f64_add
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module f64_mul
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/gemm_systolic.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module gemm_systolic
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/kalman_update.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module kalman_update
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/program_block.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module program_block
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/veerwolf_bfm.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module veerwolf_bfm
+INFO: [VRFC 10-2263] Analyzing SystemVerilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/tb_option_b.sv" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_option_b
+INFO: [VRFC 10-2263] Analyzing Verilog file "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/vivado_option_b/vivado_option_b.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+Waiting for jobs to finish...
+No pending jobs, compilation finished.
+INFO: [USF-XSim-69] 'compile' step finished in '2' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/vivado_option_b/vivado_option_b.sim/sim_1/behav/xsim'
+xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_option_b_behav xil_defaultlib.tb_option_b xil_defaultlib.glbl -log elaborate.log
+Vivado Simulator v2024.1
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
+Copyright 2022-2024 Advanced Micro Devices, Inc. All Rights Reserved.
+Running: /tools/Xilinx/Vivado/2024.1/bin/unwrapped/lnx64.o/xelab --incr --debug typical --relax --mt 8 -L xil_defaultlib -L uvm -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_option_b_behav xil_defaultlib.tb_option_b xil_defaultlib.glbl -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+Completed static elaboration
+WARNING: [XSIM 43-4127] File "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv" Line 76 : The "System Verilog Cover" is not supported yet for simulation. The statement will be ignored.
+Starting simulation data flow analysis
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/clk_gen.sv" Line 4. Module clk_gen doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/veerwolf_bfm.sv" Line 5. Module veerwolf_bfm doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/accel_top_b.sv" Line 11. Module accel_top_b doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/axilite_slave.sv" Line 10. Module axilite_slave doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/kalman_update.sv" Line 6. Module kalman_update doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/gemm_systolic.sv" Line 7. Module gemm_systolic_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/axi_monitor.sv" Line 5. Module axi_monitor doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/program_block.sv" Line 7. Module program_block_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv" Line 86. Module result_checker(ULP_TOLERANCE=4.0) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv" Line 11. Module compute_core_checker doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/clk_gen.sv" Line 4. Module clk_gen doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/veerwolf_bfm.sv" Line 5. Module veerwolf_bfm doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/accel_top_b.sv" Line 11. Module accel_top_b doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/axilite_slave.sv" Line 10. Module axilite_slave doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/kalman_update.sv" Line 6. Module kalman_update doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/gemm_systolic.sv" Line 7. Module gemm_systolic_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_mul.sv" Line 5. Module f64_mul doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/rtl/f64_add.sv" Line 7. Module f64_add doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/axi_monitor.sv" Line 5. Module axi_monitor doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/program_block.sv" Line 7. Module program_block_default doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv" Line 86. Module result_checker(ULP_TOLERANCE=4.0) doesn't have a timescale but at least one module in design has a timescale.
+WARNING: [XSIM 43-4099] "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv" Line 11. Module compute_core_checker doesn't have a timescale but at least one module in design has a timescale.
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.clk_gen
+Compiling module xil_defaultlib.veerwolf_bfm
+Compiling module xil_defaultlib.axilite_slave
+Compiling module xil_defaultlib.f64_mul
+Compiling module xil_defaultlib.f64_add
+Compiling module xil_defaultlib.gemm_systolic_default
+Compiling module xil_defaultlib.kalman_update
+Compiling module xil_defaultlib.accel_top_b
+Compiling module xil_defaultlib.axi_monitor
+Compiling module xil_defaultlib.program_block_default
+Compiling module xil_defaultlib.compute_core_checker
+Compiling module xil_defaultlib.result_checker(ULP_TOLERANCE=4.0...
+Compiling module xil_defaultlib.tb_option_b
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot tb_option_b_behav
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in '/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/vivado_option_b/vivado_option_b.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "tb_option_b_behav -key {Behavioral:sim_1:Functional:tb_option_b} -tclbatch {tb_option_b.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Time resolution is 1 ps
+source tb_option_b.tcl
+## set curr_wave [current_wave_config]
+## if { [string length $curr_wave] == 0 } {
+##   if { [llength [get_objects]] > 0} {
+##     add_wave /
+##     set_property needs_save false [current_wave_config]
+##   } else {
+##      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+##   }
+## }
+## run 1000ns
+TB_B: Starting iteration 0
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'tb_option_b_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 1476.059 ; gain = 61.359 ; free physical = 6143 ; free virtual = 11680
+# run all
+Error: CHECKER: C[3] ULP error=9265513255036552624  dut=c082ab06311454f4  ref=40130c30c30c30bc
+Time: 1295 ns  Iteration: 0  Process: /tb_option_b/u_chk/Always129_183/Block131_185  Scope: tb_option_b.u_chk.Block131_185  File: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv Line: 134
+TB_B: Iteration 0 complete
+TB_B: Starting iteration 1
+TB_B: Iteration 1 complete
+TB_B: Starting iteration 2
+TB_B: Iteration 2 complete
+TB_B: Starting iteration 3
+TB_B: Iteration 3 complete
+TB_B: Starting iteration 4
+TB_B: Iteration 4 complete
+TB_B: Starting iteration 5
+TB_B: Iteration 5 complete
+TB_B: Starting iteration 6
+TB_B: Iteration 6 complete
+TB_B: Starting iteration 7
+TB_B: Iteration 7 complete
+TB_B: Starting iteration 8
+TB_B: Iteration 8 complete
+TB_B: Starting iteration 9
+TB_B: Iteration 9 complete
+TB_B: Starting iteration 10
+TB_B: Iteration 10 complete
+TB_B: Starting iteration 11
+TB_B: Iteration 11 complete
+TB_B: Starting iteration 12
+TB_B: Iteration 12 complete
+TB_B: Starting iteration 13
+TB_B: Iteration 13 complete
+TB_B: Starting iteration 14
+TB_B: Iteration 14 complete
+TB_B: All 15 iterations complete
+CHECKER summary: 134 elements passed, 1 failed
+Error: CHECKER: 1 ULP failures detected
+Time: 18625 ns  Iteration: 0  Process: /tb_option_b/u_chk/Always144_186  Scope: tb_option_b.u_chk  File: /run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/checker.sv Line: 147
+$finish called at time : 18625 ns : File "/run/media/sackb/Windows-SSD/Users/sackb/OneDrive/Desktop/University/Course_Work/2025-2026/Spring_2026/ECE_410/ECE410/project/new_hdl/tb/tb_option_b.sv" Line 214
+# close_sim
+INFO: [Simtcl 6-16] Simulation closed
+# close_project
+# puts "INFO: Option B simulation complete."
+INFO: Option B simulation complete.
+INFO: [Common 17-206] Exiting Vivado at Mon May 25 23:34:42 2026...
