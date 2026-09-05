@@ -1,21 +1,33 @@
 /**
  * main.cpp — Kalman hardware accelerator profiling harness.
  *
- * Runs 45 measurement-correction updates via MMIO (matching the SW baseline
- * in project/RVfpgaEL2_profiling).  mcycle CSR snapshots and bump-allocator
- * high-water marks bracket the update loop so GDB can compute:
+ * Mirrors the structure of RVfpgaEL2_profiling/test/kalman-test.cpp, using
+ * the same KalmanFilter class and identical model parameters, but replaces
+ * the software measurement-correction step with kf.update_hw(), which
+ * offloads the correct phase to the Kalman MMIO accelerator at 0x80010000.
  *
- *   elapsed_cycles = kf_cycles_end - kf_cycles_start
- *   time_ms        = elapsed_cycles / 13000.0   (13 MHz core clock)
- *   throughput     = 45 / (elapsed_cycles / 13000000.0)  samples/sec
- *   heap_bytes     = kf_heap_end - kf_heap_start
+ * Algorithm split (KalmanFilter::update_hw):
+ *   Predict (SW, Eigen): x̂⁻ = A·x̂,  P⁻ = A·P·Aᵀ + Q
+ *   Correct (HW, MMIO): K, x̂, P via kalman_hw_update() — see kalman_hw.h
+ *
+ * Model matrices (identical to kalman-test.cpp):
+ *   dt = 1/30,  A = [1,dt,0; 0,1,dt; 0,0,1],  Q = [.05,.05,0; .05,.05,0; 0,0,0]
+ *   C = [1,0,0],  R = 5,  P0 = [.1,.1,.1; .1,10000,10; .1,10,100]
+ *   x0 = [measurements[0], 0, -9.81]
+ *
+ * mcycle CSR snapshots and bump-allocator high-water marks bracket the loop
+ * so GDB can compute elapsed_cycles, time_ms, throughput, heap_bytes.
  *
  * Profiling procedure (GDB JTAG, no UART):
  *   scripts/run_profiles.sh        — 5-run automated loop
  *   scripts/gdb_hw.gdb             — manual single run
  */
 
+#include <vector>
+#include <Eigen/Dense>
 #include <stdint.h>
+
+#include "kalman.hpp"
 #include "kalman_hw.h"
 
 /* Performance measurement globals.
@@ -37,8 +49,31 @@ extern "C" __attribute__((noinline)) void profile_done(void) {
 }
 
 int main(void) {
-    /* 45 noisy position measurements — identical to kalman-test.cpp baseline */
-    static const double measurements[45] = {
+    int n = 3; // Number of states
+    int m = 1; // Number of measurements
+
+    double dt = 1.0 / 30; // Time step
+
+    Eigen::MatrixXd A(n, n); // System dynamics matrix
+    Eigen::MatrixXd C(m, n); // Output matrix
+    Eigen::MatrixXd Q(n, n); // Process noise covariance
+    Eigen::MatrixXd R(m, m); // Measurement noise covariance
+    Eigen::MatrixXd P(n, n); // Estimate error covariance
+
+    // Discrete LTI projectile motion, measuring position only
+    A << 1, dt, 0, 0, 1, dt, 0, 0, 1;
+    C << 1, 0, 0;
+
+    // Reasonable covariance matrices
+    Q << .05, .05, .0, .05, .05, .0, .0, .0, .0;
+    R << 5;
+    P << .1, .1, .1, .1, 10000, 10, .1, 10, 100;
+
+    // Construct the filter
+    KalmanFilter kf(dt, A, C, Q, R, P);
+
+    // 45 noisy position measurements — identical to kalman-test.cpp baseline
+    std::vector<double> measurements = {
         1.04202710058,  1.10726790452,  1.2913511148,   1.48485250951,  1.72825901034,
         1.74216489744,  2.11672039768,  2.14529225112,  2.16029641405,  2.21269371128,
         2.57709350237,  2.6682215744,   2.51641839428,  2.76034056782,  2.88131780617,
@@ -50,32 +85,22 @@ int main(void) {
         0.562381751596, 0.355468474885, -0.155607486619,-0.287198661013,-0.602973173813
     };
 
-    /* Initial state: x0 = [measurements[0], 0, -9.81] (from kalman-test.cpp) */
-    double x[3] = { measurements[0], 0.0, -9.81 };
+    // Best guess of initial states (from kalman-test.cpp)
+    Eigen::VectorXd x0(n);
+    x0 << measurements[0], 0, -9.81;
+    kf.init(0.0, x0);
 
-    /* Initial P covariance (row-major, from kalman-test.cpp):
-     *   P = [.1,  .1,   .1;
-     *        .1, 10000, 10;
-     *        .1,  10,  100] */
-    double P[9] = { 0.1, 0.1, 0.1,  0.1, 10000.0, 10.0,  0.1, 10.0, 100.0 };
-
-    double x_out[3] = {0.0, 0.0, 0.0};
-    double P_out[9] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
-
-    /* Write R = 5.0 once before the loop (matches SW baseline R matrix) */
+    // Write R = 5.0 once before the loop (matches SW baseline R matrix)
     kalman_hw_set_r(5.0);
 
     /* ── Bracket the update loop ── */
     kf_heap_start = get_bump_top();
     { uint32_t c; __asm__ volatile("csrr %0, mcycle" : "=r"(c)); kf_cycles_start = c; }
 
-    for (int i = 0; i < 45; i++) {
-        kalman_hw_update(measurements[i], x, P, x_out, P_out);
-        /* Feed outputs back as inputs for the next step */
-        x[0] = x_out[0];
-        x[1] = x_out[1];
-        x[2] = x_out[2];
-        for (int j = 0; j < 9; j++) P[j] = P_out[j];
+    Eigen::VectorXd y(m);
+    for (int i = 0; i < (int)measurements.size(); i++) {
+        y << measurements[i];
+        kf.update_hw(y);
     }
 
     { uint32_t c; __asm__ volatile("csrr %0, mcycle" : "=r"(c)); kf_cycles_end = c; }

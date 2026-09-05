@@ -32,7 +32,7 @@ NRUNS=5
 CLOCK_HZ=13000000      # SweRV EL2 core clock (measured in RVfpgaEL2_profiling)
 CLOCK_KHZ=13000
 TOTAL_UPDATES=45       # Kalman update steps per run
-HW_FLOPS=1080          # 24 FLOPs/update × 45 updates (hardware kernel FLOPs only)
+HW_FLOPS=6210          # 138 FLOPs/update × 45 updates (114 predict + 24 HW correct)
 
 # ---------------------------------------------------------------------------
 # Step 1: Build debug firmware

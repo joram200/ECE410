@@ -1,0 +1,10 @@
+{
+  "name": "eigen-5.0.0",
+  "version": "5.0.0",
+  "description": "Eigen C++ linear algebra library (header-only)",
+  "keywords": ["linear algebra", "matrix", "header-only"],
+  "license": "MPL-2.0",
+  "build": {
+    "srcFilter": "-<*>"
+  }
+}

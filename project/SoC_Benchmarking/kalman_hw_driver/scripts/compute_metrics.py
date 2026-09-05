@@ -124,7 +124,7 @@ def main():
         f"  Samples/s: {args.total_updates} / time_sec",
         f"  GFLOP/s  : {args.total_flops:,} FLOPs / time_sec / 1e9",
         "  Heap(B)  : bump_top delta — should be ~0 (no dynamic allocation in HW driver)",
-        "  FLOPs/update: 24 (11 MACs x2 + 2 extra; see cman_ai_analysis.md)",
+        "  FLOPs/update: 138 (114 Eigen predict: 15 x_hat + 99 P_pred; 24 HW correct: 11 MACs×2 + 2)",
     ]
 
     output = "\n".join(lines) + "\n"

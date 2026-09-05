@@ -1,23 +1,23 @@
 Kalman HW Accelerator — Performance Summary
 Hardware : SweRV EL2 + Kalman AXI slave, 13 MHz core clock, Nexys A7
 Workload : 45 measurement-correction updates, 3-state filter
-FLOPs    : 1,080 total (24 per update)
+FLOPs    : 6,210 total (138 per update)
 Runs     : 5 of 5 successful
 
  Run        Cycles   Time(ms)   Samples/s     GFLOP/s   Heap(B)
 ---------------------------------------------------------------
-   1        51,383      3.953   11385.090  2.7324e-04         0
-   2        51,372      3.952   11387.530  2.7330e-04         0
-   3        51,384      3.953   11384.870  2.7324e-04         0
-   4        51,382      3.952   11385.310  2.7325e-04         0
-   5        51,367      3.951   11388.630  2.7333e-04         0
+   1     1,865,423    143.494     313.600  4.3277e-05     10832
+   2     1,865,531    143.502     313.580  4.3275e-05     10832
+   3     1,865,538    143.503     313.580  4.3274e-05     10832
+   4     1,865,369    143.490     313.610  4.3278e-05     10832
+   5     1,865,530    143.502     313.580  4.3275e-05     10832
 ---------------------------------------------------------------
- AVG        51,378      3.952   11386.286  2.7327e-04         0
+ AVG     1,865,478    143.498     313.590  4.3276e-05     10832
 
 Notes:
   Cycles   : mcycle CSR delta across 45 kalman_hw_update() calls
   Time(ms) : cycles / 13000  (clock = 13 MHz)
   Samples/s: 45 / time_sec
-  GFLOP/s  : 1,080 FLOPs / time_sec / 1e9
+  GFLOP/s  : 6,210 FLOPs / time_sec / 1e9
   Heap(B)  : bump_top delta — should be ~0 (no dynamic allocation in HW driver)
-  FLOPs/update: 24 (11 MACs x2 + 2 extra; see cman_ai_analysis.md)
+  FLOPs/update: 138 (114 Eigen predict: 15 x_hat + 99 P_pred; 24 HW correct: 11 MACs×2 + 2)

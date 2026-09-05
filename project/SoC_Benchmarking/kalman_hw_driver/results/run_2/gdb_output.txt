@@ -1,19 +1,46 @@
-profile_done () at src/main.cpp:36
-36	    __asm__ volatile("" ::: "memory");   /* prevent optimization across call */
+profile_done () at src/main.cpp:48
+48	    __asm__ volatile("" ::: "memory");   /* prevent optimization across call */
 JTAG tap: riscv.cpu tap/device found: 0x13631093 (mfg: 0x049 (Xilinx), part: 0x3631, ver: 0x1)
 Loading section .text.init, size 0x88 lma 0x0
-Loading section .text, size 0x25c lma 0x88
-Loading section .rodata, size 0x1c8 lma 0x2e8
-Start address 0x0, load size 1196
-Transfer rate: 291 KB/sec, 398 bytes/write.
-Hardware assisted breakpoint 1 at 0x88: file src/main.cpp, line 36.
+Loading section .text, size 0x19784 lma 0x88
+Loading section .rodata, size 0xa798 lma 0x19810
+Loading section .sdata2._ZTISt9type_info, size 0x8 lma 0x23fa8
+Loading section .sdata2._ZTISt9exception, size 0x8 lma 0x23fb0
+Loading section .sdata2._ZTIN10__cxxabiv115__forced_unwindE, size 0x8 lma 0x23fb8
+Loading section .sdata2._ZTIN10__cxxabiv119__foreign_exceptionE, size 0x8 lma 0x23fc0
+Loading section .data, size 0x9a8 lma 0x25fc8
+Loading section .gcc_except_table._ZN12KalmanFilterC2EdRKN5Eigen6MatrixIdLin1ELin1ELi0ELin1ELin1EEES4_S4_S4_S4_, size 0xa1 lma 0x26970
+Loading section .gcc_except_table._ZN5Eigen8internal15call_assignmentINS_6MatrixIdLin1ELi1ELi0ELin1ELi1EEENS_7ProductINS2_IdLin1ELin1ELi0ELin1ELin1EEES3_Li0EEENS0_9assign_opIddEEEEvRT_RKT0_RKT1_NSt9enable_ifIXsrNS0_25evaluator_assume_aliasingISB_NS0_16evaluator_traitsISB_E5ShapeEEE5valueEPvE4typeE, size 0x52 lma 0x26a11
+Loading section .gcc_except_table._ZN5Eigen8internal29general_matrix_matrix_productIidLi0ELb0EdLi0ELb0ELi0ELi1EE3runEiiiPKdiS4_iPdiidRNS0_15level3_blockingIddEEPNS0_16GemmParallelInfoIiEE, size 0x38 lma 0x26a63
+Loading section .gcc_except_table._ZN5Eigen8internal29general_matrix_matrix_productIidLi0ELb0EdLi1ELb0ELi0ELi1EE3runEiiiPKdiS4_iPdiidRNS0_15level3_blockingIddEEPNS0_16GemmParallelInfoIiEE, size 0x38 lma 0x26a9b
+Loading section .gcc_except_table._ZN5Eigen8internal20generic_product_implINS_6MatrixIdLin1ELin1ELi0ELin1ELin1EEES3_NS_10DenseShapeES4_Li8EE13scaleAndAddToIS3_EEvRT_RKS3_SA_RKd, size 0x52 lma 0x26ad3
+Loading section .gcc_except_table._ZN5Eigen8internal17product_evaluatorINS_7ProductINS_6MatrixIdLin1ELin1ELi0ELin1ELin1EEES4_Li0EEELi8ENS_10DenseShapeES6_ddEC2ERKS5_, size 0x38 lma 0x26b25
+Loading section .gcc_except_table._ZN5Eigen8internal20generic_product_implINS_7ProductINS_6MatrixIdLin1ELin1ELi0ELin1ELin1EEES4_Li0EEEKNS_5BlockIKNS_9TransposeIS4_EELin1ELi1ELb0EEENS_10DenseShapeESC_Li7EE13scaleAndAddToINS6_INS3_IdLin1ELin1ELi1ELin1ELin1EEELin1ELi1ELb0EEEEEvRT_RKS5_RSB_RKd, size 0x94 lma 0x26b5d
+Loading section .gcc_except_table._ZN5Eigen8internal20generic_product_implINS_7ProductINS_6MatrixIdLin1ELin1ELi0ELin1ELin1EEES4_Li0EEENS_9TransposeIS4_EENS_10DenseShapeES8_Li8EE13scaleAndAddToINS3_IdLin1ELin1ELi1ELin1ELin1EEEEEvRT_RKS5_RKS7_RKd, size 0xbb lma 0x26bf1
+Loading section .gcc_except_table._ZN5Eigen8internal26call_dense_assignment_loopINS_6MatrixIdLin1ELin1ELi0ELin1ELin1EEENS_13CwiseBinaryOpINS0_13scalar_sum_opIddEEKNS_7ProductINS7_IS3_S3_Li0EEENS_9TransposeIS3_EELi0EEEKS3_EENS0_9assign_opIddEEEEvRT_RKT0_RKT1_, size 0xae lma 0x26cac
+Loading section .gcc_except_table._ZN12KalmanFilter9update_hwERKN5Eigen6MatrixIdLin1ELi1ELi0ELin1ELi1EEE, size 0x2b lma 0x26d5a
+Loading section .gcc_except_table._ZN5Eigen6MatrixIdLin1ELin1ELi0ELin1ELin1EEC2IiiEERKT_RKT0_, size 0x2b lma 0x26d85
+Loading section .gcc_except_table._ZN5Eigen6MatrixIdLin1ELi1ELi0ELin1ELi1EEC2IiEERKT_, size 0x2b lma 0x26db0
+Loading section .gcc_except_table.main, size 0x130 lma 0x26ddb
+Loading section .gcc_except_table.__gxx_personality_v0, size 0x34 lma 0x26f0c
+Loading section .gcc_except_table.__cxa_call_unexpected, size 0x40 lma 0x26f40
+Loading section .gcc_except_table._ZN10__cxxabiv111__terminateEPFvvE, size 0x39 lma 0x26f80
+Loading section .gcc_except_table._ZSt19__throw_logic_errorPKc, size 0x1e lma 0x26fb9
+Loading section .gcc_except_table._ZSt20__throw_length_errorPKc, size 0x1e lma 0x26fd7
+Loading section .gcc_except_table._ZNSt11logic_errorC2EPKc, size 0x1e lma 0x26ff5
+Loading section .gcc_except_table._ZNSt13runtime_errorC2EPKc, size 0x1e lma 0x27013
+Loading section .gcc_except_table._ZN9__gnu_cxx27__verbose_terminate_handlerEv, size 0x48 lma 0x27034
+Loading section .sdata, size 0x50 lma 0x27080
+Start address 0x0, load size 151748
+Transfer rate: 346 KB/sec, 3993 bytes/write.
+Hardware assisted breakpoint 1 at 0x5000: file src/main.cpp, line 48.
 
-Breakpoint 1, profile_done () at src/main.cpp:36
-36	    __asm__ volatile("" ::: "memory");   /* prevent optimization across call */
+Breakpoint 1, profile_done () at src/main.cpp:48
+48	    __asm__ volatile("" ::: "memory");   /* prevent optimization across call */
 HIT profile_done — reading metrics
-METRIC kf_cycles_start 179285
-METRIC kf_cycles_end   230657
-METRIC kf_heap_start   42200
-METRIC kf_heap_end     42200
+METRIC kf_cycles_start 5651853
+METRIC kf_cycles_end   7517384
+METRIC kf_heap_start   292688
+METRIC kf_heap_end     303520
 metrics captured — run results/run_2
 [Inferior 1 (Remote target) detached]
